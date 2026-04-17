@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm start)",
+      "Bash(git add:*)",
+      "Bash(git rm:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(node -e:*)",
+      "Bash(npm list:*)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000__TRACKED_VAR__)",
+      "Bash(curl -s http://localhost:3000/services/erp)",
+      "Bash(ls -la /c/Users/monadmin/Desktop/EQ-OS/e-qos-web/backend/.env*)",
+      "Bash(npx tsc:*)",
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(npm uninstall:*)",
+      "Bash(ls C:\\\\Users\\\\monadmin\\\\Desktop\\\\EQ-OS\\\\e-qos-web/.env*)",
+      "Bash(cat /c/Users/monadmin/Desktop/EQ-OS/e-qos-web-backend/src/lib/*.ts)"
+    ]
+  }
+}

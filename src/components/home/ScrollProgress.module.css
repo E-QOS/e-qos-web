@@ -1,0 +1,19 @@
+/* ScrollProgress.module.css */
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: transparent;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.fill {
+  height: 100%;
+  background: #FF5A1F;
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 6px rgba(255, 90, 31, 0.6);
+}

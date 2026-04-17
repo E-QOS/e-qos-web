@@ -1,0 +1,358 @@
+.storyLayout {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 3rem;
+  align-items: start;
+}
+
+.storyLayout h2 { margin-bottom: 1.25rem; }
+.storyLayout p { color: #7A90B0; line-height: 1.8; margin-bottom: 1rem; }
+
+.missionCard {
+  background: linear-gradient(135deg, #0D1E38 0%, #0B1628 100%);
+  border: 1px solid rgba(255,90,31,0.2);
+  border-radius: 20px;
+  padding: 2.5rem;
+  color: #F0F4FF;
+}
+
+.missionIcon {
+  width: 52px;
+  height: 52px;
+  background: rgba(255,90,31,0.12);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  color: #FF5A1F;
+}
+
+.missionCard h3 {
+  color: #F0F4FF;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.missionCard p {
+  color: rgba(240,244,255,0.72);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* Values */
+.valuesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.valueCard {
+  background: #0B1628;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.valueCard:hover {
+  border-color: rgba(255,90,31,0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.valueIcon {
+  width: 50px;
+  height: 50px;
+  background: rgba(255,90,31,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF5A1F;
+  margin-bottom: 1.25rem;
+}
+
+.valueTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #F0F4FF;
+  margin-bottom: 0.625rem;
+}
+
+/* Team */
+.teamGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+}
+
+.teamCard {
+  background: #0B1628;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s;
+}
+
+.teamCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,90,31,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.teamAvatar {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, #FF5A1F, #CC3D00);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin: 0 auto 1rem;
+}
+
+.teamRole {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #F0F4FF;
+  margin-bottom: 0.25rem;
+}
+
+.teamCount {
+  font-size: 0.78rem;
+  color: #7A90B0;
+}
+
+/* Team Groups (linked cards) */
+.teamGroupGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.teamGroupCard {
+  background: #0B1628;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+.teamGroupCard:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255,90,31,0.25);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+
+.teamGroupImage {
+  position: relative;
+  height: 160px;
+  background: linear-gradient(135deg, #0D1E38 0%, #0A1628 100%);
+  overflow: hidden;
+}
+
+.teamGroupImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.teamGroupOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(5,13,26,0.7) 0%, transparent 60%);
+}
+
+.teamGroupTag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(255,90,31,0.15);
+  color: #FF5A1F;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,90,31,0.3);
+}
+
+.teamGroupBody {
+  padding: 1.25rem 1.375rem 1.375rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.teamGroupName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #F0F4FF;
+  margin: 0 0 0.5rem;
+}
+
+.teamGroupDesc {
+  font-size: 0.83rem;
+  color: #7A90B0;
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  flex: 1;
+}
+
+.teamGroupFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.memberAvatars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.memberAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0B1628;
+  margin-left: -8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+.memberAvatars .memberAvatar:first-child {
+  margin-left: 0;
+}
+
+.memberCount {
+  font-size: 0.75rem;
+  color: #4A6080;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+.teamGroupCta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #FF5A1F;
+  white-space: nowrap;
+  transition: gap 0.2s;
+}
+
+.teamGroupCard:hover .teamGroupCta {
+  gap: 7px;
+}
+
+/* Offices */
+.officesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.officeCard {
+  background: #0B1628;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-top: 3px solid transparent;
+  border-radius: 16px;
+  padding: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: all 0.3s;
+}
+
+.officeCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255,90,31,0.2);
+  border-top-color: #FF5A1F;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+}
+
+.officeIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.officeCity {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #F0F4FF;
+  margin-bottom: 0.15rem;
+}
+
+.officeCountry {
+  font-size: 0.875rem;
+  color: #7A90B0;
+  margin-bottom: 0.375rem;
+}
+
+.officeNote {
+  font-size: 0.78rem;
+  background: rgba(255,90,31,0.1);
+  color: #FF5A1F;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+/* Partners */
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+}
+
+.partnerCard {
+  background: #0B1628;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.partnerCard:hover {
+  border-color: rgba(255,90,31,0.25);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+.partnerName {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #FF5A1F;
+}
+
+@media (max-width: 1024px) {
+  .storyLayout { grid-template-columns: 1fr; }
+  .officesGrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  .valuesGrid { grid-template-columns: 1fr; }
+  .teamGrid { grid-template-columns: repeat(2, 1fr); }
+}
