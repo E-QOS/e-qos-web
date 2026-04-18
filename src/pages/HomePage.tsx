@@ -293,7 +293,6 @@ const HomePage: React.FC = () => {
               {[
                 { value: '8+', label: 'Services' },
                 { value: '100%', label: 'Local' },
-                { value: 'Odoo', label: 'Partner' },
                 { value: 'Guinée', label: 'Présence' },
               ].map((s, i) => (
                 <React.Fragment key={s.value}>

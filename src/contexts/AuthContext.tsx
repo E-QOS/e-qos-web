@@ -40,11 +40,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   /* ── Fetch profile ── */
   const fetchProfile = useCallback(async (uid: string) => {
+    // maybeSingle() returns null (not 406) when no row exists
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', uid)
-      .single();
+      .maybeSingle();
 
     if (!error && data) setProfile(data as Profile);
   }, []);

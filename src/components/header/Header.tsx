@@ -34,7 +34,7 @@ import styles from './Header.module.css';
 const servicesLinks = [
   { to: '/services/transformation-digitale', label: 'Transformation digitale', desc: 'Diagnostic, feuille de route, pilotage', icon: <TrendingUp size={14} /> },
   { to: '/services/conseil-organisationnel', label: 'Conseil organisationnel', desc: 'Processus, structure, performance', icon: <Compass size={14} /> },
-  { to: '/services/odoo', label: 'Implémentation Odoo', desc: 'ERP open source, de A à Z', icon: <Database size={14} /> },
+  { to: '/services/ERP', label: 'Implémentation ERP', desc: 'ERP open source et commercial, de A à Z', icon: <Database size={14} /> },
   { to: '/services/paiements-locaux', label: 'Paiements locaux', desc: 'Orange Money, MTN MoMo, Wave', icon: <CreditCard size={14} /> },
   { to: '/services/cybersecurite', label: 'Cybersécurité', desc: 'Audit, protection, conformité', icon: <Shield size={14} /> },
   { to: '/services/support', label: 'Support informatique', desc: 'Helpdesk, infogérance, maintenance', icon: <Wrench size={14} /> },
@@ -108,9 +108,8 @@ const Header: React.FC = () => {
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.inner}>
-          <Link to="/" className={styles.logo} aria-label="EQOS - Accueil">
-            <div className={styles.logoMark}>EQ</div>
-            <span className={styles.logoText}>EQ<span>OS</span></span>
+          <Link to="/" className={styles.logo} aria-label="E-QOS - Accueil">
+            <span className={styles.logoText}>E-Q<span>OS</span></span>
           </Link>
 
           <nav className={styles.nav} aria-label="Navigation principale">

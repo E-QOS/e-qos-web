@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   MapPin, Clock, Briefcase, ArrowRight, Search, Users,
   TrendingUp, Database, Shield, Wrench, CreditCard, BarChart2,
-  Layers, HeadphonesIcon, Loader2, AlertTriangle,
+  Layers, HeadphonesIcon, Loader2, AlertTriangle, Gift, Banknote,
 } from 'lucide-react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { useJobs } from '../hooks/useJobs';
@@ -13,9 +13,12 @@ import styles from './OffresEmploiPage.module.css';
 /* ─── Helpers ─── */
 
 const contratConfig: Record<ContractType, { bg: string; color: string; label: string }> = {
-  CDI:     { bg: 'rgba(0,229,160,0.12)',  color: '#00E5A0', label: 'CDI' },
-  Stage:   { bg: 'rgba(0,200,255,0.12)',  color: '#00C8FF', label: 'Stage' },
-  Interim: { bg: 'rgba(255,90,31,0.12)',  color: '#FF5A1F', label: 'Intérim' },
+  CDI:         { bg: 'rgba(0,229,160,0.12)',  color: '#00E5A0', label: 'CDI' },
+  CDD:         { bg: 'rgba(0,200,255,0.12)',  color: '#00C8FF', label: 'CDD' },
+  Stage:       { bg: 'rgba(124,58,237,0.12)', color: '#a855f7', label: 'Stage' },
+  Alternance:  { bg: 'rgba(255,200,0,0.12)',  color: '#ffd700', label: 'Alternance' },
+  Interim:     { bg: 'rgba(255,90,31,0.12)',  color: '#FF5A1F', label: 'Intérim' },
+  Consultance: { bg: 'rgba(20,184,166,0.12)', color: '#14b8a6', label: 'Consultance' },
 };
 
 const domainIcon: Record<JobDomain, React.ReactNode> = {
@@ -28,7 +31,7 @@ const domainIcon: Record<JobDomain, React.ReactNode> = {
   'Support & Qualité':     <Wrench size={20} />,
 };
 
-const CONTRATS: ContractType[] = ['CDI', 'Stage', 'Interim'];
+const CONTRATS: ContractType[] = ['CDI', 'CDD', 'Stage', 'Alternance', 'Interim', 'Consultance'];
 const LIEUX: JobLocation[] = ['Conakry', 'Remote'];
 const DOMAINES: JobDomain[] = [
   'Tech & Dev', 'Conseil & ERP', 'Cybersécurité', 'Paiements & Fintech',
@@ -98,18 +101,18 @@ const OffresEmploiPage: React.FC = () => {
             {!loading && !error && (
               <div className={styles.heroStats}>
                 <div className={styles.heroStat}>
-                  <strong>{jobs.filter(o => o.contract_type === 'CDI').length}</strong>
-                  <span>CDI ouverts</span>
+                  <strong>{jobs.filter(o => o.contract_type === 'CDI' || o.contract_type === 'CDD').length}</strong>
+                  <span>Postes permanents</span>
                 </div>
                 <div className={styles.heroStatDivider} />
                 <div className={styles.heroStat}>
-                  <strong>{jobs.filter(o => o.contract_type === 'Interim').length}</strong>
-                  <span>Missions intérim</span>
+                  <strong>{jobs.filter(o => o.contract_type === 'Interim' || o.contract_type === 'Consultance').length}</strong>
+                  <span>Missions disponibles</span>
                 </div>
                 <div className={styles.heroStatDivider} />
                 <div className={styles.heroStat}>
-                  <strong>{jobs.filter(o => o.contract_type === 'Stage').length}</strong>
-                  <span>Stages disponibles</span>
+                  <strong>{jobs.filter(o => o.contract_type === 'Stage' || o.contract_type === 'Alternance').length}</strong>
+                  <span>Stages & alternances</span>
                 </div>
               </div>
             )}
@@ -205,7 +208,7 @@ const OffresEmploiPage: React.FC = () => {
                 <div className={styles.offerList}>
                   {filtered.map((o) => {
                     const isOpen = expanded === o.id;
-                    const cfg    = contratConfig[o.contract_type];
+                    const cfg    = contratConfig[o.contract_type] ?? { bg: 'rgba(255,255,255,0.06)', color: '#9ca3af', label: o.contract_type };
                     return (
                       <div key={o.id} className={`${styles.offerCard} ${isOpen ? styles.offerCardOpen : ''}`}>
                         <div
@@ -265,6 +268,33 @@ const OffresEmploiPage: React.FC = () => {
                                 </ul>
                               </div>
                             </div>
+
+                            {/* ── Salaire + Avantages ── */}
+                            {(o.salary || (o.benefits && o.benefits.length > 0)) && (
+                              <div className={styles.detailExtra}>
+                                {o.salary && (
+                                  <div className={styles.detailExtraItem}>
+                                    <span className={styles.detailExtraLabel}>
+                                      <Banknote size={14} />
+                                      Salaire proposé
+                                    </span>
+                                    <span className={styles.detailExtraValue}>{o.salary}</span>
+                                  </div>
+                                )}
+                                {o.benefits && o.benefits.length > 0 && (
+                                  <div className={styles.detailExtraItem}>
+                                    <span className={styles.detailExtraLabel}>
+                                      <Gift size={14} />
+                                      Avantages
+                                    </span>
+                                    <ul className={styles.benefitsList}>
+                                      {o.benefits.map((b, i) => <li key={i}>{b}</li>)}
+                                    </ul>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+
                             <div className={styles.applyRow}>
                               <button
                                 className="btn btn-primary"

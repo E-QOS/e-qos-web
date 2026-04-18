@@ -3,7 +3,7 @@
 
 export type UserRole = 'user' | 'editor' | 'admin';
 export type ArticleStatus = 'draft' | 'published' | 'archived';
-export type ContractType = 'CDI' | 'Stage' | 'Interim';
+export type ContractType = 'CDI' | 'CDD' | 'Stage' | 'Alternance' | 'Interim' | 'Consultance';
 export type JobDomain =
   | 'Tech & Dev'
   | 'Conseil & ERP'
@@ -17,13 +17,23 @@ export type ApplicationStatus = 'pending' | 'reviewed' | 'rejected' | 'hired';
 
 /* ─── Tables ─── */
 
+export type ExperienceLevel = 'Junior' | 'Confirmé' | 'Senior' | 'Expert';
+
 export interface Profile {
   id: string;
   email: string;
   full_name: string | null;
   avatar_url: string | null;
-  company: string | null;
   role: UserRole;
+  bio: string | null;
+  job_title: string | null;
+  domain: string | null;
+  experience_level: ExperienceLevel | null;
+  skills: string[] | null;
+  linkedin_url: string | null;
+  portfolio_url: string | null;
+  phone: string | null;
+  location: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -71,6 +81,8 @@ export interface Job {
   description: string;
   missions: string[];
   required_profile: string[];
+  benefits: string[];
+  salary: string | null;
   experience: string;
   is_active: boolean;
   published_at: string;
@@ -123,7 +135,15 @@ export interface ArticleUpdate extends Partial<ArticleInsert> {
 export interface ProfileUpdate {
   full_name?: string;
   avatar_url?: string;
-  company?: string;
+  bio?: string;
+  job_title?: string;
+  domain?: string;
+  experience_level?: ExperienceLevel | null;
+  skills?: string[];
+  linkedin_url?: string | null;
+  portfolio_url?: string | null;
+  phone?: string | null;
+  location?: string | null;
   updated_at?: string;
 }
 

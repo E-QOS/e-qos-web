@@ -71,6 +71,7 @@ const ArticlePage    = lazy(() => import('./pages/ArticlePage'));
 const AProposPage = lazy(() => import('./pages/AProposPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const OffresEmploiPage = lazy(() => import('./pages/OffresEmploiPage'));
+const ProfilPage = lazy(() => import('./pages/ProfilPage'));
 
 // Équipe
 const DirectionGeneralePage = lazy(() => import('./pages/equipe/DirectionGeneralePage'));
@@ -135,6 +136,7 @@ function App() {
           <Route path="/a-propos" element={<Layout><AProposPage /></Layout>} />
           <Route path="/contact" element={<Layout><ContactPage /></Layout>} />
           <Route path="/carrieres" element={<Layout><OffresEmploiPage /></Layout>} />
+          <Route path="/profil"   element={<Layout><ProfilPage /></Layout>} />
 
           {/* Équipe */}
           <Route path="/equipe/direction-generale" element={<Layout><DirectionGeneralePage /></Layout>} />
