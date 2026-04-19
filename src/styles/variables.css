@@ -1,14 +1,53 @@
 :root {
-  --brand: #0d9488;
-  --accent: #f59e0b;
-  --dark: #0f172a;
-  --muted: #6b7280;
-  --bg: #fbfdff;
-  --card: #ffffff;
-  --header-footer: #1e464a; /* Variable pour référence */
-  --glass: rgba(255,255,255,0.6);
-  --radius: 12px;
-  --container: 1200px;
-  --gap: 1.25rem;
+  /* === Palette principale EQOS === */
+  --color-primary:    #0A1628;   /* Bleu nuit profond */
+  --color-accent:     #FF6B2C;   /* Orange africain — CTAs */
+  --color-accent-alt: #00D4FF;   /* Cyan tech — icônes, badges */
+  --color-surface:    #FFFFFF;
+  --color-surface-2:  #F4F6FA;   /* Fond sections claires */
+  --color-text:       #0A1628;
+  --color-text-muted: #64748B;
+  --color-border:     #E2E8F0;
+
+  /* === Compatibilité anciens noms === */
+  --primary:       #0A1628;
+  --primary-dark:  #060e1a;
+  --primary-light: #1a2d52;
+  --accent:        #FF6B2C;
+  --accent-dark:   #e55a1f;
+
+  /* === Textes === */
+  --text:       #0A1628;
+  --text-light: #374151;
+  --text-muted: #64748B;
+
+  /* === Fonds === */
+  --bg:       #FFFFFF;
+  --bg-light: #F4F6FA;
+  --bg-alt:   #F4F6FA;
+  --bg-dark:  #0A1628;
+
+  /* === Cartes === */
+  --card-bg:           #FFFFFF;
+  --card-border:       rgba(10, 22, 40, 0.07);
+  --card-shadow:       0 2px 8px rgba(0, 0, 0, 0.06);
+  --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+
+  /* === Typographie === */
   font-family: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  /* === Espacements === */
+  --radius:    8px;
+  --radius-lg: 16px;
+  --container: 1200px;
+  --gap:       1.5rem;
+
+  /* === Header === */
+  --header-height: 72px;
+  --header-bg:     #FFFFFF;
+  --header-border: rgba(10, 22, 40, 0.08);
+
+  /* === Transitions === */
+  --transition: all 0.25s ease;
 }

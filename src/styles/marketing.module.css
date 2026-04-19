@@ -1,13 +1,13 @@
-/* marketing.module.css */
+/* marketing.module.css — dark theme */
 .teamDetailPage {
   min-height: 100vh;
-  background: #ffffff;
+  background: #050D1A;
 }
 
 /* Back Button */
 .backButtonWrapper {
   padding: 2rem 0 1rem;
-  background: #ffffff;
+  background: #050D1A;
 }
 
 .backButton {
@@ -15,9 +15,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background: rgba(239, 68, 68, 0.05);
-  color: #dc2626;
-  border: 1px solid rgba(239, 68, 68, 0.1);
+  background: rgba(255,90,31,0.06);
+  color: #FF5A1F;
+  border: 1px solid rgba(255,90,31,0.2);
   border-radius: 12px;
   font-weight: 600;
   font-size: 0.95rem;
@@ -26,9 +26,9 @@
 }
 
 .backButton:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(255,90,31,0.12);
   transform: translateX(-4px);
-  border-color: rgba(239, 68, 68, 0.2);
+  border-color: rgba(255,90,31,0.35);
 }
 
 .backArrow {
@@ -57,7 +57,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.6);
+  filter: brightness(0.4);
 }
 
 .heroOverlay {
@@ -66,7 +66,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.85) 0%, rgba(220, 38, 38, 0.75) 100%);
+  background: linear-gradient(135deg, rgba(5,13,26,0.88) 0%, rgba(255,90,31,0.18) 100%);
   z-index: 1;
 }
 
@@ -81,15 +81,16 @@
 .heroTag {
   display: inline-block;
   padding: 0.5rem 1.25rem;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,90,31,0.12);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255,90,31,0.28);
   border-radius: 50px;
   font-weight: 700;
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 1.5rem;
+  color: #FF5A1F;
 }
 
 .heroTitle {
@@ -97,7 +98,8 @@
   font-weight: 800;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  color: #F0F4FF;
 }
 
 .heroDescription {
@@ -105,13 +107,13 @@
   max-width: 700px;
   margin: 0 auto;
   line-height: 1.7;
-  opacity: 0.95;
+  color: rgba(240,244,255,0.8);
 }
 
 /* Mission Section */
 .missionSection {
   padding: 5rem 0;
-  background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%);
+  background: #0B1628;
   position: relative;
 }
 
@@ -123,20 +125,17 @@
   transform: translateX(-50%);
   width: 80%;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,90,31,0.15), transparent);
 }
 
 .missionCard {
   max-width: 900px;
   margin: 0 auto;
   padding: 3rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
-  backdrop-filter: blur(20px);
+  background: #0D1E38;
   border-radius: 24px;
-  box-shadow: 
-    0 20px 60px rgba(220, 38, 38, 0.08),
-    0 0 0 1px rgba(220, 38, 38, 0.06);
-  border: 1px solid rgba(220, 38, 38, 0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,90,31,0.12);
   text-align: center;
   position: relative;
 }
@@ -147,21 +146,21 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+  height: 3px;
+  background: linear-gradient(90deg, #FF5A1F 0%, #FF8A4C 50%, #FF5A1F 100%);
   border-radius: 24px 24px 0 0;
 }
 
 .missionCard h2 {
   font-size: clamp(1.75rem, 3vw, 2.25rem);
-  color: #dc2626;
+  color: #F0F4FF;
   margin-bottom: 1.5rem;
   font-weight: 700;
 }
 
 .missionCard p {
   font-size: 1.15rem;
-  color: #475569;
+  color: #7A90B0;
   line-height: 1.8;
   margin: 0;
 }
@@ -169,7 +168,7 @@
 /* Expertise Section */
 .expertiseSection {
   padding: 5rem 0;
-  background: #ffffff;
+  background: #050D1A;
   position: relative;
 }
 
@@ -180,7 +179,7 @@
   right: -10%;
   width: 600px;
   height: 600px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.03) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,90,31,0.04) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -188,14 +187,14 @@
   text-align: center;
   font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 700;
-  color: #dc2626;
+  color: #F0F4FF;
   margin-bottom: 1rem;
   letter-spacing: -0.02em;
 }
 
 .sectionSubtitle {
   text-align: center;
-  color: #64748b;
+  color: #7A90B0;
   font-size: 1.1rem;
   margin-bottom: 4rem;
 }
@@ -208,31 +207,26 @@
 }
 
 .expertiseCard {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
-  backdrop-filter: blur(20px);
+  background: #0B1628;
   border-radius: 20px;
   padding: 2.5rem 2rem;
-  border: 1px solid rgba(239, 68, 68, 0.1);
-  box-shadow: 
-    0 8px 30px rgba(239, 68, 68, 0.06),
-    0 0 0 1px rgba(239, 68, 68, 0.04);
+  border: 1px solid rgba(255,90,31,0.08);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   text-align: center;
 }
 
 .expertiseCard:hover {
   transform: translateY(-8px);
-  box-shadow: 
-    0 20px 60px rgba(239, 68, 68, 0.12),
-    0 0 0 1px rgba(239, 68, 68, 0.08);
-  border-color: rgba(239, 68, 68, 0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  border-color: rgba(255,90,31,0.2);
 }
 
 .expertiseIcon {
   width: 80px;
   height: 80px;
   margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #FF5A1F 0%, #CC3D00 100%);
   border-radius: 20px;
   display: flex;
   align-items: center;
@@ -243,13 +237,13 @@
 .expertiseCard h3 {
   font-size: 1.3rem;
   font-weight: 700;
-  color: #dc2626;
+  color: #FF5A1F;
   margin-bottom: 1rem;
   letter-spacing: -0.01em;
 }
 
 .expertiseCard p {
-  color: #64748b;
+  color: #7A90B0;
   font-size: 0.95rem;
   line-height: 1.6;
   margin: 0;
@@ -258,7 +252,7 @@
 /* Members Section */
 .membersSection {
   padding: 5rem 0;
-  background: linear-gradient(180deg, #fef2f2 0%, #ffffff 100%);
+  background: #0B1628;
 }
 
 .membersGrid {
@@ -268,23 +262,18 @@
 }
 
 .memberCard {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%);
-  backdrop-filter: blur(20px);
+  background: #0D1E38;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(220, 38, 38, 0.08);
-  box-shadow: 
-    0 8px 30px rgba(220, 38, 38, 0.06),
-    0 0 0 1px rgba(220, 38, 38, 0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .memberCard:hover {
   transform: translateY(-8px);
-  box-shadow: 
-    0 20px 60px rgba(220, 38, 38, 0.12),
-    0 0 0 1px rgba(220, 38, 38, 0.08);
-  border-color: rgba(239, 68, 68, 0.15);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+  border-color: rgba(255,90,31,0.2);
 }
 
 .memberImageWrapper {
@@ -292,7 +281,7 @@
   width: 100%;
   height: 320px;
   overflow: hidden;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #0D1E38 0%, #FF5A1F22 100%);
 }
 
 .memberImage {
@@ -303,7 +292,7 @@
 }
 
 .memberCard:hover .memberImage {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .memberOverlay {
@@ -312,7 +301,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(to top, rgba(239, 68, 68, 0.9) 0%, transparent 50%);
+  background: linear-gradient(to top, rgba(5,13,26,0.9) 0%, transparent 50%);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -334,9 +323,9 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255,255,255,0.2);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -346,7 +335,8 @@
 }
 
 .socialLink:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,90,31,0.3);
+  border-color: rgba(255,90,31,0.5);
   transform: translateY(-4px);
 }
 
@@ -358,13 +348,13 @@
 .memberName {
   font-size: 1.4rem;
   font-weight: 700;
-  color: #dc2626;
+  color: #F0F4FF;
   margin-bottom: 0.5rem;
   letter-spacing: -0.01em;
 }
 
 .memberPosition {
-  color: #ef4444;
+  color: #FF5A1F;
   font-weight: 600;
   font-size: 0.95rem;
   margin-bottom: 1rem;
@@ -373,7 +363,7 @@
 }
 
 .memberBio {
-  color: #64748b;
+  color: #7A90B0;
   font-size: 0.95rem;
   line-height: 1.7;
   margin: 0;
@@ -382,7 +372,7 @@
 /* CTA Section */
 .ctaSection {
   padding: 5rem 0;
-  background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+  background: #050D1A;
   position: relative;
   overflow: hidden;
 }
@@ -394,7 +384,7 @@
   left: -20%;
   width: 800px;
   height: 800px;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.05) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(255,90,31,0.06) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -402,10 +392,10 @@
   max-width: 700px;
   margin: 0 auto;
   padding: 4rem 3rem;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, #FF5A1F 0%, #CC3D00 50%, #0A1628 100%);
   border-radius: 24px;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
+  box-shadow: 0 20px 60px rgba(255,90,31,0.25);
   position: relative;
   overflow: hidden;
 }
@@ -417,8 +407,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  opacity: 0.4;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 30px 30px;
 }
 
 .ctaCard h2 {
@@ -430,7 +422,7 @@
 }
 
 .ctaCard p {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255,255,255,0.88);
   font-size: 1.1rem;
   line-height: 1.7;
   margin-bottom: 2.5rem;
@@ -445,9 +437,9 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 2.5rem;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,0.12);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 12px;
   color: white;
   font-weight: 600;
@@ -458,9 +450,9 @@
 }
 
 .ctaButton:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255,255,255,0.22);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(255,255,255,0.15);
 }
 
 .arrow {
@@ -473,94 +465,29 @@
 
 /* Responsive Design */
 @media (max-width: 1024px) {
-  .expertiseGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-  }
-  
-  .membersGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-  }
-  
-  .missionCard {
-    padding: 2.5rem;
-    margin: 0 1rem;
-  }
-  
-  .ctaCard {
-    margin: 0 1rem;
-    padding: 3rem 2rem;
-  }
+  .expertiseGrid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .membersGrid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .missionCard { padding: 2.5rem; margin: 0 1rem; }
+  .ctaCard { margin: 0 1rem; padding: 3rem 2rem; }
 }
 
 @media (max-width: 768px) {
-  .heroSection {
-    height: 400px;
-  }
-  
-  .expertiseGrid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  
-  .membersGrid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .missionCard {
-    padding: 2rem 1.5rem;
-  }
-  
-  .memberImageWrapper {
-    height: 280px;
-  }
-  
-  .ctaCard {
-    padding: 2.5rem 1.5rem;
-  }
-  
-  .backButtonWrapper {
-    padding: 1.5rem 0 1rem;
-  }
+  .heroSection { height: 400px; }
+  .expertiseGrid { grid-template-columns: 1fr; gap: 1rem; }
+  .membersGrid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .missionCard { padding: 2rem 1.5rem; }
+  .memberImageWrapper { height: 280px; }
+  .ctaCard { padding: 2.5rem 1.5rem; }
+  .backButtonWrapper { padding: 1.5rem 0 1rem; }
 }
 
 @media (max-width: 480px) {
-  .heroSection {
-    height: 350px;
-  }
-  
-  .heroContent {
-    padding: 1rem;
-  }
-  
-  .missionSection,
-  .expertiseSection,
-  .membersSection,
-  .ctaSection {
-    padding: 3rem 0;
-  }
-  
-  .memberInfo {
-    padding: 1.5rem;
-  }
-  
-  .socialLinks {
-    gap: 0.75rem;
-  }
-  
-  .socialLink {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .expertiseCard {
-    padding: 2rem 1.5rem;
-  }
-  
-  .expertiseIcon {
-    width: 60px;
-    height: 60px;
-  }
+  .heroSection { height: 350px; }
+  .heroContent { padding: 1rem; }
+  .missionSection, .expertiseSection, .membersSection, .ctaSection { padding: 3rem 0; }
+  .memberInfo { padding: 1.5rem; }
+  .socialLinks { gap: 0.75rem; }
+  .socialLink { width: 40px; height: 40px; }
+  .expertiseCard { padding: 2rem 1.5rem; }
+  .expertiseIcon { width: 60px; height: 60px; }
 }

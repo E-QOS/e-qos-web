@@ -22,6 +22,9 @@
 *.env
 .env
 !.env.example
+# booking data
+backend/data/bookings.json
+
 # debug logs
 npm-debug.log*
 yarn-debug.log*

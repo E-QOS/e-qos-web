@@ -1,0 +1,537 @@
+/* ══ PAGE ══════════════════════════════════════════════════════ */
+.page {
+  min-height: 100vh;
+  background: var(--bg-primary, #050D1A);
+  padding: 6rem 1rem 4rem;
+}
+
+.container {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.centerLoader {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.4);
+}
+
+/* ══ HERO CARD ══════════════════════════════════════════════════ */
+.heroCard {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  padding: 2rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+/* ── Avatar ── */
+.avatarWrap {
+  position: relative;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255,90,31,0.25) 0%, rgba(0,200,255,0.18) 100%);
+  border: 2px solid rgba(255,90,31,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarInitials {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #FF5A1F;
+  letter-spacing: -0.02em;
+}
+
+.avatarLoader {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.avatarEditBtn {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  border: 2px solid #050D1A;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.15s;
+}
+.avatarEditBtn:hover { opacity: 0.85; }
+.avatarEditBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* ── Hero info ── */
+.heroInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.heroName {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  margin: 0 0 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.heroJobTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #FF5A1F;
+  margin: 0 0 4px;
+}
+
+.heroEmail {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.45);
+  margin: 0 0 0.75rem;
+}
+
+.heroBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.65rem;
+}
+
+.domainBadge,
+.expBadge,
+.locationBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.70rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+
+.domainBadge {
+  background: rgba(0,200,255,0.08);
+  border: 1px solid rgba(0,200,255,0.18);
+  color: #00C8FF;
+}
+
+.expBadge {
+  background: rgba(255,90,31,0.09);
+  border: 1px solid rgba(255,90,31,0.22);
+  color: #FF5A1F;
+}
+
+.locationBadge {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5);
+}
+
+.heroSkills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.skillPill {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(168,85,247,0.10);
+  border: 1px solid rgba(168,85,247,0.22);
+  color: #a855f7;
+}
+
+.skillPillMore {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.4);
+}
+
+/* ══ CARDS ══════════════════════════════════════════════════════ */
+.card {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.cardDanger {
+  border-color: rgba(248,113,113,0.15);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  color: rgba(255,255,255,0.70);
+}
+
+.cardDanger .cardHeader {
+  color: rgba(248,113,113,0.7);
+  border-bottom-color: rgba(248,113,113,0.1);
+}
+
+.cardHeader h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.cardBody {
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 0.5rem;
+}
+
+/* ══ FORM ELEMENTS ══════════════════════════════════════════════ */
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255,255,255,0.55);
+}
+
+.inputWrap {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(255,255,255,0.28);
+  pointer-events: none;
+}
+
+.inputWrap input,
+.inputWrap select {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 10px;
+  padding: 11px 14px 11px 38px;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.90);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: inherit;
+  box-sizing: border-box;
+  appearance: none;
+}
+
+.inputWrap input::placeholder { color: rgba(255,255,255,0.22); }
+
+.inputWrap input:focus,
+.inputWrap select:focus {
+  border-color: rgba(255,90,31,0.4);
+  background: rgba(255,255,255,0.055);
+}
+
+.select {
+  cursor: pointer;
+}
+.select option { background: #0d1b2a; color: #fff; }
+
+.inputReadOnly {
+  opacity: 0.5 !important;
+  cursor: default !important;
+}
+
+.textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.90);
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  font-family: inherit;
+  box-sizing: border-box;
+  resize: vertical;
+  line-height: 1.55;
+}
+.textarea::placeholder { color: rgba(255,255,255,0.22); }
+.textarea:focus {
+  border-color: rgba(255,90,31,0.4);
+  background: rgba(255,255,255,0.055);
+}
+
+.pwToggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.3);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+.pwToggle:hover { color: rgba(255,255,255,0.65); }
+
+.fieldHint {
+  font-size: 0.70rem;
+  color: rgba(255,255,255,0.28);
+  margin: 0;
+}
+
+.fieldError {
+  font-size: 0.72rem;
+  color: #f87171;
+  margin: 0;
+}
+
+/* ── Password strength ── */
+.strengthBar {
+  height: 3px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 2px;
+}
+
+.strengthFill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.3s, background 0.3s;
+}
+
+/* ══ EXPERIENCE LEVEL BUTTONS ════════════════════════════════════ */
+.levelGroup {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.levelBtn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  color: rgba(255,255,255,0.55);
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+.levelBtn:hover {
+  border-color: rgba(255,90,31,0.3);
+  color: rgba(255,255,255,0.8);
+}
+.levelBtnActive {
+  background: rgba(255,90,31,0.12);
+  border-color: rgba(255,90,31,0.4);
+  color: #FF5A1F;
+}
+
+/* ══ SKILLS TAG INPUT ════════════════════════════════════════════ */
+.skillsBox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 10px;
+  padding: 8px 10px;
+  min-height: 46px;
+  cursor: text;
+  transition: border-color 0.2s;
+}
+.skillsBox:focus-within {
+  border-color: rgba(255,90,31,0.4);
+}
+
+.skillTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(168,85,247,0.12);
+  border: 1px solid rgba(168,85,247,0.25);
+  color: #a855f7;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px 3px 10px;
+  border-radius: 8px;
+}
+
+.skillRemove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: rgba(168,85,247,0.6);
+  cursor: pointer;
+  padding: 1px;
+  border-radius: 3px;
+  transition: color 0.15s;
+}
+.skillRemove:hover { color: #f87171; }
+
+.skillInput {
+  flex: 1;
+  min-width: 120px;
+  background: none;
+  border: none;
+  outline: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.85rem;
+  font-family: inherit;
+  padding: 2px 4px;
+}
+.skillInput::placeholder { color: rgba(255,255,255,0.22); }
+
+/* ══ FEEDBACK MESSAGES ══════════════════════════════════════════ */
+.msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.msgOk {
+  background: rgba(0,229,160,0.08);
+  border: 1px solid rgba(0,229,160,0.2);
+  color: #00e5a0;
+}
+
+.msgErr {
+  background: rgba(248,113,113,0.08);
+  border: 1px solid rgba(248,113,113,0.2);
+  color: #f87171;
+}
+
+/* ══ BUTTONS ════════════════════════════════════════════════════ */
+.saveBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  background: #FF5A1F;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.saveBtn:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+.saveBtn:disabled { opacity: 0.42; cursor: not-allowed; }
+
+.logoutBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  background: rgba(248,113,113,0.1);
+  border: 1px solid rgba(248,113,113,0.25);
+  border-radius: 10px;
+  color: #f87171;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+.logoutBtn:hover { background: rgba(248,113,113,0.18); }
+
+.dangerText {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.48);
+  margin: 0 0 1rem;
+  line-height: 1.6;
+}
+.dangerText strong { color: rgba(255,255,255,0.72); }
+
+/* ══ SPINNER ════════════════════════════════════════════════════ */
+.spin { animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ══ RESPONSIVE ═════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .heroCard { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+  .heroName { font-size: 1.25rem; }
+  .formRow { grid-template-columns: 1fr; }
+  .cardBody { padding: 1.25rem; }
+  .cardHeader { padding: 1rem 1.25rem; }
+  .levelGroup { gap: 0.4rem; }
+  .levelBtn { padding: 6px 12px; font-size: 0.78rem; }
+}

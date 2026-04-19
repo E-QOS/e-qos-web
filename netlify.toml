@@ -2,6 +2,14 @@
   command = "npm run build"
   publish = "dist"
 
+# Proxy API vers le backend Render (doit être AVANT le catch-all SPA)
+[[redirects]]
+  from = "/api/*"
+  to = "https://e-qos-web-backend.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# SPA fallback — React Router
 [[redirects]]
   from = "/*"
   to = "/index.html"

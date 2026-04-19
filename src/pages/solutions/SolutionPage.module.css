@@ -1,0 +1,237 @@
+/* SolutionPage.module.css — Shared for Wali, Wandi, Makiti */
+
+.page {}
+
+/* ===== Hero — dark digital (aligned with ArticlePage / HomePage) ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: #060f14;
+  padding: 7rem 0 5.5rem;
+}
+
+/* Animated grid pattern */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Product-colored glow — top left */
+.heroGlow {
+  position: absolute;
+  top: -140px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--hero-color, #1e464a) 100%, transparent 0%) 0%,
+    transparent 70%
+  );
+  opacity: 0.25;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Soft cyan glow — bottom right */
+.heroGlowRight {
+  position: absolute;
+  bottom: -80px;
+  right: -60px;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,200,255,0.10) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+}
+
+.heroTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: color-mix(in srgb, var(--hero-color, #1e464a) 100%, transparent 0%);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0.35rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.15);
+  opacity: 0.9;
+}
+
+.heroTag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px #fff;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+.heroTitle {
+  color: #e8f5f1 !important;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.heroSub {
+  color: #7a9ba0 !important;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 2.25rem;
+  max-width: 600px;
+}
+
+.heroCtas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ===== Features ===== */
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.featureCard {
+  background: #ffffff;
+  border: 1px solid rgba(30, 70, 74, 0.07);
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 2px 12px rgba(30, 70, 74, 0.05);
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(30, 70, 74, 0.1);
+}
+
+.featureIcon {
+  width: 44px;
+  height: 44px;
+  background: rgba(30, 70, 74, 0.08);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1e464a;
+  margin-bottom: 1rem;
+}
+
+.featureTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.featureDesc {
+  font-size: 0.855rem;
+  color: #64748b;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* ===== B2B Section ===== */
+.b2bSection {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 20px;
+  padding: 3rem;
+  border: 1px solid rgba(30, 70, 74, 0.07);
+}
+
+.b2bSection h2 {
+  margin-bottom: 1rem;
+  color: #0f172a;
+}
+
+.b2bSection p {
+  color: #475569;
+  margin-bottom: 0.75rem;
+}
+
+.b2bIcon {
+  flex-shrink: 0;
+}
+
+/* ===== How it works steps ===== */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  position: relative;
+}
+
+.step {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.stepNum {
+  width: 44px;
+  height: 44px;
+  background: #1e464a;
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  margin: 0 auto 1rem;
+}
+
+.step h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .b2bSection {
+    grid-template-columns: 1fr;
+  }
+  .b2bIcon { display: none; }
+}
