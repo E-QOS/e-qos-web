@@ -155,7 +155,8 @@ export async function submitApplication(
     payload['cv_url'] = getPublicUrl(BUCKETS.CVS, cvPath);
   }
 
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from('job_applications')
     .insert(payload);
 
@@ -220,7 +221,8 @@ async function sendReceiptEmail(candidateName: string, email: string, jobTitle: 
 /* ─── Profile helpers ─── */
 
 export async function updateProfile(uid: string, email: string, updates: import('../types/database').ProfileUpdate & { avatar_url?: string }) {
-  const { error } = await supabase
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any)
     .from('profiles')
     .upsert({ id: uid, email, ...updates, updated_at: new Date().toISOString() });
   if (error) throw error;
