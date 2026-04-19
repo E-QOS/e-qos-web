@@ -56,35 +56,49 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   /* ── Auth listener ── */
   useEffect(() => {
-    // Initial session — wrapped in try/catch in case Supabase isn't configured
-    supabase.auth.getSession()
-      .then(({ data: { session: s } }) => {
-        setSession(s);
-        setUser(s?.user ?? null);
-        if (s?.user) fetchProfile(s.user.id);
-      })
-      .catch(() => { /* Supabase not configured — silently ignore */ })
-      .finally(() => setLoading(false));
+    let mounted = true;
 
-    // Subscribe to changes
+    // onAuthStateChange must be synchronous — awaiting inside the callback
+    // deadlocks the Supabase client (it holds an internal lock until the
+    // callback returns, so any Supabase query fired inside an async callback
+    // will hang forever and block all data fetches).
+    let initialized = false;
+    const done = () => {
+      if (mounted && !initialized) { initialized = true; setLoading(false); }
+    };
+
     let subscription: { unsubscribe: () => void } = { unsubscribe: () => {} };
     try {
-      const { data } = supabase.auth.onAuthStateChange(async (_event, s) => {
+      const { data } = supabase.auth.onAuthStateChange((_event, s) => {
+        if (!mounted) return;
         setSession(s);
         setUser(s?.user ?? null);
-        if (s?.user) {
-          await fetchProfile(s.user.id);
-        } else {
+
+        if (!s?.user) {
           setProfile(null);
+          done();
+          return;
         }
-        setLoading(false);
+
+        // Fire profile fetch without awaiting — must not block this callback
+        fetchProfile(s.user.id)
+          .catch(() => {})
+          .finally(done);
       });
       subscription = data.subscription;
     } catch {
       // Supabase not configured
+      done();
     }
 
-    return () => subscription.unsubscribe();
+    // Safety valve: unblock after 8s if no auth event fires
+    const timeout = setTimeout(done, 8000);
+
+    return () => {
+      mounted = false;
+      clearTimeout(timeout);
+      subscription.unsubscribe();
+    };
   }, [fetchProfile]);
 
   /* ── Modal helpers ── */
