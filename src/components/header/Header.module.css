@@ -639,8 +639,20 @@
   .nav, .headerCta { display: none; }
   .mobileToggle { display: flex; }
   .inner { justify-content: space-between; }
+  /* Also hide desktop auth buttons */
+  .authBtns { display: none; }
+  .userMenu { display: none; }
 }
 
 @media (max-width: 640px) {
   .inner { padding: 0 1rem; }
+  .mobileNav { width: min(340px, 92vw); }
+  .mobileNavCtaBtn { font-size: 0.85rem; padding: 0.75rem 1.25rem; }
+  .mobileLink { font-size: 0.82rem; }
+}
+
+@media (max-width: 380px) {
+  .logoText { font-size: 1.05rem; }
+  .inner { gap: 0.5rem; }
+  .mobileNav { width: 92vw; }
 }

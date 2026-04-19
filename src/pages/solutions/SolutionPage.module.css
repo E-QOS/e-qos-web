@@ -235,3 +235,26 @@
   }
   .b2bIcon { display: none; }
 }
+
+@media (max-width: 640px) {
+  .hero { padding: 5rem 0 4rem; }
+  .heroTitle { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+  .heroSub { font-size: 0.97rem; }
+  .heroCtas { flex-direction: column; align-items: stretch; }
+  .heroCtas > * { text-align: center; justify-content: center; }
+  .featuresGrid { gap: 1rem; }
+  .featureCard { padding: 1.25rem; }
+  .b2bSection { padding: 2rem 1.5rem; border-radius: 14px; }
+  .stepsGrid { gap: 1rem; }
+  .step { padding: 1.25rem 0.75rem; }
+}
+
+@media (max-width: 480px) {
+  .hero { padding: 4.5rem 0 3rem; }
+  .heroTag { font-size: 0.68rem; }
+  .heroTitle { font-size: 1.6rem; }
+  .heroSub { font-size: 0.92rem; margin-bottom: 1.75rem; }
+  .featureCard { padding: 1rem; }
+  .featureIcon { width: 38px; height: 38px; margin-bottom: 0.75rem; }
+  .featureTitle { font-size: 0.88rem; }
+}

@@ -527,11 +527,25 @@
 
 /* ══ RESPONSIVE ═════════════════════════════════════════════════ */
 @media (max-width: 640px) {
+  .page { padding: 5rem 1rem 3rem; }
   .heroCard { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
-  .heroName { font-size: 1.25rem; }
+  .heroName { font-size: 1.25rem; white-space: normal; }
   .formRow { grid-template-columns: 1fr; }
   .cardBody { padding: 1.25rem; }
   .cardHeader { padding: 1rem 1.25rem; }
   .levelGroup { gap: 0.4rem; }
   .levelBtn { padding: 6px 12px; font-size: 0.78rem; }
+  .avatar { width: 72px; height: 72px; }
+  .avatarInitials { font-size: 1.6rem; }
+}
+
+@media (max-width: 480px) {
+  .page { padding: 4.5rem 0.875rem 2.5rem; }
+  .heroCard { padding: 1.5rem; border-radius: 14px; }
+  .card { border-radius: 14px; }
+  .cardBody { padding: 1rem; gap: 0.875rem; }
+  .cardHeader { padding: 0.875rem 1rem; }
+  .saveBtn, .logoutBtn { width: 100%; justify-content: center; }
+  .heroBadges { gap: 0.3rem; }
+  .levelBtn { padding: 5px 10px; font-size: 0.75rem; }
 }

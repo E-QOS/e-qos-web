@@ -466,4 +466,19 @@
   .heroTitle { font-size: 1.7rem; }
   .heroMeta { gap: 0.75rem; }
   .metaDivider { display: none; }
+  .heroExcerpt { font-size: 1rem; }
+  .layout { gap: 2rem; padding: 2.5rem 0 4rem; }
+  .sideCard { padding: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .heroInner { padding-top: 4rem; padding-bottom: 3rem; }
+  .heroTitle { font-size: 1.45rem; }
+  .heroExcerpt { font-size: 0.95rem; margin-bottom: 1.5rem; }
+  .tagsBar { gap: 0.375rem; }
+  .prose { font-size: 0.97rem; }
+  .prose :global(pre) { padding: 1rem; font-size: 0.8rem; }
+  .layout { padding: 2rem 0 3rem; }
+  .ctaCard { padding: 1.25rem; }
+  .ctaCard h4 { font-size: 0.9rem; }
 }

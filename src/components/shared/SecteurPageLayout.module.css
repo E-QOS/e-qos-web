@@ -173,3 +173,35 @@
     position: static;
   }
 }
+
+@media (max-width: 640px) {
+  .contextCard,
+  .challengesCard {
+    padding: 1.5rem;
+  }
+
+  .servicesCard,
+  .ctaSide {
+    padding: 1.25rem;
+  }
+
+  .heroIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contextCard,
+  .challengesCard {
+    padding: 1.25rem;
+    border-radius: 12px;
+  }
+
+  .servicesCard,
+  .ctaSide {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+}

@@ -991,8 +991,37 @@
   .heroInner { padding-top: 88px; }
   .heroStats { flex-wrap: wrap; gap: 1rem; }
   .heroStatDivider { display: none; }
-  .heroCtas { flex-direction: column; align-items: flex-start; }
+  .heroCtas { flex-direction: column; align-items: stretch; }
+  .ctaPrimary, .ctaSecondary { justify-content: center; }
   .servicesGrid { grid-template-columns: 1fr; }
   .secteursGrid { grid-template-columns: repeat(2, 1fr); }
   .ctaSection { padding: 5rem 0; }
+  .sectionHeader { margin-bottom: 2rem; }
+  .carouselCard { padding: 1.75rem 1.25rem; }
+  .carouselQuoteMark { font-size: 4rem; left: 1.25rem; }
+}
+
+@media (max-width: 480px) {
+  .heroTitle { font-size: 2rem; }
+  .heroSub { font-size: 0.95rem; }
+  .heroBadge { font-size: 10px; letter-spacing: 1.5px; }
+  .heroInner { padding-top: 80px; }
+  .servicesSection, .whySection, .solutionsSection,
+  .secteursSection, .testimonialsSection { padding: 3.5rem 0; }
+  .ctaSection { padding: 4rem 0; }
+  .ctaTitle { font-size: 1.75rem; }
+  .sectionHeader { margin-bottom: 1.75rem; }
+  .whyStatValue { font-size: 2.25rem; }
+  .whyStatsGrid { gap: 0.875rem; }
+  .whyStatCard { padding: 1.25rem 1rem; }
+  .secteursGrid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .secteurCard { padding: 1.5rem 0.875rem; gap: 0.625rem; }
+  .carouselCard { padding: 1.5rem 1rem; min-height: auto; }
+  .carouselCard { padding: 1.5rem 1rem; }
+  .carousel { max-width: 100%; }
+  .solutionCard { border-radius: 12px; }
+  .solutionVisual { padding: 2rem 1.5rem; }
+  .solutionText { padding: 1.5rem; }
+  .solutionName { font-size: 1.3rem; }
+  .serviceCardInner { padding: 1.25rem; }
 }

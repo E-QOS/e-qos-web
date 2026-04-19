@@ -276,11 +276,16 @@
 }
 
 @media (max-width: 640px) {
-  .row {
-    grid-template-columns: 1fr;
-  }
+  .row { grid-template-columns: 1fr; }
+  .formSection { padding: 1.5rem; border-radius: 14px; }
+  .formHeader h2 { font-size: 1.25rem; }
+  .infoCard { padding: 1.25rem; border-radius: 12px; }
+}
 
-  .formSection {
-    padding: 1.5rem;
-  }
+@media (max-width: 480px) {
+  .formSection { padding: 1.25rem; }
+  .formHeader { margin-bottom: 1.25rem; padding-bottom: 1.1rem; }
+  .field input, .field select, .field textarea { padding: 0.65rem 0.875rem; font-size: 0.85rem; }
+  .responseCard { flex-direction: column; gap: 0.625rem; }
+  .responseIcon { margin-top: 0; }
 }
