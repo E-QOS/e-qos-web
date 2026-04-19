@@ -65,6 +65,7 @@ const Header: React.FC = () => {
   const [scrolled, setScrolled]         = useState(false);
   const [mobileOpen, setMobileOpen]     = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [openSection, setOpenSection]   = useState<string | null>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const location    = useLocation();
 
@@ -76,7 +77,7 @@ const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => { setMobileOpen(false); setUserMenuOpen(false); }, [location.pathname]);
+  useEffect(() => { setMobileOpen(false); setUserMenuOpen(false); setOpenSection(null); }, [location.pathname]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
@@ -94,6 +95,8 @@ const Header: React.FC = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const toggleSection = (name: string) => setOpenSection(prev => prev === name ? null : name);
+
   const handleSignOut = async () => {
     setUserMenuOpen(false);
     try { await signOut(); } catch { /* ignore */ }
@@ -109,7 +112,11 @@ const Header: React.FC = () => {
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.inner}>
           <Link to="/" className={styles.logo} aria-label="E-QOS - Accueil">
-            <span className={styles.logoText}>E-Q<span>OS</span></span>
+            <img
+              src="/images/e-qos-pruducts/eqos_logo.png"
+              alt="E-QOS"
+              className={styles.logoImg}
+            />
           </Link>
 
           <nav className={styles.nav} aria-label="Navigation principale">
@@ -250,8 +257,11 @@ const Header: React.FC = () => {
       <nav className={`${styles.mobileNav} ${mobileOpen ? styles.open : ''}`} aria-label="Navigation mobile">
         <div className={styles.mobileNavHeader}>
           <Link to="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
-            <div className={styles.logoMark}>EQ</div>
-            <span className={styles.logoText}>EQ<span>OS</span></span>
+            <img
+              src="/images/e-qos-pruducts/eqos_logo.png"
+              alt="E-QOS"
+              className={styles.logoImgMobile}
+            />
           </Link>
           <button className={styles.mobileClose} onClick={() => setMobileOpen(false)} aria-label="Fermer">
             <X size={16} />
@@ -283,36 +293,82 @@ const Header: React.FC = () => {
           )}
         </div>
 
+        {/* Services — accordion */}
         <div className={styles.mobileSection}>
-          <p className={styles.mobileSectionTitle}>Services</p>
-          {servicesLinks.map((s) => (
-            <Link key={s.to} to={s.to} className={styles.mobileLink}>
-              <span className={styles.mobileLinkIcon}>{s.icon}</span>
-              {s.label}
-            </Link>
-          ))}
+          <button
+            className={`${styles.mobileAccordionBtn} ${openSection === 'services' ? styles.mobileAccordionBtnOpen : ''}`}
+            onClick={() => toggleSection('services')}
+            aria-expanded={openSection === 'services'}
+          >
+            <span>Services</span>
+            <ChevronDown
+              size={16}
+              className={`${styles.mobileAccordionChevron} ${openSection === 'services' ? styles.mobileAccordionChevronOpen : ''}`}
+            />
+          </button>
+          <div className={`${styles.mobileAccordionContent} ${openSection === 'services' ? styles.mobileAccordionContentOpen : ''}`}>
+            <div className={styles.mobileAccordionInner}>
+              {servicesLinks.map((s) => (
+                <Link key={s.to} to={s.to} className={styles.mobileLink}>
+                  <span className={styles.mobileLinkIcon}>{s.icon}</span>
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
+        {/* Secteurs — accordion */}
         <div className={styles.mobileSection}>
-          <p className={styles.mobileSectionTitle}>Secteurs</p>
-          {secteursLinks.map((s) => (
-            <Link key={s.to} to={s.to} className={styles.mobileLink}>
-              <span className={styles.mobileLinkIcon}>{s.icon}</span>
-              {s.label}
-            </Link>
-          ))}
+          <button
+            className={`${styles.mobileAccordionBtn} ${openSection === 'secteurs' ? styles.mobileAccordionBtnOpen : ''}`}
+            onClick={() => toggleSection('secteurs')}
+            aria-expanded={openSection === 'secteurs'}
+          >
+            <span>Secteurs</span>
+            <ChevronDown
+              size={16}
+              className={`${styles.mobileAccordionChevron} ${openSection === 'secteurs' ? styles.mobileAccordionChevronOpen : ''}`}
+            />
+          </button>
+          <div className={`${styles.mobileAccordionContent} ${openSection === 'secteurs' ? styles.mobileAccordionContentOpen : ''}`}>
+            <div className={styles.mobileAccordionInner}>
+              {secteursLinks.map((s) => (
+                <Link key={s.to} to={s.to} className={styles.mobileLink}>
+                  <span className={styles.mobileLinkIcon}>{s.icon}</span>
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
+        {/* Solutions — accordion */}
         <div className={styles.mobileSection}>
-          <p className={styles.mobileSectionTitle}>Solutions</p>
-          {solutionsLinks.map((s) => (
-            <Link key={s.to} to={s.to} className={styles.mobileLink}>
-              <span className={styles.mobileLinkIcon}>{s.icon}</span>
-              {s.label}
-            </Link>
-          ))}
+          <button
+            className={`${styles.mobileAccordionBtn} ${openSection === 'solutions' ? styles.mobileAccordionBtnOpen : ''}`}
+            onClick={() => toggleSection('solutions')}
+            aria-expanded={openSection === 'solutions'}
+          >
+            <span>Solutions</span>
+            <ChevronDown
+              size={16}
+              className={`${styles.mobileAccordionChevron} ${openSection === 'solutions' ? styles.mobileAccordionChevronOpen : ''}`}
+            />
+          </button>
+          <div className={`${styles.mobileAccordionContent} ${openSection === 'solutions' ? styles.mobileAccordionContentOpen : ''}`}>
+            <div className={styles.mobileAccordionInner}>
+              {solutionsLinks.map((s) => (
+                <Link key={s.to} to={s.to} className={styles.mobileLink}>
+                  <span className={styles.mobileLinkIcon}>{s.icon}</span>
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
+        {/* Entreprise — liens directs */}
         <div className={styles.mobileSection}>
           <p className={styles.mobileSectionTitle}>Entreprise</p>
           <Link to="/ressources" className={styles.mobileLink}>Ressources</Link>

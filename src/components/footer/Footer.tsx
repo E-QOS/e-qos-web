@@ -10,11 +10,10 @@ const Footer: React.FC = () => {
       <div className={styles.footerTop}>
         <div className="container">
           <div className={styles.grid}>
-            {/* Col 1 — EQOS */}
+            {/* Col 1 — E-QOS */}
             <div className={styles.col1}>
               <Link to="/" className={styles.footerLogo}>
-                <div className={styles.footerLogoMark}>EQ</div>
-                <span className={styles.footerLogoText}>EQOS</span>
+                <span className={styles.footerLogoText}>E-QOS</span>
               </Link>
               <p className={styles.tagline}>Votre partenaire de transformation digitale en Guinée</p>
               <div className={styles.addresses}>
@@ -28,16 +27,16 @@ const Footer: React.FC = () => {
                 </div>
               </div>
               <div className={styles.social}>
-                <a href="https://www.linkedin.com/company/e-qos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn EQOS" className={styles.socialLink}>
+                <a href="https://www.linkedin.com/company/e-qos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn E-QOS" className={styles.socialLink}>
                   <FaLinkedinIn size={13} />
                 </a>
-                <a href="https://www.facebook.com/eqosconsulting/" target="_blank" rel="noopener noreferrer" aria-label="Facebook EQOS" className={styles.socialLink}>
+                <a href="https://www.facebook.com/eqosconsulting/" target="_blank" rel="noopener noreferrer" aria-label="Facebook E-QOS" className={styles.socialLink}>
                   <FaFacebookF size={13} />
                 </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="X EQOS" className={styles.socialLink}>
+                <a href="https://x.com/EConsultin71892" target="_blank" rel="noopener noreferrer" aria-label="X E-QOS" className={styles.socialLink}>
                   <FaXTwitter size={13} />
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram EQOS" className={styles.socialLink}>
+                <a href="https://www.instagram.com/contact.eqos" target="_blank" rel="noopener noreferrer" aria-label="Instagram E-QOS" className={styles.socialLink}>
                   <FaInstagram size={13} />
                 </a>
               </div>
@@ -100,7 +99,7 @@ const Footer: React.FC = () => {
       <div className={styles.footerBottom}>
         <div className="container">
           <p className={styles.copyright}>
-            © 2025 EQOS Africa. Tous droits réservés.
+            © 2026 E-QOS SARL. Tous droits réservés.
           </p>
           <p className={styles.countries}>
             Présent en Guinée · Vision Afrique de l'Ouest

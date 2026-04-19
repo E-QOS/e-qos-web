@@ -103,15 +103,16 @@ function SignUpForm({ onSwitch, onSuccess }: {
   onSwitch: () => void;
   onSuccess: () => void;
 }) {
-  const [fullName, setFullName]   = useState('');
-  const [email, setEmail]         = useState('');
-  const [company, setCompany]     = useState('');
-  const [password, setPassword]   = useState('');
-  const [confirm, setConfirm]     = useState('');
-  const [showPw, setShowPw]       = useState(false);
-  const [loading, setLoading]     = useState(false);
-  const [error, setError]         = useState('');
-  const [success, setSuccess]     = useState(false);
+  const [fullName, setFullName]         = useState('');
+  const [email, setEmail]               = useState('');
+  const [company, setCompany]           = useState('');
+  const [password, setPassword]         = useState('');
+  const [confirm, setConfirm]           = useState('');
+  const [showPw, setShowPw]             = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [loading, setLoading]           = useState(false);
+  const [error, setError]               = useState('');
+  const [success, setSuccess]           = useState(false);
 
   const pwStrength = password.length === 0 ? 0
     : password.length < 6 ? 1
@@ -129,6 +130,7 @@ function SignUpForm({ onSwitch, onSuccess }: {
     if (!EMAIL_RE.test(email))  { setError('Adresse email invalide.'); return; }
     if (password.length < 8)    { setError('Le mot de passe doit contenir au moins 8 caractères.'); return; }
     if (password !== confirm)   { setError('Les mots de passe ne correspondent pas.'); return; }
+    if (!termsAccepted)         { setError('Vous devez accepter les conditions d\'utilisation pour continuer.'); return; }
 
     setLoading(true);
     try {
@@ -242,14 +244,22 @@ function SignUpForm({ onSwitch, onSuccess }: {
         </div>
       </div>
 
-      <p className={styles.terms}>
-        En créant un compte vous acceptez nos{' '}
-        <a href="/mentions-legales" target="_blank" rel="noopener noreferrer">conditions d'utilisation</a>{' '}
-        et notre{' '}
-        <a href="/confidentialite" target="_blank" rel="noopener noreferrer">politique de confidentialité</a>.
-      </p>
+      <label className={styles.termsCheck}>
+        <input
+          type="checkbox"
+          checked={termsAccepted}
+          onChange={e => setTermsAccepted(e.target.checked)}
+          disabled={loading}
+        />
+        <span>
+          J'accepte les{' '}
+          <a href="/mentions-legales" target="_blank" rel="noopener noreferrer">conditions d'utilisation</a>{' '}
+          et la{' '}
+          <a href="/confidentialite" target="_blank" rel="noopener noreferrer">politique de confidentialité</a>
+        </span>
+      </label>
 
-      <button type="submit" className={styles.submitBtn} disabled={loading}>
+      <button type="submit" className={styles.submitBtn} disabled={loading || !termsAccepted}>
         {loading ? <><Loader size={15} className={styles.spin} /> Création...</> : <>Créer mon compte <ArrowRight size={15} /></>}
       </button>
 
@@ -375,8 +385,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialTab = 'sign
         {/* Header */}
         <div className={styles.modalHeader}>
           <div className={styles.modalLogo}>
-            <span className={styles.modalLogoMark}>EQ</span>
-            <span>EQ<b>OS</b></span>
+            <span>E-Q<b>OS</b></span>
           </div>
           <button className={styles.closeBtn} onClick={onClose} aria-label="Fermer">
             <X size={18} />
@@ -401,10 +410,10 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialTab = 'sign
         <div className={styles.modalTitle}>
           {view === 'signin' && <>
             <h2>Bon retour !</h2>
-            <p>Accédez à votre espace personnel EQOS.</p>
+            <p>Accédez à votre espace personnel E-QOS.</p>
           </>}
           {view === 'signup' && <>
-            <h2>Rejoignez EQOS</h2>
+            <h2>Rejoignez E-QOS</h2>
             <p>Créez votre compte pour accéder à nos ressources exclusives.</p>
           </>}
           {view === 'reset' && <>

@@ -252,7 +252,7 @@ const HomePage: React.FC = () => {
             {/* Badge */}
             <motion.div variants={heroBadgeAnim} className={styles.heroBadge}>
               <span className={styles.heroBadgeDot} aria-hidden="true" />
-              CONAKRY, GUINÉE &nbsp;·&nbsp; EST. 2023
+              CONAKRY, GUINÉE &nbsp;·&nbsp; EST. 2026
             </motion.div>
 
             {/* H1 */}

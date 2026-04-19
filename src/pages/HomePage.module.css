@@ -968,12 +968,30 @@
 }
 
 @media (max-width: 1024px) {
-  .heroInner { grid-template-columns: 1fr; gap: 2rem; }
-  .heroIllo { display: none; }
+  .heroInner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-bottom: 2rem;
+  }
   .heroContent { max-width: 100%; }
+  .heroIllo {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+    order: 2;
+  }
+  .heroIllo > * { max-width: 300px; }
   .whyLayout { grid-template-columns: 1fr; gap: 3rem; }
   .servicesGrid { grid-template-columns: repeat(2, 1fr); }
   .solutionCard { grid-template-columns: 1fr 2fr; }
+}
+
+@media (max-width: 640px) {
+  .heroIllo > * { max-width: 220px; }
+}
+
+@media (max-width: 480px) {
+  .heroIllo > * { max-width: 180px; }
 }
 
 @media (max-width: 768px) {

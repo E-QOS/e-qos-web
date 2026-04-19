@@ -73,6 +73,10 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const OffresEmploiPage = lazy(() => import('./pages/OffresEmploiPage'));
 const ProfilPage = lazy(() => import('./pages/ProfilPage'));
 
+// Légal
+const MentionsLegalesPage = lazy(() => import('./pages/MentionsLegalesPage'));
+const ConfidentialitePage  = lazy(() => import('./pages/ConfidentialitePage'));
+
 // Équipe
 const DirectionGeneralePage = lazy(() => import('./pages/equipe/DirectionGeneralePage'));
 const TechniquePage = lazy(() => import('./pages/equipe/TechniquePage'));
@@ -143,6 +147,10 @@ function App() {
           <Route path="/equipe/technique" element={<Layout><TechniquePage /></Layout>} />
           <Route path="/equipe/marketing" element={<Layout><MarketingEquipePage /></Layout>} />
           <Route path="/equipe/support" element={<Layout><SupportEquipePage /></Layout>} />
+
+          {/* Légal */}
+          <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
+          <Route path="/confidentialite"  element={<Layout><ConfidentialitePage /></Layout>} />
 
           {/* Legacy */}
           <Route path="/app/wali" element={<Layout><WaliPage /></Layout>} />

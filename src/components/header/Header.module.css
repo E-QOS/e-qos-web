@@ -17,7 +17,7 @@
 }
 
 .inner {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -30,32 +30,26 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 0.625rem;
   text-decoration: none;
   flex-shrink: 0;
+  min-width: 0;
 }
 
-.logoMark {
-  width: 36px; height: 36px;
-  background: var(--color-primary);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-weight: 900;
-  font-size: 0.875rem;
-  letter-spacing: -0.05em;
+.logoImg {
+  height: 36px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
 }
 
-.logoText {
-  font-weight: 800;
-  font-size: 1.2rem;
-  color: var(--color-primary);
-  letter-spacing: -0.03em;
+.logoImgMobile {
+  height: 32px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
 }
-
-.logoText span { color: var(--color-accent); }
 
 /* ===== Nav ===== */
 .nav {
@@ -224,14 +218,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40px; height: 40px;
+  width: 44px; height: 44px;
   gap: 5px;
   background: none;
   border: none;
   cursor: pointer;
-  margin-left: auto;
+  flex-shrink: 0;
   border-radius: 8px;
   transition: background 0.2s;
+  touch-action: manipulation;
 }
 
 .mobileToggle:hover { background: rgba(10,22,40,0.06); }
@@ -288,6 +283,7 @@
   color: var(--color-primary);
   cursor: pointer;
   border: none;
+  touch-action: manipulation;
 }
 
 .mobileClose:hover { background: rgba(10,22,40,0.1); }
@@ -312,6 +308,7 @@
   text-decoration: none;
   transition: background 0.2s;
   width: 100%;
+  touch-action: manipulation;
 }
 
 .mobileNavCtaBtn:hover { background: var(--accent-dark); }
@@ -339,6 +336,7 @@
   font-weight: 500;
   color: var(--color-text);
   transition: all 0.15s;
+  touch-action: manipulation;
 }
 
 .mobileLink:hover {
@@ -578,6 +576,7 @@
   cursor: pointer;
   font-family: inherit;
   transition: all 0.18s;
+  touch-action: manipulation;
 }
 
 .mobileSignInBtn {
@@ -631,28 +630,106 @@
   flex-shrink: 0;
 }
 
+/* ===== Mobile Accordion ===== */
+.mobileAccordionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  border-radius: 8px;
+  transition: background 0.15s, color 0.15s;
+  text-align: left;
+  touch-action: manipulation;
+}
+
+.mobileAccordionBtn:hover,
+.mobileAccordionBtnOpen {
+  background: rgba(10,22,40,0.05);
+}
+
+.mobileAccordionChevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  color: var(--color-text-muted);
+}
+
+.mobileAccordionChevronOpen {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+/* Grid row animation — smooth height without JS */
+.mobileAccordionContent {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobileAccordionContentOpen {
+  grid-template-rows: 1fr;
+}
+
+.mobileAccordionInner {
+  overflow: hidden;
+  padding-left: 0.25rem;
+}
+
 /* ===== Spacer ===== */
 .spacer { height: 72px; }
 
 /* ===== Responsive ===== */
+@media (max-width: 1100px) {
+  .ctaBtn { display: none; }
+  .navLink { padding: 0.5rem 0.5rem; }
+}
+
 @media (max-width: 960px) {
   .nav, .headerCta { display: none; }
-  .mobileToggle { display: flex; }
-  .inner { justify-content: space-between; }
-  /* Also hide desktop auth buttons */
+  .mobileToggle { display: flex; margin-left: auto; }
+  .inner {
+    justify-content: flex-start;
+    gap: 0;
+    padding: 0 1rem;
+    overflow-x: hidden;
+  }
   .authBtns { display: none; }
   .userMenu { display: none; }
 }
 
 @media (max-width: 640px) {
-  .inner { padding: 0 1rem; }
-  .mobileNav { width: min(340px, 92vw); }
+  .header {
+    height: calc(60px + env(safe-area-inset-top, 0px));
+  }
+  .inner {
+    height: 60px;
+    margin-top: env(safe-area-inset-top, 0px);
+    padding: 0 1rem;
+  }
+  .spacer {
+    height: calc(60px + env(safe-area-inset-top, 0px));
+  }
+  .logoImg { height: 28px; }
+  .mobileNav {
+    width: min(340px, 92vw);
+    height: 100vh;
+    height: 100dvh;
+    padding: 1.25rem;
+  }
   .mobileNavCtaBtn { font-size: 0.85rem; padding: 0.75rem 1.25rem; }
-  .mobileLink { font-size: 0.82rem; }
+  .mobileLink { font-size: 0.82rem; padding: 0.5rem 0.625rem; }
 }
 
 @media (max-width: 380px) {
-  .logoText { font-size: 1.05rem; }
   .inner { gap: 0.5rem; }
-  .mobileNav { width: 92vw; }
+  .logoImg { height: 26px; }
+  .mobileNav { width: 94vw; padding: 1rem; }
+  .mobileAuthBtns { grid-template-columns: 1fr; }
 }
