@@ -34,7 +34,7 @@ const directionGeneraleData: TeamDetailData = {
       name: 'FOFANA Ayouba',
       position: 'CEO & Fondateur',
       bio: 'Business Analyst et entrepreneur technologique. Expérience en environnements industriels complexes (aéronautique). Spécialisé dans l\'analyse des besoins, l\'optimisation des processus et le pilotage de projets à impact. Combine vision stratégique, rigueur méthodologique et orientation résultats pour créer des produits qui transforment les économies locales.',
-      photo: '/images/e-qos-pruducts/ayouba.jpg',
+      photo: '/images/e-qos-pruducts/ayouba.png',
       linkedin: 'https://www.linkedin.com/in/ayouba-fofana-306689156/',
       email: 'ayouba.fofana@e-qos.com'
     },
