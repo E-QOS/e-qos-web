@@ -189,7 +189,7 @@ const Management: React.FC = () => {
           <div className={styles.ctaCard}>
             <h2>Rejoignez Notre Aventure</h2>
             <p>Nous recherchons constamment des talents passionnés pour renforcer nos équipes.</p>
-            <Link to="/carrieres" className={styles.ctaButton}>
+            <Link to="/contact" className={styles.ctaButton}>
               Nous contacter
               <span className={styles.arrow}>→</span>
             </Link>

@@ -207,7 +207,7 @@ const Technical: React.FC = () => {
           <div className={styles.ctaCard}>
             <h2>Rejoignez Notre Équipe Tech</h2>
             <p>Vous êtes développeur, designer ou ingénieur passionné ? Construisons ensemble l'avenir de l'énergie en Afrique.</p>
-            <Link to="/carrieres" className={styles.ctaButton}>
+            <Link to="/contact" className={styles.ctaButton}>
               Postuler maintenant
               <span className={styles.arrow}>→</span>
             </Link>

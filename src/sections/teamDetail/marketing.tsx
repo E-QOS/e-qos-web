@@ -228,7 +228,7 @@ const Marketing: React.FC = () => {
           <div className={styles.ctaCard}>
             <h2>Rejoignez Notre Équipe Marketing</h2>
             <p>Vous êtes passionné par le marketing à impact ? Aidez-nous à démocratiser l'accès à l'énergie propre en Afrique.</p>
-            <Link to="/carrieres" className={styles.ctaButton}>
+            <Link to="/contact" className={styles.ctaButton}>
               Postuler maintenant
               <span className={styles.arrow}>→</span>
             </Link>
