@@ -25,7 +25,7 @@
 }
 
 /* Séparateur statique, très fin */
-.static .body { fill: var(--hairline-strong); }
+.static .body { fill: var(--muted); }
 
 @keyframes sigDraw { to { stroke-dashoffset: 0; } }
 @keyframes sigDot  { to { opacity: 1; } }
