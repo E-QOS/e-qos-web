@@ -4,6 +4,8 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { useReveal } from './hooks/useReveal';
+// Accueil chargé directement : évite un aller-retour réseau avant le premier rendu (LCP)
+import HomePage from './pages/HomePage';
 import './styles/globals.css';
 
 // Scroll to top on route change
@@ -45,7 +47,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 };
 
 // Lazy-loaded pages
-const HomePage = lazy(() => import('./pages/HomePage'));
 
 // Services (8 services EQOS)
 const ServicesPage = lazy(() => import('./pages/services/ServicesPage'));

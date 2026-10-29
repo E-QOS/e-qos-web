@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, ArrowRight, Target, Heart, Zap, Users } from 'lucide-react';
+import { ArrowRight, Target, Heart, Zap, Users } from 'lucide-react';
 import styles from './AProposPage.module.css';
 
 const values = [
@@ -173,10 +173,7 @@ const AProposPage: React.FC = () => (
         </div>
         <div className={styles.officesGrid}>
           {offices.map((o) => (
-            <div key={o.city} className={styles.officeCard} style={{ borderTopColor: o.color }}>
-              <div className={styles.officeIcon} style={{ background: o.color + '18', color: o.color }}>
-                <MapPin size={22} />
-              </div>
+            <div key={o.city} className={styles.officeCard}>
               <div>
                 <h3 className={styles.officeCity}>{o.city}</h3>
                 <p className={styles.officeCountry}>{o.country}</p>
@@ -208,10 +205,10 @@ const AProposPage: React.FC = () => (
 
     {/* CTA */}
     <section className="cta-band">
-      <div className="container" style={{ textAlign: 'center' }}>
-        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Rejoignez nos clients</h2>
-        <p style={{ color: 'rgba(255,255,255,0.75)', marginBottom: '2rem' }}>Plus de 100 organisations en Guinée nous font déjà confiance pour leur transformation digitale.</p>
-        <Link to="/contact" className="btn btn-white btn-lg">
+      <div className="container">
+        <h2>Rejoignez nos clients</h2>
+        <p>Plus de 100 organisations en Guinée nous font déjà confiance pour leur transformation digitale.</p>
+        <Link to="/contact" className="btn btn-primary btn-lg">
           Démarrer un projet <ArrowRight size={16} />
         </Link>
       </div>
