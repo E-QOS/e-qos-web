@@ -2,10 +2,9 @@ import React, { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import { CustomCursor } from './components/home/CustomCursor';
-import { ScrollProgress } from './components/home/ScrollProgress';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { AuthModal } from './components/auth/AuthModal';
+import { useReveal } from './hooks/useReveal';
 import './styles/globals.css';
 
 // Scroll to top on route change
@@ -24,15 +23,17 @@ const GlobalAuthModal: React.FC = () => {
 };
 
 // Layout wrapper
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <>
-    <ScrollProgress />
-    <CustomCursor />
-    <Header />
-    <main>{children}</main>
-    <Footer />
-  </>
-);
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  useReveal();
+  return (
+    <>
+      <a href="#contenu" className="skip-link">Aller au contenu</a>
+      <Header />
+      <main id="contenu" tabIndex={-1}>{children}</main>
+      <Footer />
+    </>
+  );
+};
 
 // Lazy-loaded pages
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -86,8 +87,7 @@ const SupportEquipePage = lazy(() => import('./pages/equipe/SupportEquipePage'))
 // Loading fallback
 const PageLoader: React.FC = () => (
   <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <div style={{ width: 40, height: 40, border: '3px solid #e2e8f0', borderTopColor: '#FF6B2C', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    <div role="status" aria-label="Chargement" style={{ width: 32, height: 32, border: '1px solid var(--hairline)', borderTopColor: 'var(--ink)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
   </div>
 );
 
