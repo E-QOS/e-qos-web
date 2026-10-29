@@ -39,17 +39,17 @@ const PaiementsLocauxPage: React.FC = () => {
               <div className="section-line" />
               <h2>Cas d'usage</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            <div className={styles.itemGrid}>
               {usecases.map((u, i) => (
-                <div key={i} style={{ background: '#ffffff', border: '1px solid rgba(10,22,40,0.07)', borderRadius: 14, padding: '1.5rem', boxShadow: '0 2px 10px rgba(10,22,40,0.05)' }}>
-                  <div style={{ width: 40, height: 40, background: 'rgba(0,212,255,0.1)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-accent-alt)', marginBottom: '0.875rem' }}>{u.icon}</div>
-                  <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text)', marginBottom: '0.5rem' }}>{u.title}</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, lineHeight: 1.65 }}>{u.desc}</p>
+                <div key={i} className={styles.item}>
+                  <div className={styles.itemIcon}>{u.icon}</div>
+                  <h3 className={styles.itemTitle}>{u.title}</h3>
+                  <p className={styles.itemDesc}>{u.desc}</p>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: '3rem', padding: '2rem', background: '#ffffff', borderRadius: 16, border: '1px solid rgba(10,22,40,0.08)' }}>
-              <h3 style={{ marginBottom: '1rem' }}>Notre approche technique</h3>
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>Notre approche technique</h3>
               <div className={styles.tagsList}>
                 {['API REST', 'Webhooks de confirmation', 'Gestion des timeouts', 'Réconciliation automatique', 'Sécurité & chiffrement', 'Tableau de bord transactions', 'Tests sandbox', 'Documentation complète'].map(t => (
                   <span key={t} className={styles.tag}>{t}</span>

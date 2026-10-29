@@ -63,7 +63,7 @@ const WandiPage: React.FC = () => (
             <h2>Transport d'entreprise</h2>
             <p>Wandi propose une solution dédiée aux entreprises qui souhaitent gérer le transport de leur personnel : navettes, déplacements professionnels, flotte de véhicules partenaires.</p>
             <p>Tableau de bord centralisé, validation des demandes, facturation mensuelle consolidée et reporting par département.</p>
-            <Link to="/contact" className="btn btn-primary" style={{ marginTop: '1rem' }}>
+            <Link to="/contact" className="btn btn-primary">
               En savoir plus <ArrowRight size={15} />
             </Link>
           </div>
@@ -75,9 +75,9 @@ const WandiPage: React.FC = () => (
     </section>
 
     <section className="cta-band">
-      <div className="container" style={{ textAlign: 'center' }}>
-        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Vous déplacez-vous souvent en ville ?</h2>
-        <p style={{ color: 'rgba(255,255,255,0.75)', marginBottom: '2rem' }}>Téléchargez Wandi et réservez votre prochain trajet en quelques secondes.</p>
+      <div className="container">
+        <h2>Vous déplacez-vous souvent en ville ?</h2>
+        <p>Téléchargez Wandi et réservez votre prochain trajet en quelques secondes.</p>
         <a href="#" className="btn btn-white btn-lg">
           <Smartphone size={16} />
           Télécharger Wandi

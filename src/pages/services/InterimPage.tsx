@@ -38,16 +38,16 @@ const InterimPage: React.FC = () => {
               <h2>Profils disponibles</h2>
               <p className="lead">Des managers opérationnels, disponibles rapidement, avec une expérience éprouvée en Afrique.</p>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            <div className={styles.itemGrid}>
               {profiles.map((p, i) => (
-                <div key={i} style={{ background: '#ffffff', border: '1px solid rgba(10,22,40,0.07)', borderRadius: 14, padding: '1.5rem', boxShadow: '0 2px 10px rgba(10,22,40,0.05)', borderLeft: '4px solid var(--color-accent)' }}>
-                  <h4 style={{ fontSize: '0.975rem', fontWeight: 700, color: 'var(--color-text)', marginBottom: '0.5rem' }}>{p.role}</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, lineHeight: 1.65 }}>{p.desc}</p>
+                <div key={i} className={styles.item}>
+                  <h3 className={styles.itemTitle}>{p.role}</h3>
+                  <p className={styles.itemDesc}>{p.desc}</p>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: '3rem', padding: '2rem', background: '#ffffff', borderRadius: 16, border: '1px solid rgba(10,22,40,0.08)' }}>
-              <h3 style={{ marginBottom: '0.75rem' }}>Modalités d'engagement</h3>
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>Modalités d'engagement</h3>
               <div className={styles.tagsList}>
                 {['Mission dès 1 mois', 'Temps plein ou partiel', 'Sur site ou hybride', 'Briefing en 48h', 'Prise de poste rapide', 'Transmission documentée', 'Bilan de fin de mission'].map(t => (
                   <span key={t} className={styles.tag}>{t}</span>

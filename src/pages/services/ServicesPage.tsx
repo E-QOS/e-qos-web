@@ -32,7 +32,7 @@ const ServicesPage: React.FC = () => (
           {services.map((s) => (
             <Link key={s.to} to={s.to} className={styles.card}>
               <div className={styles.icon}>{s.icon}</div>
-              <h3 className={styles.title}>{s.title}</h3>
+              <h2 className={styles.title}>{s.title}</h2>
               <p className={styles.desc}>{s.desc}</p>
               <span className={styles.link}>Découvrir <ArrowRight size={14} /></span>
             </Link>
@@ -41,9 +41,9 @@ const ServicesPage: React.FC = () => (
       </div>
     </section>
     <section className="cta-band">
-      <div className="container" style={{ textAlign: 'center' }}>
-        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Vous ne savez pas par où commencer ?</h2>
-        <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '2rem' }}>Nos consultants analysent votre situation et identifient les priorités. Échange gratuit, sans engagement.</p>
+      <div className="container">
+        <h2>Vous ne savez pas par où commencer ?</h2>
+        <p>Nos consultants analysent votre situation et identifient les priorités. Échange gratuit, sans engagement.</p>
         <Link to="/contact" className="btn btn-white btn-lg">Prendre contact <ArrowRight size={16} /></Link>
       </div>
     </section>

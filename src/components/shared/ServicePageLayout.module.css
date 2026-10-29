@@ -1,191 +1,101 @@
-/* ServicePageLayout.module.css */
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.55);
-  margin-bottom: 1.5rem;
-}
-
-.breadcrumb a {
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.breadcrumb a:hover { color: #ffffff; }
+/* ServicePageLayout.module.css — partagé par les pages de service */
 
 .intro {
-  max-width: 800px;
-  margin: 0 auto;
-  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.25rem);
+  line-height: 1.3;
+  color: var(--ink);
+  max-width: 34ch;
 }
 
+.flushTop { padding-top: 0; }
+
+/* Prestations : colonnes à filet, numéro discret */
 .cardsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: clamp(40px, 5vw, 64px);
 }
 
-.card {
-  background: #ffffff;
-  border: 1px solid rgba(30, 70, 74, 0.07);
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 2px 12px rgba(30, 70, 74, 0.05);
-  transition: all 0.3s ease;
-}
+.card { padding-top: 1.25rem; border-top: 1px solid var(--ink); }
 
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 36px rgba(30, 70, 74, 0.1);
-  border-color: rgba(30, 70, 74, 0.15);
-}
-
-.cardIcon {
-  width: 52px;
-  height: 52px;
-  background: rgba(30, 70, 74, 0.08);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #1e464a;
+.cardNum {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--orange-deep);
   margin-bottom: 1.25rem;
 }
 
-.cardTitle {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 0.75rem;
-}
+.cardTitle { font-size: 1.625rem; font-weight: 500; line-height: 1.2; margin-bottom: 0.75rem; }
+.cardDesc { font-size: 0.9375rem; line-height: 1.6; color: var(--text); }
 
-.cardDesc {
-  font-size: 0.875rem;
-  color: #64748b;
-  line-height: 1.7;
-  margin: 0;
-}
+.ctaContent { max-width: 720px; }
+.ctaContent h2 { margin-bottom: 1rem; }
+.ctaContent p { margin: 0 0 2rem; max-width: 56ch; }
 
-.ctaContent {
-  max-width: 580px;
-  margin: 0 auto;
-  text-align: center;
+/* Blocs complémentaires des pages (raisons, profils, cas d'usage) */
+.itemGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 2.5rem;
 }
+.item { padding-top: 1.25rem; border-top: 1px solid var(--hairline-strong); }
+.itemNum { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; color: var(--orange-deep); margin-bottom: 1rem; }
+.itemIcon { display: flex; color: var(--ink); margin-bottom: 1rem; }
+.itemTitle { font-size: 1.375rem; font-weight: 500; margin-bottom: 0.5rem; }
+.itemDesc { font-size: 0.9375rem; line-height: 1.6; color: var(--text); margin: 0; }
 
-.ctaContent h2 {
-  color: #ffffff;
-  margin-bottom: 1rem;
-}
+.panel { margin-top: clamp(48px, 6vw, 80px); padding-top: 1.5rem; border-top: 1px solid var(--ink); }
+.panelTitle { font-size: 1.75rem; font-weight: 500; margin-bottom: 1.25rem; }
 
-.ctaContent p {
-  color: rgba(255,255,255,0.7);
-  margin-bottom: 2rem;
-}
-
-/* Section extras */
-.extrasSection {
-  padding: 4rem 0;
-  background: #f8f9fa;
-}
-
-.methodTimeline {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-width: 700px;
-  margin: 0 auto;
-}
+/* Méthode : étapes numérotées, filets */
+.methodTimeline { display: flex; flex-direction: column; max-width: 820px; border-top: 1px solid var(--hairline); }
 
 .timelineStep {
-  display: flex;
-  gap: 1.5rem;
-  padding-bottom: 2rem;
-  position: relative;
-}
-
-.timelineStep:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  left: 19px;
-  top: 40px;
-  width: 2px;
-  bottom: 0;
-  background: rgba(30, 70, 74, 0.15);
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr);
+  column-gap: var(--gutter);
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--hairline);
 }
 
 .timelineNum {
-  width: 40px;
-  height: 40px;
-  background: #1e464a;
-  color: #ffffff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.875rem;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
-}
-
-.timelineContent {
-  padding-top: 0.5rem;
-}
-
-.timelineContent h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 0.4rem;
-}
-
-.timelineContent p {
-  font-size: 0.875rem;
-  color: #64748b;
-  margin: 0;
-}
-
-/* Tags list */
-.tagsList {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 1rem;
-}
-
-.tag {
-  background: rgba(30, 70, 74, 0.08);
-  color: #1e464a;
-  border-radius: 6px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.8125rem;
   font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--orange-deep);
+  padding-top: 0.5rem;
+  font-variant-numeric: tabular-nums;
 }
+.timelineNum::before { content: '0'; }
 
-@media (max-width: 768px) {
-  .cardsGrid {
-    grid-template-columns: 1fr;
-  }
+.timelineContent h3,
+.timelineContent h4 { font-size: 1.5rem; font-weight: 500; margin-bottom: 0.375rem; }
+.timelineContent p { font-size: 0.9375rem; color: var(--text); margin: 0; }
 
-  .methodTimeline { max-width: 100%; }
+/* Étiquettes : liste séparée par des filets, sans pastilles */
+.tagsList { display: flex; flex-wrap: wrap; gap: 0.5rem 0; }
+.tag {
+  font-size: 0.9375rem;
+  color: var(--text);
+  padding-right: 1rem;
+  margin-right: 1rem;
+  border-right: 1px solid var(--hairline-strong);
+  line-height: 1.4;
+}
+.tag:last-child { border-right: 0; }
+
+.extrasSection { padding: 4rem 0; }
+
+@media (max-width: 900px) {
+  .cardsGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 640px) {
-  .card { padding: 1.5rem; border-radius: 12px; }
-  .ctaContent h2 { font-size: clamp(1.5rem, 5vw, 2rem); }
-  .ctaContent p { font-size: 0.95rem; }
-  .timelineStep { gap: 1rem; }
-  .timelineNum { width: 34px; height: 34px; font-size: 0.8rem; }
-
-  .extrasSection { padding: 3rem 0; }
-}
-
-@media (max-width: 480px) {
-  .card { padding: 1.25rem; }
-  .tagsList { gap: 0.375rem; }
+  .cardsGrid { grid-template-columns: 1fr; }
+  .timelineStep { grid-template-columns: 2.5rem minmax(0, 1fr); }
 }

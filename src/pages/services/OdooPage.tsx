@@ -52,14 +52,12 @@ const OdooPage: React.FC = () => {
                 <h2>Pourquoi Odoo ?</h2>
                 <p className="lead">Quatre raisons pour lesquelles nous recommandons Odoo à nos clients africains.</p>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+              <div className={styles.itemGrid}>
                 {whyOdoo.map((item, i) => (
-                  <div key={i} style={{ background: '#ffffff', border: '1px solid rgba(10,22,40,0.07)', borderRadius: 14, padding: '1.75rem', boxShadow: '0 2px 10px rgba(10,22,40,0.05)', borderTop: '3px solid var(--color-accent)' }}>
-                    <div style={{ width: 36, height: 36, background: 'rgba(255,107,44,0.1)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                      <span style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-accent)' }}>{i + 1}</span>
-                    </div>
-                    <h4 style={{ fontSize: '0.975rem', fontWeight: 700, color: 'var(--color-text)', marginBottom: '0.5rem' }}>{item.title}</h4>
-                    <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0, lineHeight: 1.65 }}>{item.desc}</p>
+                  <div key={i} className={styles.item}>
+                    <span className={styles.itemNum}>{String(i + 1).padStart(2, '0')}</span>
+                    <h3 className={styles.itemTitle}>{item.title}</h3>
+                    <p className={styles.itemDesc}>{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -85,14 +83,14 @@ const OdooPage: React.FC = () => {
                   <div key={step.n} className={styles.timelineStep}>
                     <div className={styles.timelineNum}>{step.n}</div>
                     <div className={styles.timelineContent}>
-                      <h4>{step.t}</h4>
+                      <h3>{step.t}</h3>
                       <p>{step.d}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div style={{ marginTop: '3rem', padding: '2rem', background: '#ffffff', borderRadius: 16, border: '1px solid rgba(10,22,40,0.08)' }}>
-                <h3 style={{ marginBottom: '1rem' }}>Spécificités africaines prises en charge</h3>
+              <div className={styles.panel}>
+                <h3 className={styles.panelTitle}>Spécificités africaines prises en charge</h3>
                 <div className={styles.tagsList}>
                   {['Intégration Orange Money / MTN MoMo', 'Connexion Trésor Pay', 'Mode offline partiel', 'Adaptations réglementaires guinéennes', 'Interface en français', 'Devise locale (GNF)', 'Reporting multi-devises', 'TVA et fiscalité locale'].map(t => (
                     <span key={t} className={styles.tag}>{t}</span>

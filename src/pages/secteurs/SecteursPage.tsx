@@ -31,7 +31,7 @@ const SecteursPage: React.FC = () => (
           {secteurs.map((s) => (
             <Link key={s.to} to={s.to} className={styles.card}>
               <div className={styles.icon}>{s.icon}</div>
-              <h3 className={styles.title}>{s.title}</h3>
+              <h2 className={styles.title}>{s.title}</h2>
               <p className={styles.desc}>{s.desc}</p>
               <span className={styles.link}>En savoir plus <ArrowRight size={14} /></span>
             </Link>

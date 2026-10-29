@@ -212,7 +212,7 @@ p { color: var(--text); line-height: 1.65; }
   line-height: 1.05;
   color: var(--ink);
   margin-bottom: 1.5rem;
-  max-width: 20ch;
+  max-width: 24ch;
 }
 .page-hero p {
   color: var(--text);
@@ -240,7 +240,7 @@ p { color: var(--text); line-height: 1.65; }
 
 /* ===== Bande d'appel (pages internes) : claire, filet en haut ===== */
 .cta-band {
-  background: var(--paper-warm);
+  background: var(--paper);
   color: var(--ink);
   padding: clamp(72px, 10vw, 128px) 0;
   border-top: 1px solid var(--hairline);

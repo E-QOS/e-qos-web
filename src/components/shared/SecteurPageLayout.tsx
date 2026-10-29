@@ -11,7 +11,8 @@ interface ServiceLink {
 interface SecteurPageProps {
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
+  /** Conservé pour compatibilité, n'est plus affiché. */
+  icon?: React.ReactNode;
   context: string;
   challenges: string[];
   services: ServiceLink[];
@@ -21,66 +22,64 @@ interface SecteurPageProps {
 const SecteurPageLayout: React.FC<SecteurPageProps> = ({
   title,
   subtitle,
-  icon,
   context,
   challenges,
   services,
   ctaText = 'Discutons de vos enjeux sectoriels. Nos experts vous proposent une première analyse gratuite sous 48h.',
 }) => (
   <div>
-    <section className={`page-hero`}>
+    <section className="page-hero">
       <div className="container">
-        <div className={styles.breadcrumb}>
+        <nav className="breadcrumb" aria-label="Fil d'Ariane">
           <Link to="/">Accueil</Link>
-          <ChevronRight size={13} />
+          <ChevronRight size={12} aria-hidden="true" />
           <Link to="/secteurs">Secteurs</Link>
-          <ChevronRight size={13} />
-          <span>{title}</span>
-        </div>
-        <div className={styles.heroIcon}>{icon}</div>
+          <ChevronRight size={12} aria-hidden="true" />
+          <span aria-current="page">{title}</span>
+        </nav>
         <h1>{title}</h1>
         <p>{subtitle}</p>
       </div>
     </section>
 
-    <section className="section section-alt">
+    <section className="section">
       <div className="container">
         <div className={styles.layout}>
           <div className={styles.main}>
-            <div className={styles.contextCard}>
-              <h2>Contexte du secteur</h2>
-              <p>{context}</p>
+            <div className={styles.block}>
+              <h2 className={styles.blockTitle}>Contexte du secteur</h2>
+              <p className={styles.context}>{context}</p>
             </div>
-            <div className={styles.challengesCard}>
-              <h2>Défis digitaux spécifiques</h2>
-              <ul className={styles.challengesList}>
+            <div className={styles.block}>
+              <h2 className={styles.blockTitle}>Défis digitaux spécifiques</h2>
+              <ol className={styles.challengesList}>
                 {challenges.map((c, i) => (
                   <li key={i} className={styles.challengeItem}>
-                    <span className={styles.challengeDot} />
-                    {c}
+                    <span className={styles.challengeNum} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+                    <span>{c}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </div>
           </div>
           <aside className={styles.aside}>
-            <div className={styles.servicesCard}>
-              <h3>Services EQOS adaptés</h3>
+            <div className={styles.asideBlock}>
+              <h2 className={styles.asideTitle}>Services EQOS adaptés</h2>
               <ul className={styles.servicesList}>
                 {services.map((s, i) => (
                   <li key={i}>
                     <Link to={s.to} className={styles.serviceLink}>
-                      <ArrowRight size={14} />
-                      {s.label}
+                      <span>{s.label}</span>
+                      <ArrowRight size={16} aria-hidden="true" />
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-            <div className={styles.ctaSide}>
-              <h4>Parlons de votre secteur</h4>
-              <p>{ctaText}</p>
-              <Link to="/contact" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }}>
+            <div className={styles.asideBlock}>
+              <h2 className={styles.asideTitle}>Parlons de votre secteur</h2>
+              <p className={styles.asideText}>{ctaText}</p>
+              <Link to="/contact" className="btn btn-primary">
                 Prendre contact
               </Link>
             </div>
