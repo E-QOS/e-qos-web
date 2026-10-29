@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, LogOut, UserCircle, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { signOut } from '../../lib/supabase';
 import styles from './Header.module.css';
 
 const servicesLinks = [
@@ -127,7 +126,10 @@ const Header: React.FC = () => {
 
   const handleSignOut = async () => {
     setUserMenuOpen(false);
-    try { await signOut(); } catch { /* ignore */ }
+    try {
+      const { signOut } = await import('../../lib/supabase');
+      await signOut();
+    } catch { /* ignore */ }
   };
 
   /** Initiales pour l'avatar par défaut */

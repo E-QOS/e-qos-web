@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { AuthModal } from './components/auth/AuthModal';
 import { useReveal } from './hooks/useReveal';
 import './styles/globals.css';
 
@@ -16,10 +15,20 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
-// Global AuthModal — rendered once at root so any component can open it
+// Global AuthModal — rendered once at root so any component can open it.
+// Chargée seulement à la première ouverture pour alléger le bundle initial.
+const AuthModal = lazy(() => import('./components/auth/AuthModal').then(m => ({ default: m.AuthModal })));
+
 const GlobalAuthModal: React.FC = () => {
   const { modalOpen, modalTab, closeModal } = useAuth();
-  return <AuthModal isOpen={modalOpen} initialTab={modalTab} onClose={closeModal} />;
+  const [requested, setRequested] = React.useState(false);
+  React.useEffect(() => { if (modalOpen) setRequested(true); }, [modalOpen]);
+  if (!requested) return null;
+  return (
+    <Suspense fallback={null}>
+      <AuthModal isOpen={modalOpen} initialTab={modalTab} onClose={closeModal} />
+    </Suspense>
+  );
 };
 
 // Layout wrapper
