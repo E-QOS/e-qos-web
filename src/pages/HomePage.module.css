@@ -3,7 +3,12 @@
 .home { background: var(--paper); }
 
 /* ── Rythme ── */
-.section { padding: calc(var(--section-space) / 2) 0; }
+.section {
+  padding: calc(var(--section-space) / 2) 0;
+  /* Rendu différé des sections hors écran : moins de calcul de mise en page au chargement */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
 .sectionTight { padding-top: calc(var(--section-space) / 3); }
 .warm { background: var(--paper-warm); }
 

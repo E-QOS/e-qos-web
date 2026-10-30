@@ -2,6 +2,15 @@ import React, { createContext, useContext, useEffect, useState, useCallback } fr
 import type { User, Session } from '@supabase/supabase-js';
 // Le client Supabase est chargé à la demande pour rester hors du bundle initial
 const loadSupabase = () => import('../lib/supabase').then(m => m.supabase);
+
+/** Vrai si une session est mémorisée (storageKey du client) ou si l'URL revient d'un lien d'authentification. */
+function hasAuthHint(): boolean {
+  try {
+    if (localStorage.getItem('eqos_auth')) return true;
+  } catch { /* stockage indisponible */ }
+  const { hash, search } = window.location;
+  return /access_token|refresh_token|error_description|[?&]code=/.test(hash + search);
+}
 import type { Profile } from '../types/database';
 
 /* ─── Types ─── */
@@ -36,6 +45,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Le client Supabase n'est chargé que s'il peut servir : session existante ou ouverture de la connexion
+  const [listening, setListening] = useState(hasAuthHint);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTab, setModalTab]   = useState<'signin' | 'signup'>('signin');
 
@@ -58,6 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   /* ── Auth listener ── */
   useEffect(() => {
+    if (!listening) { setLoading(false); return; }
     let mounted = true;
 
     // onAuthStateChange must be synchronous — awaiting inside the callback
@@ -104,10 +117,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       clearTimeout(timeout);
       subscription.unsubscribe();
     };
-  }, [fetchProfile]);
+  }, [listening, fetchProfile]);
 
   /* ── Modal helpers ── */
   const openAuthModal = useCallback((tab: 'signin' | 'signup' = 'signin') => {
+    setListening(true);
     setModalTab(tab);
     setModalOpen(true);
   }, []);
