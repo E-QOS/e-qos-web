@@ -1,0 +1,168 @@
+# Rapport final, refonte premium e-qos.com
+
+Branche `redesign/premium`, à partir de `main` (`82b4259`). Projet : `e-qos-web` (Vite, React 19, TypeScript). Aucune dépendance ajoutée, aucun framework nouveau.
+
+## 1. Résumé
+
+- **Système de design** : tokens de la refonte (encre, papier, papier chaud, filets, orange en touches rares), Cormorant Garamond 500/600 pour les titres et Manrope variable pour le texte. Les polices sont auto-hébergées (latin et latin-ext) et préchargées. Plus aucune requête vers Google Fonts. Les anciens noms de variables pointent vers la nouvelle palette, ce qui fait hériter toutes les pages.
+- **Signature** : trait effilé, bulbe et point orange en SVG inline (`SignatureStroke`). Il se trace en 1,2 s sous le titre du hero, puis sert deux fois de séparateur statique. Aucun autre ornement.
+- **En-tête** : logo PNG d'origine (32 px, 40 px au-delà de 1440 px), sous-menus ouverts au survol *et* au clavier, bouton « Nous contacter » en contour noir, filet qui apparaît au défilement. Menu mobile plein écran, avec piège du focus, Échap et retour du focus.
+- **Accueil** : hero, positionnement, liste indexée des 8 services, approche en 4 phases, solutions en lignes éditoriales, secteurs, bande de conviction (seule surface sombre du site), présence, formulaire de contact.
+- **Contact** : formulaire extrait dans `ContactForm`, réutilisé sur l'accueil et sur `/contact`. Champs à filet inférieur, erreurs par champ. L'envoi vers `/api/contact/send` est inchangé.
+- **Pages internes** : en-tête de page clair avec fil d'Ariane. Gabarits Service et Secteur, index Services, Secteurs et Solutions, pages Wali, Wandi, Makiti et À propos refaits sur le même système, avec filets, numéros discrets et serif.
+- **Mouvement** : apparition au défilement (opacité et 12 px, 600 ms, 60 ms entre éléments, une fois) via `IntersectionObserver`, soulignements dessinés en 200 ms, trait du hero. Avec `prefers-reduced-motion`, seules les transitions de couleur restent. Retirés : curseur personnalisé, barre de progression, fond animé, mascotte, compteurs, carrousel automatique.
+- **Performance** : Supabase n'est chargé que si une session existe (ou à l'ouverture de la connexion), la modale d'authentification à sa première ouverture. L'accueil n'importe plus framer-motion et ses sections hors écran sont en `content-visibility: auto`.
+- **Accessibilité** : lien d'évitement, landmarks, fil d'Ariane balisé, hiérarchie de titres corrigée, focus orange 2 px avec décalage, `aria-invalid` et messages d'erreur reliés aux champs.
+
+## 2. Commits
+
+```
+docs(redesign): audit initial, plan et captures de référence
+feat(design): fondations du système (tokens, polices auto-hébergées, typographie, mouvement)
+feat(layout): nouvel en-tête et pied de page
+feat(contact): formulaire extrait dans ContactForm et restylé
+feat(home): nouvelle page d'accueil éditoriale
+feat(pages): pages internes sur le même système
+perf: Supabase et modale d'authentification hors du bundle initial
+fix(a-propos): page À propos sur le nouveau système, accueil chargé sans lazy
+perf: Supabase chargé seulement si une session existe, sections de l'accueil en content-visibility
+docs(redesign): rapport final, captures après, description de PR
+```
+
+## 3. Fichiers modifiés
+
+Nouveaux : `src/styles/fonts.css`, `src/hooks/useReveal.ts`, `src/components/brand/SignatureStroke.tsx` (+ CSS), `src/components/contact/ContactForm.tsx` (+ CSS), `public/fonts/*` (6 woff2 et 2 licences OFL), `public/brand/README.md`, `docs/redesign/*`.
+
+Modifiés : `index.html`, `src/App.tsx`, `src/contexts/AuthContext.tsx`, `src/styles/globals.css`, `src/styles/variables.css`, `src/components/header/*`, `src/components/footer/*`, `src/components/shared/ServicePageLayout.*`, `src/components/shared/SecteurPageLayout.*`, `src/pages/HomePage.*`, `src/pages/ContactPage.*`, `src/pages/AProposPage.*`, `src/pages/services/{ServicesPage.*, OdooPage, ConseilOrganisationnelPage, InterimPage, ManagementConsultingPage, PaiementsLocauxPage, TransformationDigitalePage}.tsx`, `src/pages/secteurs/SecteursPage.*`, `src/pages/solutions/{SolutionPage.module.css, SolutionsPage.module.css, WaliPage, WandiPage, MakitiPage}.tsx`.
+
+Bilan : 48 fichiers, +2 437 / −4 587 lignes (hors docs).
+
+Aucun composant supprimé. N'étant plus importés, ces fichiers peuvent être retirés après validation : `components/home/{NetworkBackground, CounterStat, SectionWrapper, CustomCursor, ScrollProgress}`, `components/mascot/HeroDragonfly`, `components/hero/Hero`, `components/stats/Stats`, ainsi que les `sections/*` non utilisées (déjà mortes avant la refonte).
+
+## 4. Mesures
+
+### Lighthouse 12.2, mobile (4G simulée, CPU ×4), build de production
+
+Mesure appariée : les versions avant (`main`) et après sont servies en même temps et testées en alternance, 3 passages chacune. Valeurs médianes. Détail dans `lighthouse-paired.json`.
+
+| Page | Version | Perf. | Access. | Bonnes prat. | SEO | LCP | CLS | TBT | Poids transféré |
+|---|---|---|---|---|---|---|---|---|---|
+| `/` | avant | 67 | 94 | 100 | 100 | 4,5 s | 0,080 | 301 ms | 363 Kio |
+| `/` | **après** | **91** | **100** | 100 | 100 | **2,1 s** | **0** | 313 ms | **174 Kio** |
+| `/contact` | avant | 83 | 96 | 100 | 100 | 3,4 s | 0,001 | 213 ms | 241 Kio |
+| `/contact` | **après** | **86** | **100** | 100 | 100 | **2,4 s** | **0** | 427 ms | **177 Kio** |
+| `/services/odoo` | avant | 84 | 94 | 100 | 100 | 3,4 s | 0,007 | 201 ms | 243 Kio |
+| `/services/odoo` | **après** | 83 | **100** | 100 | 100 | **2,5 s** | **0** | 498 ms | **183 Kio** |
+
+Scores de performance par passage : accueil 65/67/68 → 91/93/88, contact 83/83/86 → 85/86/90, Odoo 83/84/85 → 83/83/94.
+
+Lecture honnête :
+- Atteints : accessibilité 100 (objectif 95), bonnes pratiques 100, SEO 100, CLS 0 partout (objectif < 0,05), LCP sous 2,5 s sur l'accueil et le contact.
+- **Pas atteint de façon stable** : performance ≥ 90 hors accueil, et LCP de la page Odoo (2,5 s, limite). Le facteur limitant est le TBT, qui varie de 200 à 700 ms d'un passage à l'autre sur cette machine, y compris pour la version `main` inchangée. Il faudrait confirmer sur une machine de mesure stable ou avec PageSpeed Insights une fois la branche déployée en prévisualisation.
+- INP n'est pas mesurable en laboratoire. À suivre sur le terrain (CrUX ou Search Console) après mise en production.
+
+### Budget de poids (gzip, hors polices)
+
+| | Avant | Après |
+|---|---|---|
+| JS du chemin critique de l'accueil | 145,7 + 52,5 = 198 ko | 88,9 ko |
+| CSS initial | 6,7 + 5,0 ko | 6,8 ko |
+| Supabase | inclus ci-dessus | 54,5 ko, chargé seulement si une session existe |
+
+Total initial HTML, CSS et JS : environ 97 ko gzip, sous le budget de 150 ko. Polices : 2 fichiers critiques préchargés (45 ko), 4 autres chargés à la demande selon les glyphes.
+
+### axe-core (WCAG 2.1 A/AA)
+
+Avant : violations `color-contrast` sérieuses sur les 14 contrôles (7 pages × 2 largeurs), de 5 à 19 nœuds. **Après : 0 violation sur les 14 contrôles.**
+
+### Routes et interactions
+
+- 40 routes sur 40 répondent et rendent un `<h1>`, sans erreur JavaScript (`measures-after.json`).
+- Clavier : sous-menus atteignables au Tab, menu mobile avec focus initial sur « Fermer », piège du focus, Échap et retour du focus sur le bouton Menu.
+- Formulaire : envoi vide, 5 champs marqués `aria-invalid` et focus placé sur le premier champ en erreur.
+- Modale de connexion : s'ouvre et charge Supabase à la demande.
+- Apparition au défilement : 38 éléments sur 38 révélés sur l'accueil, 6 sur 6 sur Odoo.
+- Aucun défilement horizontal à 375 px.
+
+### Build et contrôle de types
+
+`npm run build` (`tsc && vite build`) passe sans erreur ni avertissement. L'avertissement de chunk de plus de 500 ko a disparu. Le projet n'a pas de linter configuré (pas de script `lint`), aucun contrôle de lint n'a donc pu être lancé.
+
+### Captures
+
+`docs/redesign/screenshots/before-*.png` et `after-*.png` : 7 pages (accueil, services, Odoo, secteur Mines, solutions, contact, à propos) à 375, 768, 1280 et 1536 px. Les captures avant de l'accueil montrent un grand vide sombre : sur la version d'origine, les sections restaient à opacité 0 tant qu'elles n'avaient pas été défilées.
+
+## 5. Textes modifiés (liste exacte)
+
+### Corrections de ponctuation (tirets cadratins utilisés comme séparateurs)
+
+| Emplacement | Avant | Après |
+|---|---|---|
+| Accueil, sous-titre du hero | « …dans leur transformation numérique — conseil, implémentation, cybersécurité et management. » | « …dans leur transformation numérique : conseil, implémentation, cybersécurité et management. » |
+| Accueil, Wali | « …prestataires vérifiés — livraison, nettoyage, cours particuliers. » | « …prestataires vérifiés : livraison, nettoyage, cours particuliers. » |
+| Contact et accueil, introduction du formulaire | « …une première approche adaptée — gratuitement et sans engagement. » | « …une première approche adaptée, gratuitement et sans engagement. » |
+
+Les autres tirets cadratins du site (34 fichiers de pages, titres `<title>` et Open Graph compris) **n'ont pas été modifiés** : la règle interdit de réécrire les textes existants et de toucher aux balises meta. Voir la question 9.
+
+### Textes retirés de l'affichage (toujours présents dans l'historique git)
+
+- Accueil, hero : chiffres « 8+ Services », « 100% Local », « Guinée Présence ».
+- Accueil : grille de compteurs « 8+ Services proposés », « 20+ Projets livrés », « 3+ Années d'expertise », « 1 Pays — Guinée ».
+- Accueil : section « Ils nous font confiance / Ce que disent nos clients » et ses 3 témoignages (Mamadou Diallo, Fatoumata Bah, Ibrahima Sow). Voir la question 2.
+- En-tête (bureau) : bouton « Réserver un appel » (toujours dans le hero, la bande de conviction et le menu mobile), bouton « S'inscrire » (toujours dans le menu mobile et dans la modale), lien « Contact » (remplacé par le bouton « Nous contacter »).
+- Pages de service et de secteur, À propos, Solutions : icônes décoratives des cartes. Les icônes restent en place dans les fonctionnalités des pages Wali, Wandi et Makiti et dans les cas d'usage de Paiements locaux.
+- À propos : visuels d'illustration des quatre équipes (`equipe-*-bg.jpg`), qui relèvent de la photo d'illustration générique (dont une poignée de mains). Les photos des membres restent.
+
+### Textes ajoutés
+
+| Emplacement | Texte | Source |
+|---|---|---|
+| Accueil, présence | « Présence » et « Guinée · Sénégal · Mali » | `<meta name="description">` |
+| Accueil, titre de la section Présence | « Partenaire digital en Afrique de l'Ouest » | `<title>` |
+| Accueil, section Approche | « Notre approche en 4 phases », 4 étapes et sous-titre | page Transformation digitale |
+| Accueil, kickers | « Notre approche », « Présence », « Contact » | nouveaux libellés de section |
+| Accueil, contact | « Analyse gratuite de vos besoins » et l'introduction | page Contact |
+| En-tête | « Nous contacter », « Menu », « Fermer », « Tous les services », « Tous les secteurs », « Toutes les solutions » | nouveaux |
+| Pied de page | lien « Confidentialité » | route existante `/confidentialite` |
+| Formulaire | « Veuillez indiquer votre nom. », « Veuillez indiquer votre prénom. », « Veuillez indiquer votre adresse email. », « Cette adresse email ne semble pas valide. », « Veuillez choisir l'objet de votre demande. », « Veuillez décrire votre projet. », « * Champs obligatoires » | nouveaux |
+| Accessibilité (lecteurs d'écran) | « Aller au contenu », « Chargement », « (nouvel onglet) », « Fil d'Ariane », « Réseaux sociaux », « Coordonnées » | nouveaux |
+| Libellé d'accessibilité du logo | « E-QOS - Accueil » devient « E-QOS, accueil » | |
+
+### Liens corrigés
+
+- Pied de page « Mentions légales » : `/contact` devient `/mentions-legales`.
+- Réseaux sociaux du pied de page : icônes rondes remplacées par des liens texte (LinkedIn, Facebook, X, Instagram), mêmes URL.
+
+## 6. Hypothèses retenues
+
+1. **Expertises** : le brief cite 5 expertises (ERP, paiements mobiles, cybersécurité, développement web et mobile, IA). Le dépôt n'a de page que pour 8 services, et aucune pour le développement ni pour l'IA. L'accueil liste donc ces 8 services, numérotés de 01 à 08, avec leurs textes et liens existants.
+2. **Titre du hero** : le H1 existant (« Transformez votre organisation. Bâtissez l'avenir digital. ») est conservé, puisqu'un titre existait déjà. « digital. » sert de mot d'accent orange.
+3. **Approche** : seule méthode générale publiée, celle de la page Transformation digitale a été reprise sur l'accueil.
+4. **Réalisations** : aucune donnée réelle dans le dépôt, la section n'est pas affichée.
+5. **Bande de conviction** : construite avec le CTA final existant (« Votre transformation digitale commence ici. »).
+6. **Présence** : les trois pays des métadonnées sont affichés. Seule la Guinée porte des coordonnées (siège à Conakry et email), car ce sont les seules publiées.
+7. **`theme-color`** : `#FFFFFF`, la couleur de l'en-tête.
+8. **framer-motion** reste installé mais n'est plus importé par aucune page active.
+
+## 7. Questions ouvertes
+
+1. **Présence réelle** : le site dit à la fois « Guinée, Sénégal et Mali » (meta, page Secteurs), « 1 Pays — Guinée » (ancien accueil), « Présent en Guinée · Vision Afrique de l'Ouest » (pied de page) et « Afrique de l'Ouest, expansion en cours » (À propos). Quelle formulation est exacte ? Si E-QOS n'est présente qu'en Guinée, il faut corriger la meta description et la section Présence.
+2. **Témoignages** : les trois citations nominatives sont-elles réelles et autorisées ? Si oui, elles peuvent revenir en citations statiques, sans carrousel.
+3. **« Est. 2026 »** (kicker du hero) contredit « 3+ années d'expertise ». Quelle date de création afficher ?
+4. **Affirmations chiffrées non sourcées** encore visibles : « Plus de 100 organisations en Guinée nous font déjà confiance » (À propos), « Rejoignez des milliers d'utilisateurs » (Wali), « testée sur de nombreux projets en Guinée » (Odoo). À confirmer ou à retirer.
+5. **Page Équipe technique** : sa mission parle d'« énergie propre », d'IoT et de « capteurs énergétiques », ce qui ne correspond pas à l'activité d'E-QOS. Ce texte vient-il d'un autre projet ?
+6. **Partenaires technologiques** (À propos : Odoo, Orange, MTN, Wave, Microsoft 365, Google Workspace) : s'agit-il de partenariats formels, ou des outils utilisés ? L'intitulé engage la société.
+7. **Liens morts** : `/services/developpement` et `/services/ia-data`, cités dans plusieurs pages secteur, n'existent pas. Vers quelles pages les rediriger ?
+8. **Liens des stores** (Wali, Wandi, Makiti) : `href="#"`. Les applications sont-elles publiées ?
+9. **Tirets cadratins** dans les textes existants et les balises `<title>` : faut-il les remplacer partout (virgules, deux-points) ? Cela modifie les titres indexés.
+10. **Sitemap** : il n'en existe pas. Faut-il en générer un (`https://e-qos.com/...`, 40 routes) ? Quel est le domaine canonique ?
+11. **Anti-spam** : le formulaire n'a qu'une limitation de débit côté backend. Faut-il ajouter un champ piège (honeypot), qui demande une petite modification du backend ?
+12. **`dist/` versionné** : Netlify reconstruit le site, ce dossier pourrait sortir de git. Il n'a pas été modifié dans cette branche.
+
+## 8. TODO restants
+
+- **Logo vectoriel** officiel (`public/brand/eqos-logo.svg`) et **version pour fond sombre**. Le PNG actuel est utilisé tel quel, sur fonds clairs uniquement. Le trait signature est un dessin d'interprétation, pas le logo.
+- **Photographies réelles** de l'équipe en situation et des projets, en remplacement des visuels d'illustration masqués. Les photos individuelles (jusqu'à 1,5 Mo en PNG ou JPEG) sont à convertir en WebP ou AVIF aux dimensions d'affichage.
+- **Pages pas encore refaites**, qui n'héritent que des polices, des couleurs de base et de l'en-tête et du pied de page : Carrières (panneau de filtres sombre, bandeau en dégradé orange), Ressources et Article, Profil, les 4 pages Équipe (thème sombre complet), Mentions légales et Confidentialité, modale d'authentification, modale de candidature.
+- Retrait des composants devenus inutilisés (liste en section 3), après validation.
+- Mesure Lighthouse sur une prévisualisation Netlify (PageSpeed Insights) pour confirmer les scores de performance hors du bruit de la machine locale.

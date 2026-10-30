@@ -1,0 +1,296 @@
+{
+  "label": "after",
+  "axe": {
+    "home-375": [],
+    "home-1280": [],
+    "services-375": [],
+    "services-1280": [],
+    "service-odoo-375": [],
+    "service-odoo-1280": [],
+    "secteur-mines-375": [],
+    "secteur-mines-1280": [],
+    "solutions-375": [],
+    "solutions-1280": [],
+    "contact-375": [],
+    "contact-1280": [],
+    "a-propos-375": [],
+    "a-propos-1280": []
+  },
+  "lighthouse": {
+    "home": [
+      {
+        "performance": 85,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "LCP": "2.1 s",
+        "CLS": "0",
+        "TBT": "530 ms",
+        "FCP": "1.6 s",
+        "failing": []
+      },
+      {
+        "performance": 86,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "LCP": "2.1 s",
+        "CLS": "0",
+        "TBT": "510 ms",
+        "FCP": "1.6 s",
+        "failing": []
+      }
+    ],
+    "contact": [
+      {
+        "performance": 78,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "LCP": "2.7 s",
+        "CLS": "0",
+        "TBT": "720 ms",
+        "FCP": "1.8 s",
+        "failing": []
+      },
+      {
+        "performance": 88,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "LCP": "2.5 s",
+        "CLS": "0",
+        "TBT": "360 ms",
+        "FCP": "1.7 s",
+        "failing": []
+      }
+    ],
+    "service-odoo": [
+      {
+        "performance": 81,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "LCP": "2.7 s",
+        "CLS": "0",
+        "TBT": "590 ms",
+        "FCP": "1.8 s",
+        "failing": []
+      },
+      {
+        "performance": 82,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100,
+        "LCP": "2.6 s",
+        "CLS": "0",
+        "TBT": "550 ms",
+        "FCP": "1.8 s",
+        "failing": []
+      }
+    ]
+  },
+  "routes": {
+    "/": {
+      "status": 200,
+      "h1": "Transformez votre organisation. Bâtissez l'avenir digital.",
+      "errors": []
+    },
+    "/services": {
+      "status": 200,
+      "h1": "Nos services",
+      "errors": []
+    },
+    "/services/transformation-digitale": {
+      "status": 200,
+      "h1": "Transformation digitale — Du diagnostic à l'impact mesurable",
+      "errors": []
+    },
+    "/services/conseil-organisationnel": {
+      "status": 200,
+      "h1": "Conseil organisationnel — Structurer pour mieux performer",
+      "errors": []
+    },
+    "/services/odoo": {
+      "status": 200,
+      "h1": "Implémentation Odoo — L'ERP open source pensé pour votre croissance",
+      "errors": []
+    },
+    "/services/paiements-locaux": {
+      "status": 200,
+      "h1": "Intégration paiements locaux — Orange Money, MTN MoMo, Wave et Trésor Pay",
+      "errors": []
+    },
+    "/services/cybersecurite": {
+      "status": 200,
+      "h1": "Cybersécurité — Protégez votre organisation à l'ère du tout numérique",
+      "errors": []
+    },
+    "/services/support": {
+      "status": 200,
+      "h1": "Support & Maintenance — Un accompagnement qui dure",
+      "errors": []
+    },
+    "/services/management-consulting": {
+      "status": 200,
+      "h1": "Management & Consulting — L'expertise au service de vos décisions",
+      "errors": []
+    },
+    "/services/interim": {
+      "status": 200,
+      "h1": "Interim Management — Les bons experts, au bon moment",
+      "errors": []
+    },
+    "/services/erp": {
+      "status": 200,
+      "h1": "Implémentation Odoo — L'ERP open source pensé pour votre croissance",
+      "errors": []
+    },
+    "/services/paiements": {
+      "status": 200,
+      "h1": "Intégration paiements locaux — Orange Money, MTN MoMo, Wave et Trésor Pay",
+      "errors": []
+    },
+    "/services/conseil": {
+      "status": 200,
+      "h1": "Conseil organisationnel — Structurer pour mieux performer",
+      "errors": []
+    },
+    "/secteurs": {
+      "status": 200,
+      "h1": "Secteurs d'activité",
+      "errors": []
+    },
+    "/secteurs/mines-ressources": {
+      "status": 200,
+      "h1": "Mines & Ressources naturelles",
+      "errors": []
+    },
+    "/secteurs/telecom": {
+      "status": 200,
+      "h1": "Télécommunications",
+      "errors": []
+    },
+    "/secteurs/banque-finance": {
+      "status": 200,
+      "h1": "Banque, Finance & Microfinance",
+      "errors": []
+    },
+    "/secteurs/sante": {
+      "status": 200,
+      "h1": "Santé",
+      "errors": []
+    },
+    "/secteurs/secteur-public": {
+      "status": 200,
+      "h1": "Secteur public & ONG",
+      "errors": []
+    },
+    "/secteurs/agriculture": {
+      "status": 200,
+      "h1": "Agriculture & Agroalimentaire",
+      "errors": []
+    },
+    "/secteurs/commerce-distribution": {
+      "status": 200,
+      "h1": "Commerce & Distribution",
+      "errors": []
+    },
+    "/secteurs/education": {
+      "status": 200,
+      "h1": "Éducation & Formation",
+      "errors": []
+    },
+    "/solutions": {
+      "status": 200,
+      "h1": "Nos solutions propriétaires",
+      "errors": []
+    },
+    "/solutions/wali": {
+      "status": 200,
+      "h1": "Wali — Les services à domicile, en un tap",
+      "errors": []
+    },
+    "/solutions/wandi": {
+      "status": 200,
+      "h1": "Wandi — La mobilité intelligente pour les villes africaines",
+      "errors": []
+    },
+    "/solutions/makiti": {
+      "status": 200,
+      "h1": "Makiti — La marketplace qui connecte producteurs et consommateurs",
+      "errors": []
+    },
+    "/ressources": {
+      "status": 200,
+      "h1": "Ressources",
+      "errors": []
+    },
+    "/a-propos": {
+      "status": 200,
+      "h1": "À propos d'EQOS",
+      "errors": []
+    },
+    "/contact": {
+      "status": 200,
+      "h1": "Contact",
+      "errors": []
+    },
+    "/carrieres": {
+      "status": 200,
+      "h1": "Construisez l'avenirdigital de la Guinée",
+      "errors": []
+    },
+    "/profil": {
+      "status": 200,
+      "h1": "Transformez votre organisation. Bâtissez l'avenir digital.",
+      "errors": []
+    },
+    "/equipe/direction-generale": {
+      "status": 200,
+      "h1": "Direction Générale",
+      "errors": []
+    },
+    "/equipe/technique": {
+      "status": 200,
+      "h1": "Équipe Technique",
+      "errors": []
+    },
+    "/equipe/marketing": {
+      "status": 200,
+      "h1": "Équipe Marketing",
+      "errors": []
+    },
+    "/equipe/support": {
+      "status": 200,
+      "h1": "Équipe Support",
+      "errors": []
+    },
+    "/mentions-legales": {
+      "status": 200,
+      "h1": "Conditions d'utilisation",
+      "errors": []
+    },
+    "/confidentialite": {
+      "status": 200,
+      "h1": "Politique de confidentialité",
+      "errors": []
+    },
+    "/app/wali": {
+      "status": 200,
+      "h1": "Wali — Les services à domicile, en un tap",
+      "errors": []
+    },
+    "/app/wandi": {
+      "status": 200,
+      "h1": "Wandi — La mobilité intelligente pour les villes africaines",
+      "errors": []
+    },
+    "/app/makiti": {
+      "status": 200,
+      "h1": "Makiti — La marketplace qui connecte producteurs et consommateurs",
+      "errors": []
+    }
+  },
+  "consoleErrors": {}
+}
