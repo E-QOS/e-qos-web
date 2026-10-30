@@ -1,7 +1,7 @@
 // src/sections/teamDetail/management.tsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../styles/management.module.css';
+import styles from '../../styles/teamDetail.module.css';
 
 interface Member {
   id: number;
@@ -91,16 +91,6 @@ const Management: React.FC = () => {
 
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        <div className={styles.heroOverlay}></div>
-        <img 
-          src={team.heroImage} 
-          alt={team.teamName}
-          className={styles.heroImage}
-          onError={(e) => {
-            // Fallback image if hero image fails to load
-            e.currentTarget.src = '/images/teams/default-hero.jpg';
-          }}
-        />
         <div className={styles.heroContent}>
           <div className="container">
             <span className={styles.heroTag}>{team.teamTag}</span>
@@ -135,6 +125,8 @@ const Management: React.FC = () => {
                   <img 
                     src={member.photo} 
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className={styles.memberImage}
                     onError={(e) => {
                       // Fallback for member photos
