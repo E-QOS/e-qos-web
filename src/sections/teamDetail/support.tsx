@@ -165,18 +165,6 @@ const Support: React.FC = () => {
               <p>Interventions techniques sur site dans toute l'Afrique pour installation et maintenance</p>
             </div>
           </div>
-
-          {/* Stats */}
-          <div className={styles.statsGrid}>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>15min</div>
-              <div className={styles.statLabel}>Temps de réponse moyen</div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>12+</div>
-              <div className={styles.statLabel}>Langues supportées</div>
-            </div>
-          </div>
         </div>
       </section>
 
