@@ -11,22 +11,12 @@ import {
   RECRUTEMENT_PATH, heroKicker, heroLead, ctaClient, ctaTalent,
   audiences, method, DEMANDE_PATH, demandeLink, CANDIDATURE_PATH,
 } from '../data/recrutement';
+import { allServices } from '../data/services';
 import styles from './HomePage.module.css';
 import offerStyles from './RecrutementPage.module.css';
 
 const CALENDAR_URL = 'https://calendar.app.google/C7KRgHGHW6gE478s6';
 
-// Services numériques (second plan), textes repris de la version précédente
-const services = [
-  { title: 'Transformation digitale', desc: 'Diagnostic, feuille de route numérique et conduite du changement.', to: '/services/transformation-digitale' },
-  { title: 'Conseil organisationnel', desc: 'Optimisation des processus, restructuration et performance.', to: '/services/conseil-organisationnel' },
-  { title: 'Implémentation Odoo', desc: 'ERP open source de A à Z : paramétrage, intégration, support.', to: '/services/odoo' },
-  { title: 'Paiements locaux', desc: 'Orange Money, MTN MoMo, Wave intégrés à vos systèmes métier.', to: '/services/paiements-locaux' },
-  { title: 'Cybersécurité', desc: 'Audit, protection des SI, gestion des incidents et conformité.', to: '/services/cybersecurite' },
-  { title: 'Support informatique', desc: 'Helpdesk, infogérance et maintenance de vos infrastructures.', to: '/services/support' },
-  { title: 'Management & Consulting', desc: 'Gouvernance, pilotage de projets complexes et performance.', to: '/services/management-consulting' },
-  { title: 'Interim Management', desc: 'DSI, chefs de projet et experts mobilisables rapidement.', to: '/services/interim' },
-];
 
 const countries = ['Guinée', 'Sénégal', 'Mali'];
 
@@ -35,7 +25,7 @@ const pad = (n: number) => String(n).padStart(2, '0');
 const HomePage: React.FC = () => {
   usePageMeta({
     title: 'EQOS Africa, recrutement et intérim pour les grands secteurs de Guinée',
-    description: 'E-QOS constitue les équipes des mines, de l\'énergie, du BTP, de la logistique et des services en Guinée : opérateurs, techniciens, ingénieurs et encadrement. Services numériques : Odoo, paiements mobiles, cybersécurité.',
+    description: 'E-QOS constitue les équipes des mines, de l\'énergie, du BTP, de la logistique et des services en Guinée : opérateurs, techniciens, ingénieurs et encadrement. Conseil et services numériques : transformation digitale, cybersécurité, support informatique.',
   });
 
   return (
@@ -133,21 +123,21 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ════ SERVICES NUMÉRIQUES (second plan) ═══════════════════════════════ */}
+      {/* ════ SERVICES ════════════════════════════════════════════════════════ */}
       <section className={styles.section} aria-labelledby="services-title" id="services">
         <div className="container">
           <header className={`${styles.sectionHead} reveal`}>
-            <span className="kicker">Services numériques</span>
+            <span className="kicker">Services</span>
             <h2 id="services-title">Nos services</h2>
-            <p>Une offre complète couvrant l'ensemble du spectre de la transformation numérique en Guinée et en Afrique de l'Ouest.</p>
+            <p>Recrutement et intérim pour tous les métiers, conseil et services numériques pour les organisations.</p>
           </header>
           <ol className={styles.index}>
-            {services.map((s, i) => (
+            {allServices.map((s, i) => (
               <li key={s.to} className="reveal" style={{ '--i': i } as React.CSSProperties}>
                 <Link to={s.to} className={styles.indexRow}>
                   <span className={styles.indexNum} aria-hidden="true">{pad(i + 1)}</span>
                   <span className={styles.indexTitle}>{s.title}</span>
-                  <span className={styles.indexDesc}>{s.desc}</span>
+                  <span className={styles.indexDesc}>{s.short}</span>
                   <ArrowRight size={20} className={styles.indexArrow} aria-hidden="true" />
                 </Link>
               </li>

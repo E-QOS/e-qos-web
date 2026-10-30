@@ -19,6 +19,12 @@ interface SecteurPageProps {
   ctaText?: string;
 }
 
+// Liens communs à tous les secteurs : l'offre de recrutement
+const recruitmentLinks: ServiceLink[] = [
+  { label: 'Recrutement et intérim', to: '/recrutement-interim' },
+  { label: 'Constituer une équipe', to: '/constituer-une-equipe' },
+];
+
 const SecteurPageLayout: React.FC<SecteurPageProps> = ({
   title,
   subtitle,
@@ -66,7 +72,7 @@ const SecteurPageLayout: React.FC<SecteurPageProps> = ({
             <div className={styles.asideBlock}>
               <h2 className={styles.asideTitle}>Services EQOS adaptés</h2>
               <ul className={styles.servicesList}>
-                {services.map((s, i) => (
+                {[...services, ...recruitmentLinks].map((s, i) => (
                   <li key={i}>
                     <Link to={s.to} className={styles.serviceLink}>
                       <span>{s.label}</span>

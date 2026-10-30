@@ -7,8 +7,6 @@ export const subjects = [
   PROFIL_SUBJECT,
   'Transformation digitale',
   'Conseil organisationnel',
-  'Implémentation Odoo',
-  'Intégration paiements mobiles',
   'Cybersécurité',
   'Support informatique',
   'Management & Consulting',

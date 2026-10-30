@@ -24,8 +24,8 @@ interface TeamDetailData {
 const equipeTechniqueData: TeamDetailData = {
   teamName: 'Équipe Technique',
   teamTag: 'R&D',
-  description: 'Notre équipe de développement conçoit et implémente des solutions énergétiques innovantes qui répondent aux défis du continent africain.',
-  mission: 'Nous développons des technologies de pointe pour démocratiser l\'accès à l\'énergie propre en Afrique. Notre expertise couvre le développement logiciel, l\'IoT, l\'intelligence artificielle et les systèmes embarqués pour créer des solutions durables et scalables.',
+  description: 'Notre équipe technique conçoit, développe et maintient les solutions numériques d\'E-QOS et de ses clients.',
+  mission: 'Nous concevons des logiciels fiables et sécurisés pour les entreprises et institutions guinéennes. Notre expertise couvre le développement web et mobile, les architectures cloud, l\'intégration de systèmes et la cybersécurité.',
   heroImage: '/images/teams/technique-hero.jpg',
   members: [
     
@@ -125,15 +125,6 @@ const Technical: React.FC = () => {
               </ul>
             </div>
             <div className={styles.techCategory}>
-              <h3>IoT & Hardware</h3>
-              <ul>
-                <li>Arduino & Raspberry Pi</li>
-                <li>MQTT Protocol</li>
-                <li>Capteurs énergétiques</li>
-                <li>Edge Computing</li>
-              </ul>
-            </div>
-            <div className={styles.techCategory}>
               <h3>DevOps & Cloud</h3>
               <ul>
                 <li>Docker & Kubernetes</li>
@@ -202,7 +193,7 @@ const Technical: React.FC = () => {
         <div className="container">
           <div className={styles.ctaCard}>
             <h2>Rejoignez Notre Équipe Tech</h2>
-            <p>Vous êtes développeur, designer ou ingénieur passionné ? Construisons ensemble l'avenir de l'énergie en Afrique.</p>
+            <p>Vous êtes développeur, designer ou ingénieur passionné ? Construisons ensemble les outils numériques des entreprises guinéennes.</p>
             <Link to="/contact" className={styles.ctaButton}>
               Postuler maintenant
               <span className={styles.arrow}>→</span>

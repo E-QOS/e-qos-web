@@ -169,10 +169,6 @@ const Support: React.FC = () => {
           {/* Stats */}
           <div className={styles.statsGrid}>
             <div className={styles.statItem}>
-              <div className={styles.statNumber}>98%</div>
-              <div className={styles.statLabel}>Satisfaction Client</div>
-            </div>
-            <div className={styles.statItem}>
               <div className={styles.statNumber}>15min</div>
               <div className={styles.statLabel}>Temps de réponse moyen</div>
             </div>

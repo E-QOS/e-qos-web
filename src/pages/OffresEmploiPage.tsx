@@ -29,7 +29,7 @@ const DOMAINES: JobDomain[] = [
 
 const whyPoints = [
   { title: 'Impact réel en Guinée', desc: "Vos projets touchent des secteurs clés : mines, télécoms, banques, secteur public. Vous voyez concrètement l'impact de votre travail sur l'économie guinéenne." },
-  { title: 'Technologies de pointe', desc: "React, Node.js, Odoo, AWS, cybersécurité : vous travaillez sur des stacks modernes dans un environnement qui valorise la montée en compétences." },
+  { title: 'Technologies de pointe', desc: "React, Node.js, AWS, cybersécurité : vous travaillez sur des stacks modernes dans un environnement qui valorise la montée en compétences." },
   { title: 'Équipe pluridisciplinaire', desc: "Consultants, développeurs, experts métier : une équipe diverse et soudée, avec une culture de partage et d'entraide au quotidien." },
   { title: 'Évolution rapide', desc: "EQOS grandit vite. Les profils engagés ont accès à des responsabilités élargies, des formations certifiantes et une progression accélérée." },
 ];

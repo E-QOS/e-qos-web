@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, DEMANDE_PATH, CANDIDATURE_PATH } from '../../data/recrutement';
+import { serviceGroups } from '../../data/services';
 import styles from './Footer.module.css';
 
 const columns = [
@@ -15,16 +16,10 @@ const columns = [
     ],
   },
   {
-    title: 'Services numériques',
+    title: 'Conseil et numérique',
     links: [
       { to: '/services', label: 'Tous les services' },
-      { to: '/services/transformation-digitale', label: 'Transformation digitale' },
-      { to: '/services/conseil-organisationnel', label: 'Conseil organisationnel' },
-      { to: '/services/odoo', label: 'Implémentation Odoo' },
-      { to: '/services/paiements-locaux', label: 'Paiements locaux' },
-      { to: '/services/cybersecurite', label: 'Cybersécurité' },
-      { to: '/services/support', label: 'Support informatique' },
-      { to: '/services/management-consulting', label: 'Management & Consulting' },
+      ...serviceGroups[1].items.map(sv => ({ to: sv.to, label: sv.title })),
       { to: '/services/interim', label: 'Interim Management' },
     ],
   },

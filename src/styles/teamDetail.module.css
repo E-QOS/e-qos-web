@@ -87,7 +87,7 @@
 /* Chiffres (affichés tels quels, en ligne sobre) */
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--gutter);
   margin-top: 3rem;
   border-top: 1px solid var(--hairline-strong);

@@ -24,8 +24,8 @@ interface TeamDetailData {
 const equipeMarketingData: TeamDetailData = {
   teamName: 'Équipe Marketing',
   teamTag: 'Growth & Brand',
-  description: 'Notre équipe marketing construit des stratégies innovantes pour démocratiser l\'accès à l\'énergie propre et toucher les communautés africaines.',
-  mission: 'Nous développons des campagnes créatives et data-driven pour sensibiliser aux enjeux énergétiques et promouvoir nos solutions innovantes. Notre approche combine storytelling authentique, marketing digital et relations publiques pour créer un impact durable.',
+  description: 'Notre équipe marketing fait connaître E-QOS auprès des entreprises, des institutions et des professionnels de Guinée.',
+  mission: 'Nous construisons la présence de la marque E-QOS et la relation avec nos clients et nos candidats : contenus, marketing digital et relations publiques.',
   heroImage: '/images/teams/marketing-hero.jpg',
   members: [
     {
@@ -223,7 +223,7 @@ const Marketing: React.FC = () => {
         <div className="container">
           <div className={styles.ctaCard}>
             <h2>Rejoignez Notre Équipe Marketing</h2>
-            <p>Vous êtes passionné par le marketing à impact ? Aidez-nous à démocratiser l'accès à l'énergie propre en Afrique.</p>
+            <p>Vous êtes passionné par le marketing ? Aidez-nous à faire connaître E-QOS en Guinée.</p>
             <Link to="/contact" className={styles.ctaButton}>
               Postuler maintenant
               <span className={styles.arrow}>→</span>

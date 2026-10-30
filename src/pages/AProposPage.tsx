@@ -62,7 +62,6 @@ const teams = [
   },
 ];
 
-const partners = ['Odoo', 'Orange (API)', 'MTN (API)', 'Wave', 'Microsoft 365', 'Google Workspace'];
 
 const offices = [
   { city: 'Conakry', country: 'Guinée', note: 'Siège social', color: '#0A1628' },
@@ -85,7 +84,7 @@ const AProposPage: React.FC = () => (
           <div>
             <h2>Notre histoire</h2>
             <p>EQOS est née d'une conviction simple : la technologie peut résoudre les défis réels des organisations africaines, à condition d'être pensée pour leurs réalités locales. Pas de solutions copiées-collées depuis d'autres marchés — mais une approche construite à partir des contraintes et des opportunités propres à l'Afrique de l'Ouest.</p>
-            <p>Fondée à Conakry, EQOS accompagne aujourd'hui des entreprises, des institutions et des gouvernements en Guinée dans leur transformation numérique — de l'implémentation Odoo à l'intégration de paiements mobiles, du conseil organisationnel au renforcement de la cybersécurité — avec une vision d'expansion sur toute l'Afrique de l'Ouest.</p>
+            <p>Fondée à Conakry, EQOS accompagne aujourd'hui des entreprises, des institutions et des gouvernements en Guinée dans leurs recrutements, leurs missions d'intérim et leur transformation numérique, du conseil organisationnel au renforcement de la cybersécurité, avec une vision d'expansion sur toute l'Afrique de l'Ouest.</p>
           </div>
           <div className={styles.missionCard}>
             <div className={styles.missionIcon}><Target size={28} /></div>
@@ -185,23 +184,6 @@ const AProposPage: React.FC = () => (
       </div>
     </section>
 
-    {/* Partenaires technologiques */}
-    <section className="section section-alt">
-      <div className="container">
-        <div className="section-header">
-          <div className="section-line" />
-          <h2>Partenaires technologiques</h2>
-          <p className="lead">Nous travaillons avec les meilleures solutions du marché, adaptées au contexte africain.</p>
-        </div>
-        <div className={styles.partnersGrid}>
-          {partners.map((p) => (
-            <div key={p} className={styles.partnerCard}>
-              <span className={styles.partnerName}>{p}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
 
     {/* CTA */}
     <section className="cta-band">

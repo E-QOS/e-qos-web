@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -52,8 +52,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 const ServicesPage = lazy(() => import('./pages/services/ServicesPage'));
 const TransformationDigitalePage = lazy(() => import('./pages/services/TransformationDigitalePage'));
 const ConseilOrganisationnelPage = lazy(() => import('./pages/services/ConseilOrganisationnelPage'));
-const OdooPage = lazy(() => import('./pages/services/OdooPage'));
-const PaiementsLocauxPage = lazy(() => import('./pages/services/PaiementsLocauxPage'));
 const CybersecuritePage = lazy(() => import('./pages/services/CybersecuritePage'));
 const SupportPage = lazy(() => import('./pages/services/SupportPage'));
 const ManagementConsultingPage = lazy(() => import('./pages/services/ManagementConsultingPage'));
@@ -119,16 +117,16 @@ function App() {
           <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
           <Route path="/services/transformation-digitale" element={<Layout><TransformationDigitalePage /></Layout>} />
           <Route path="/services/conseil-organisationnel" element={<Layout><ConseilOrganisationnelPage /></Layout>} />
-          <Route path="/services/odoo" element={<Layout><OdooPage /></Layout>} />
-          <Route path="/services/paiements-locaux" element={<Layout><PaiementsLocauxPage /></Layout>} />
           <Route path="/services/cybersecurite" element={<Layout><CybersecuritePage /></Layout>} />
           <Route path="/services/support" element={<Layout><SupportPage /></Layout>} />
           <Route path="/services/management-consulting" element={<Layout><ManagementConsultingPage /></Layout>} />
           <Route path="/services/interim" element={<Layout><InterimPage /></Layout>} />
 
           {/* Legacy redirects services */}
-          <Route path="/services/erp" element={<Layout><OdooPage /></Layout>} />
-          <Route path="/services/paiements" element={<Layout><PaiementsLocauxPage /></Layout>} />
+          {/* Services retirés (Odoo, paiements locaux) : redirection vers /services */}
+          {['/services/odoo', '/services/erp', '/services/paiements-locaux', '/services/paiements'].map(p => (
+            <Route key={p} path={p} element={<Navigate to="/services" replace />} />
+          ))}
           <Route path="/services/conseil" element={<Layout><ConseilOrganisationnelPage /></Layout>} />
 
           {/* Secteurs */}

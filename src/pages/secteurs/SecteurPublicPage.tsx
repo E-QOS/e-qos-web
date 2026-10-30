@@ -17,11 +17,6 @@ const SecteurPublicPage: React.FC = () => (
       'Formation des agents publics à de nouveaux outils et processus',
     ]}
     services={[
-      { label: 'ERP public & gestion budgétaire', to: '/services/erp' },
-      { label: 'E-gouvernement & guichets numériques', to: '/services/e-gouvernement' },
-      { label: 'Intégration Trésor Pay & paiements publics', to: '/services/paiements' },
-      { label: 'Interopérabilité des systèmes d\'État', to: '/services/developpement' },
-      { label: 'Formation des agents publics', to: '/services/formation' },
     ]}
   />
 );

@@ -3,18 +3,10 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, LogOut, UserCircle, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL } from '../../data/recrutement';
+import { allServices } from '../../data/services';
 import styles from './Header.module.css';
 
-const servicesLinks = [
-  { to: '/services/transformation-digitale', label: 'Transformation digitale', desc: 'Diagnostic, feuille de route, pilotage' },
-  { to: '/services/conseil-organisationnel', label: 'Conseil organisationnel', desc: 'Processus, structure, performance' },
-  { to: '/services/ERP', label: 'Implémentation ERP', desc: 'ERP open source et commercial, de A à Z' },
-  { to: '/services/paiements-locaux', label: 'Paiements locaux', desc: 'Orange Money, MTN MoMo, Wave' },
-  { to: '/services/cybersecurite', label: 'Cybersécurité', desc: 'Audit, protection, conformité' },
-  { to: '/services/support', label: 'Support informatique', desc: 'Helpdesk, infogérance, maintenance' },
-  { to: '/services/management-consulting', label: 'Management & Consulting', desc: 'Gouvernance, projets complexes' },
-  { to: '/services/interim', label: 'Interim Management', desc: 'DSI, chefs de projet, experts' },
-];
+const servicesLinks = allServices.map(sv => ({ to: sv.to, label: sv.title, desc: sv.short }));
 
 const secteursLinks = [
   { to: '/secteurs/mines-ressources', label: 'Mines & Ressources' },

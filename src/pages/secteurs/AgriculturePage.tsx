@@ -18,9 +18,6 @@ const AgriculturePage: React.FC = () => (
     ]}
     services={[
       { label: 'Makiti — Marketplace agricole', to: '/solutions/makiti' },
-      { label: 'Plateformes de gestion de coopératives', to: '/services/developpement' },
-      { label: 'Applications terrain offline-first', to: '/services/developpement' },
-      { label: 'Paiements agriculteurs via mobile money', to: '/services/paiements' },
       { label: 'Conseil & transformation digitale', to: '/services/conseil' },
     ]}
   />

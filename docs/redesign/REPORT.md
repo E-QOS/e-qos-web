@@ -297,3 +297,17 @@ Tous sont regroupés dans `src/data/recrutement.ts` et `src/data/secteursGuinee.
 - **Page Équipe support** : « Support 24/7 », « 98 % Satisfaction client », « 15 min de temps de réponse moyen ». Ces chiffres sont non sourcés et engagent la société.
 - **`/mentions-legales`** affiche des conditions d'utilisation, pas de mentions légales : raison sociale, RCCM, NIF, siège, directeur de publication et hébergeur manquent.
 - Le bouton « Postuler maintenant » des pages Équipe mène au formulaire de contact. Il pourrait mener à la candidature spontanée.
+
+## 12. Services mis à jour (demande du 30 octobre 2026)
+
+- **Supprimés** : Implémentation Odoo et Paiements locaux (pages, menus, accueil, formulaire, liens des pages Secteurs, métadonnées). Les anciennes adresses `/services/odoo`, `/services/erp`, `/services/paiements-locaux` et `/services/paiements` redirigent vers `/services` : 301 côté Netlify, redirection côté application.
+- **Nouvelle liste de services**, centralisée dans `src/data/services.ts` et utilisée par l'en-tête, le pied de page, l'accueil et `/services` :
+  - Recrutement et intérim : Intérim et renfort d'équipes, Recherche de talents (ouvre le parcours avec le besoin présélectionné), Interim Management.
+  - Conseil et services numériques : Transformation digitale, Conseil organisationnel, Management & Consulting, Cybersécurité, Support informatique.
+- **Pages Secteurs** : tous les liens vers des services supprimés ou inexistants sont retirés (`/services/erp`, `/services/paiements`, `/services/developpement`, `/services/ia-data`, `/services/formation`, `/services/e-gouvernement`). Chaque page Secteur propose désormais « Recrutement et intérim » et « Constituer une équipe ».
+- **À propos** : la phrase d'histoire ne cite plus Odoo ni les paiements mobiles. La section « Partenaires technologiques » (Odoo, Orange, MTN, Wave…) est retirée.
+- **Pages Équipe** :
+  - plus aucune mention d'énergie propre ni d'IoT (description, mission, appel à l'action, catégorie « IoT & Hardware » de la pile technique) ;
+  - « d-eqos » corrigé en « E-QOS » ;
+  - statistique « 98 % Satisfaction client » supprimée.
+- **Restent à valider** : sur la page Support, « 15 min » et « 24/7 » (statistiques et mission « 24h/24 et 7j/7 »). Les descriptions des pages Secteurs parlent encore de besoins numériques (ERP, mobile money), sans lien vers un service.

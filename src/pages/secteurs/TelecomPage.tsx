@@ -17,10 +17,6 @@ const TelecomPage: React.FC = () => (
       'Gestion des partenariats mobile money et integration de super-app (Orange Money, Max it)',
     ]}
     services={[
-      { label: 'Implémentation ERP', to: '/services/erp' },
-      { label: 'Développement CRM sur-mesure', to: '/services/developpement' },
-      { label: 'Portails distributeurs & applications agents', to: '/services/developpement' },
-      { label: 'Data Analytics & tableaux de bord', to: '/services/ia-data' },
       { label: 'Cybersécurité des réseaux', to: '/services/cybersecurite' },
     ]}
   />

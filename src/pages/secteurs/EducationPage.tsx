@@ -17,11 +17,6 @@ const EducationPage: React.FC = () => (
       'Gestion des enseignants et du personnel administratif',
     ]}
     services={[
-      { label: 'LMS & formation à distance', to: '/services/developpement' },
-      { label: 'Logiciel de gestion scolaire', to: '/services/developpement' },
-      { label: 'Portail parents & communication', to: '/services/developpement' },
-      { label: 'Paiement des frais scolaires via mobile money', to: '/services/paiements' },
-      { label: 'Formation des équipes pédagogiques', to: '/services/formation' },
     ]}
   />
 );
