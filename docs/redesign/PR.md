@@ -13,6 +13,7 @@ Le site est la vitrine d'E-QOS auprès de clients, d'institutions et de partenai
 - Formulaire de contact restylé avec validation par champ, envoi inchangé.
 - Pages Services, Secteurs, Solutions, Wali, Wandi, Makiti et À propos alignées sur le même système.
 - Supabase et la modale d'authentification ne sont plus dans le bundle initial.
+- **Réorientation** : le site met en avant la mise en relation et l'intérim dans tous les domaines en Guinée (nouvelle page `/mise-en-relation`, accueil recentré, entrée en tête de navigation). Les services numériques restent accessibles au second plan.
 
 Détail complet, liste exacte des textes modifiés et questions ouvertes : `docs/redesign/REPORT.md`.
 
@@ -46,6 +47,7 @@ Toutes les captures (7 pages × 4 largeurs) : `docs/redesign/screenshots/`.
 3. « Est. 2026 » face à « 3+ années d'expertise ».
 4. Affirmations non sourcées encore visibles (« Plus de 100 organisations… », « des milliers d'utilisateurs »).
 5. Logo SVG et version pour fond sombre à fournir.
+6. Textes de la nouvelle offre (rédigés, à valider) et cadre légal de l'intérim (REPORT.md, section 9).
 
 ## Comment tester
 

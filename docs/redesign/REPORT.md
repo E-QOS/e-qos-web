@@ -166,3 +166,45 @@ Les autres tirets cadratins du site (34 fichiers de pages, titres `<title>` et O
 - **Pages pas encore refaites**, qui n'héritent que des polices, des couleurs de base et de l'en-tête et du pied de page : Carrières (panneau de filtres sombre, bandeau en dégradé orange), Ressources et Article, Profil, les 4 pages Équipe (thème sombre complet), Mentions légales et Confidentialité, modale d'authentification, modale de candidature.
 - Retrait des composants devenus inutilisés (liste en section 3), après validation.
 - Mesure Lighthouse sur une prévisualisation Netlify (PageSpeed Insights) pour confirmer les scores de performance hors du bruit de la machine locale.
+
+## 9. Réorientation : mise en relation et intérim (demande du 30 octobre 2026)
+
+Consigne reçue : orienter le site vers **la mise en relation et l'intérim dans tous les domaines en Guinée, pas uniquement le numérique**. Arbitrages validés :
+- services numériques gardés au second plan, pages et URL conservées ;
+- offre E-QOS distincte de Wali ;
+- textes rédigés par Claude, à valider par E-QOS.
+
+### Ce qui change
+- **Nouvelle route `/mise-en-relation`** (41 routes au total) : deux publics (entreprises et institutions, professionnels), déroulé en 4 étapes, domaines d'activité, lien vers l'Interim Management (dirigeants et experts de transition) et appel à l'action.
+- **Accueil** : hero, offre, « Comment ça marche » et domaines passent en tête. Viennent ensuite le positionnement, les 8 services numériques (kicker « Services numériques »), les solutions, la bande de conviction, la présence et le contact. Les sections « Approche en 4 phases » (transformation digitale) et « Secteurs d'activité » sont retirées de l'accueil, mais restent sur leurs pages.
+- **Navigation** : « Mise en relation & intérim » en premier lien de l'en-tête et du menu mobile, colonne « Mise en relation » dans le pied de page.
+- **Formulaire** : deux nouveaux objets, présélectionnés selon le bouton cliqué (`/contact?objet=…`). L'objet « je recherche un profil » est présélectionné sur l'accueil.
+- **Emplacements TODO** (composant `Todo`, visible uniquement avec `npm start`) : cadre contractuel et tarifs, délais de présentation des profils, liste des métiers couverts.
+
+### Textes nouveaux (rédigés, à valider)
+
+Source unique : `src/data/miseEnRelation.ts`.
+
+| Emplacement | Texte |
+|---|---|
+| H1 de l'accueil et de `/mise-en-relation` | « Mise en relation et intérim, dans tous les domaines » (« domaines. » en accent sur l'accueil) |
+| Texte d'appui | « E-QOS met en relation les entreprises et les institutions de Guinée avec des professionnels qualifiés, pour des missions d'intérim ou des besoins ponctuels, dans tous les secteurs d'activité. » |
+| Boutons | « Exprimer un besoin », « Proposer mon profil », « Voir les offres » |
+| Section offre (accueil) | « Le bon profil, pour chaque mission » ; « Nous travaillons avec les deux côtés : les organisations qui recrutent pour une mission, et les professionnels qui cherchent la suivante. » |
+| Entreprises | « Vous avez un poste à pourvoir pour une durée déterminée, un pic d'activité ou une absence à remplacer. Vous nous décrivez le besoin, nous vous présentons des profils qui y répondent. » Points : « Missions d'intérim », « Renfort ponctuel », « Remplacement d'un collaborateur absent » |
+| Professionnels | « Vous cherchez des missions dans votre métier, quel qu'il soit. Vous nous transmettez votre profil, nous vous proposons les missions qui vous correspondent. » Points : « Missions dans tous les métiers », « Profils qualifiés ou expérimentés », « Partout en Guinée » |
+| Étapes | Votre besoin, La sélection, La rencontre, Le suivi (une phrase chacune) |
+| Domaines | « Tous les domaines d'activité » ; « Notre réseau ne se limite pas au numérique. Quelques exemples de secteurs : » suivi des 8 secteurs déjà présents sur le site |
+| Bande de conviction | « Trouvons ensemble le bon profil. » ; « Décrivez votre besoin. Notre équipe vous répond sous 48h. » |
+| Contact (accueil) | « Exprimez votre besoin » ; « Décrivez le poste, les compétences recherchées, le lieu et la durée de la mission. Pour un projet numérique ou toute autre demande, choisissez l'objet correspondant. » |
+| Pied de page | Accroche « Mise en relation, intérim et services numériques en Guinée » (remplace « Votre partenaire de transformation digitale en Guinée ») ; « Un poste à pourvoir en Guinée ? » (remplace « Besoin d'un accompagnement digital en Guinée ? ») ; titre de colonne « Services numériques » (remplace « Services ») |
+| Métadonnées par défaut (`index.html`) | Titre et `og:title` : « E-QOS, mise en relation, intérim et services numériques en Guinée ». Description et `og:description` réécrites autour de l'offre ; la mention « Présent en Guinée, Sénégal et Mali » est conservée dans la description |
+
+Retirés de l'accueil (toujours dans l'historique git) : l'ancien H1 « Transformez votre organisation. Bâtissez l'avenir digital. », le titre « Votre transformation digitale commence ici. », l'introduction « Analyse gratuite de vos besoins » et le CTA « Découvrir nos services » du hero.
+
+### Questions ouvertes liées à la réorientation
+13. **Cadre légal de l'intérim** : en Guinée, l'activité de travail temporaire peut exiger un statut ou un agrément spécifique, et le contrat de mise à disposition doit désigner l'employeur. Le site parle de « missions d'intérim » : E-QOS dispose-t-elle de ce cadre ? Sinon, faut-il parler uniquement de « mise en relation » ?
+14. **« Partout en Guinée »** et **« Notre équipe vous répond sous 48h »** : ces engagements sont-ils tenables ?
+15. **Métiers couverts** : la liste actuelle reprend les 8 secteurs du site. Quels métiers citer (BTP, logistique, hôtellerie, administratif…) ?
+16. **Présence** : l'offre est présentée pour la Guinée, mais la ligne « Guinée · Sénégal · Mali » et la section Présence sont maintenues en attendant la réponse à la question 1.
+17. **Côté professionnels** : « Proposer mon profil » mène au formulaire de contact. Faut-il plutôt l'envoyer vers la candidature spontanée de `/carrieres` ? La page Carrières est titrée « Construisez l'avenir digital de la Guinée », ce qui ne correspond plus à l'offre.
