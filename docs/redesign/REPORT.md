@@ -311,3 +311,14 @@ Tous sont regroupés dans `src/data/recrutement.ts` et `src/data/secteursGuinee.
   - « d-eqos » corrigé en « E-QOS » ;
   - statistique « 98 % Satisfaction client » supprimée.
 - **Restent à valider** : sur la page Support, « 15 min » et « 24/7 » (statistiques et mission « 24h/24 et 7j/7 »). Les descriptions des pages Secteurs parlent encore de besoins numériques (ERP, mobile money), sans lien vers un service.
+
+## 13. Page À propos mise à jour
+
+- **En-tête** : « Des équipes et des outils pour les organisations de Guinée ». Les deux métiers d'E-QOS sont présentés dès l'introduction.
+- **Histoire et mission** réécrites selon le nouveau positionnement : compétences, recrutement et intérim, conseil et numérique.
+- **Nouvelle section « Deux métiers, un même engagement »**, construite à partir de `src/data/services.ts`, avec un lien vers chaque service.
+- **Nouvelle section « Notre terrain »** : trois faits vérifiés et sourcés (bauxite, Simandou, agriculture et emploi).
+- **Valeurs** : tirets cadratins retirés, formulations élargies au-delà du numérique.
+- **Équipe** : descriptions mises à jour. Les visuels d'illustration ne sont plus chargés du tout, ils étaient seulement masqués. Le chemin de la photo d'Ayouba FOFANA est corrigé (`ayouba.jpg` n'existait pas, le fichier est `ayouba.png`, 1,5 Mo, à compresser).
+- **Appel à l'action** : l'affirmation non sourcée « Plus de 100 organisations en Guinée nous font déjà confiance » est retirée. Elle est remplacée par « Travaillons ensemble », avec les boutons « Constituer une équipe » et « Nous écrire ».
+- **Métadonnées** : titre et description ajoutés. La page n'en avait pas.

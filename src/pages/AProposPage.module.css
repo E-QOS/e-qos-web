@@ -132,3 +132,51 @@
   .valuesGrid, .teamGroupGrid, .officesGrid { grid-template-columns: 1fr; }
   .partnersGrid { grid-template-columns: 1fr 1fr; }
 }
+
+/* Deux métiers */
+.trades {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--gutter);
+  row-gap: 3rem;
+}
+.trade { padding-top: 1.25rem; border-top: 1px solid var(--ink); }
+.tradeNum { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; color: var(--orange-deep); margin-bottom: 1.25rem; }
+.tradeTitle { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.1; margin-bottom: 0.75rem; }
+.tradeIntro { color: var(--text); margin-bottom: 1.5rem; max-width: 46ch; }
+.tradeList { border-top: 1px solid var(--hairline-strong); }
+.tradeList li { border-bottom: 1px solid var(--hairline-strong); }
+.tradeLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 0;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.tradeLink svg { flex-shrink: 0; transition: color 0.2s var(--ease), transform 0.2s var(--ease); }
+.tradeLink:hover svg, .tradeLink:focus-visible svg { color: var(--orange); transform: translateX(4px); }
+
+/* Notre terrain */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 2.5rem;
+}
+.factItem { padding-top: 1.25rem; border-top: 1px solid var(--ink); }
+.factText {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+.factSource { font-size: 0.8125rem; color: var(--muted); }
+
+.ctaRow { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2.25rem; }
+
+@media (max-width: 900px) {
+  .trades, .facts { grid-template-columns: 1fr; }
+}
