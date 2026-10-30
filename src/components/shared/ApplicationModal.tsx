@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { X, Upload, CheckCircle, Loader2, Send } from 'lucide-react';
 import { submitApplication } from '../../lib/supabase';
 import type { Job } from '../../types/database';
+import { sectors } from '../../data/secteursGuinee';
 import styles from './ApplicationModal.module.css';
 
 interface Props {
@@ -14,6 +15,8 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
   const [email, setEmail]       = useState('');
   const [phone, setPhone]       = useState('');
   const [message, setMessage]   = useState('');
+  const [sector, setSector]     = useState('');
+  const [trade, setTrade]       = useState('');
   const [cvFile, setCvFile]     = useState<File | null>(null);
   const [loading, setLoading]   = useState(false);
   const [success, setSuccess]   = useState(false);
@@ -70,6 +73,8 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
           email: email.trim().toLowerCase(),
           phone: phone.trim() || undefined,
           message: message.trim() || undefined,
+          sector: sector || undefined,
+          trade: trade.trim() || undefined,
         },
         cvFile ?? undefined,
       );
@@ -160,6 +165,32 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
+
+              {!job && (
+                <div className={styles.row}>
+                  <div className={styles.field}>
+                    <label htmlFor="app-sector">Secteur visé</label>
+                    <select id="app-sector" value={sector} onChange={(e) => setSector(e.target.value)}>
+                      <option value="">Tous secteurs</option>
+                      {sectors.map(s => <option key={s.key} value={s.name}>{s.name}</option>)}
+                    </select>
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="app-trade">Métier</label>
+                    <input
+                      id="app-trade"
+                      type="text"
+                      list="app-trades"
+                      placeholder="Ex. : Électromécanicien"
+                      value={trade}
+                      onChange={(e) => setTrade(e.target.value)}
+                    />
+                    <datalist id="app-trades">
+                      {(sectors.find(s => s.name === sector)?.profiles ?? sectors.flatMap(s => s.profiles)).map(p => <option key={p} value={p} />)}
+                    </datalist>
+                  </div>
+                </div>
+              )}
 
               <div className={styles.field}>
                 <label htmlFor="app-message">Message de motivation</label>

@@ -129,6 +129,13 @@ export async function fetchJobs() {
   return data ?? [];
 }
 
+/** Enregistre une demande d'équipe. Insertion seule : la RLS n'autorise pas la relecture publique. */
+export async function submitTeamRequest(request: import('../types/database').TeamRequestInsert) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { error } = await (supabase as any).from('team_requests').insert(request);
+  if (error) throw error;
+}
+
 export async function submitApplication(
   application: import('../types/database').JobApplicationInsert,
   cvFile?: File,
@@ -142,6 +149,8 @@ export async function submitApplication(
   };
   if (application.phone)   payload['phone']   = application.phone;
   if (application.message) payload['message'] = application.message;
+  if (application.sector)  payload['sector']  = application.sector;
+  if (application.trade)   payload['trade']   = application.trade;
 
   let cvPath: string | null = null;
 
@@ -156,9 +165,17 @@ export async function submitApplication(
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { error } = await (supabase as any)
+  let { error } = await (supabase as any)
     .from('job_applications')
     .insert(payload);
+
+  // Migration 003 pas encore appliquée (colonnes sector/trade absentes) : on réessaie sans elles
+  if (error && ('sector' in payload || 'trade' in payload) && /sector|trade|column/i.test(error.message ?? '')) {
+    delete payload['sector'];
+    delete payload['trade'];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    ({ error } = await (supabase as any).from('job_applications').insert(payload));
+  }
 
   if (error) {
     if (cvPath) {

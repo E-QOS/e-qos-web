@@ -246,24 +246,59 @@ const ConstituerEquipePage: React.FC = () => {
     if (e.length) return;
 
     const ref = makeReference();
+    const n = totalPeople(d.roles);
     setStatus('sending');
+
+    // 1. Enregistrement en base (console admin, rubrique Demandes d'équipe)
+    let stored = false;
     try {
-      const n = totalPeople(d.roles);
-      const res = await fetch('/api/contact/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: d.name.trim(),
-          email: d.email.trim(),
-          subject: `Demande d'équipe ${ref} : ${needLabel(d.need)}, ${sectorName(d.sector)}, ${n} personne${n > 1 ? 's' : ''}`.slice(0, 200),
-          message: buildDossier(d, ref).slice(0, 5000),
-        }),
+      const { submitTeamRequest } = await import('../lib/supabase');
+      await submitTeamRequest({
+        reference: ref,
+        need: d.need as NeedKey,
+        sector: sectorName(d.sector),
+        roles: d.roles,
+        headcount: n,
+        level: d.level || null,
+        site: d.site.trim(),
+        start_window: d.start,
+        duration: d.duration,
+        details: d.details.trim() || null,
+        company: d.company.trim(),
+        contact_name: d.name.trim(),
+        contact_title: d.jobTitle.trim() || null,
+        email: d.email.trim().toLowerCase(),
+        phone: d.phone.trim(),
       });
-      if (!res.ok) throw new Error(String(res.status));
+      stored = true;
+    } catch { /* l'email aux agents reste la trace de la demande */ }
+
+    // 2. Email aux agents et accusé de réception au client
+    const post = (url: string, body: unknown) =>
+      fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+        .then(r => r.ok)
+        .catch(() => false);
+
+    let notified = await post('/api/team-requests/notify', {
+      reference: ref, need: d.need, sector: sectorName(d.sector), roles: d.roles, level: d.level,
+      site: d.site, start: d.start, duration: d.duration, details: d.details,
+      company: d.company, name: d.name, jobTitle: d.jobTitle, email: d.email, phone: d.phone, stored,
+    });
+    // Repli sur le relais de contact (backend pas encore mis à jour, par exemple)
+    if (!notified) {
+      notified = await post('/api/contact/send', {
+        name: d.name.trim(),
+        email: d.email.trim(),
+        subject: `Demande d'équipe ${ref} : ${needLabel(d.need)}, ${sectorName(d.sector)}, ${n} personne${n > 1 ? 's' : ''}`.slice(0, 200),
+        message: buildDossier(d, ref).slice(0, 5000),
+      });
+    }
+
+    if (stored || notified) {
       setReference(ref);
       setStatus('sent');
       saveDraft(null);
-    } catch {
+    } else {
       setStatus('error');
     }
   };

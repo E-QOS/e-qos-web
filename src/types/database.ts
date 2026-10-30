@@ -5,10 +5,14 @@ export type UserRole = 'user' | 'editor' | 'admin';
 export type ArticleStatus = 'draft' | 'published' | 'archived';
 export type ContractType = 'CDI' | 'CDD' | 'Stage' | 'Alternance' | 'Interim' | 'Consultance';
 export type JobDomain =
+  | 'Mines & Carrières'
+  | 'Énergie'
+  | 'BTP & Infrastructures'
+  | 'Ports, Transport & Logistique'
+  | 'Agriculture & Agro-industrie'
+  | 'Banque, Télécoms & Services'
   | 'Tech & Dev'
-  | 'Conseil & ERP'
   | 'Cybersécurité'
-  | 'Paiements & Fintech'
   | 'Management & Conseil'
   | 'Marketing & Business'
   | 'Support & Qualité';
@@ -100,6 +104,8 @@ export interface JobApplication {
   phone: string | null;
   message: string | null;
   cv_url: string | null;
+  sector: string | null;
+  trade: string | null;
   status: ApplicationStatus;
   created_at: string;
 }
@@ -112,6 +118,28 @@ export interface JobApplicationInsert {
   phone?: string;
   message?: string;
   cv_url?: string;
+  /** Candidature spontanée : secteur et métier visés (viviers). */
+  sector?: string;
+  trade?: string;
+}
+
+/** Demande « Constituer une équipe » (table team_requests). */
+export interface TeamRequestInsert {
+  reference: string;
+  need: 'renfort' | 'interim' | 'talent';
+  sector: string;
+  roles: { title: string; count: number }[];
+  headcount: number;
+  level?: string | null;
+  site: string;
+  start_window: string;
+  duration: string;
+  details?: string | null;
+  company: string;
+  contact_name: string;
+  contact_title?: string | null;
+  email: string;
+  phone: string;
 }
 
 /* ─── Insert / Update payloads ─── */

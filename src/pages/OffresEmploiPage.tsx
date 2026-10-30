@@ -23,8 +23,9 @@ const contratLabel: Record<ContractType, string> = {
 const CONTRATS: ContractType[] = ['CDI', 'CDD', 'Stage', 'Alternance', 'Interim', 'Consultance'];
 const LIEUX: JobLocation[] = ['Conakry', 'Remote'];
 const DOMAINES: JobDomain[] = [
-  'Tech & Dev', 'Conseil & ERP', 'Cybersécurité', 'Paiements & Fintech',
-  'Management & Conseil', 'Marketing & Business', 'Support & Qualité',
+  'Mines & Carrières', 'Énergie', 'BTP & Infrastructures', 'Ports, Transport & Logistique',
+  'Agriculture & Agro-industrie', 'Banque, Télécoms & Services',
+  'Tech & Dev', 'Cybersécurité', 'Management & Conseil', 'Marketing & Business', 'Support & Qualité',
 ];
 
 const whyPoints = [
