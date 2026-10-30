@@ -225,10 +225,12 @@ const ProfilPage: React.FC = () => {
             <button
               className={styles.avatarEditBtn}
               onClick={() => avatarRef.current?.click()}
+              type="button"
               title="Changer la photo"
+              aria-label="Changer la photo de profil"
               disabled={avatarUploading}
             >
-              <Camera size={14} />
+              <Camera size={14} aria-hidden="true" />
             </button>
             <input
               ref={avatarRef}
