@@ -1,16 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { MISE_EN_RELATION_PATH, contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT } from '../../data/miseEnRelation';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT } from '../../data/recrutement';
 import styles from './Footer.module.css';
 
 const columns = [
   {
-    title: 'Mise en relation',
+    title: 'Recrutement',
     links: [
-      { to: MISE_EN_RELATION_PATH, label: 'Mise en relation & intérim' },
-      { to: contactLink(BESOIN_SUBJECT), label: 'Exprimer un besoin' },
-      { to: contactLink(PROFIL_SUBJECT), label: 'Proposer mon profil' },
+      { to: RECRUTEMENT_PATH, label: RECRUTEMENT_LABEL },
+      { to: contactLink(BESOIN_SUBJECT), label: 'Constituer une équipe' },
+      { to: contactLink(PROFIL_SUBJECT), label: 'Rejoindre nos viviers' },
       { to: '/carrieres', label: 'Offres' },
     ],
   },
@@ -82,7 +82,7 @@ const Footer: React.FC = () => (
           <Link to="/" className={styles.logo} aria-label="E-QOS, accueil">
             <img src="/images/e-qos-pruducts/eqos_logo.png" alt="E-QOS" width={1264} height={627} loading="lazy" />
           </Link>
-          <p className={styles.tagline}>Mise en relation, intérim et services numériques en Guinée</p>
+          <p className={styles.tagline}>Recrutement, intérim et services numériques en Guinée</p>
           <address className={styles.address}>
             <span>Conakry, Guinée (siège)</span>
             <a href="mailto:contact.eqos@gmail.com" className="text-link">contact.eqos@gmail.com</a>
@@ -109,7 +109,7 @@ const Footer: React.FC = () => (
       <div className={styles.cta}>
         <p className={styles.ctaText}>Un poste à pourvoir en Guinée ?</p>
         <Link to={contactLink(BESOIN_SUBJECT)} className="arrow-link">
-          Exprimer un besoin <ArrowRight size={16} aria-hidden="true" />
+          Constituer une équipe <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
 

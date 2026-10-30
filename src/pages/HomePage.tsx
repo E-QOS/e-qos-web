@@ -4,17 +4,19 @@ import { ArrowRight } from 'lucide-react';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { SignatureStroke } from '../components/brand/SignatureStroke';
 import { ContactForm } from '../components/contact/ContactForm';
+import { HeroReel } from '../components/media/HeroReel';
+import { SectorShowcase } from '../components/media/SectorShowcase';
+import { sectors } from '../data/secteursGuinee';
 import {
-  MISE_EN_RELATION_PATH, offerIntro, audiences, steps, domains,
-  contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT,
-} from '../data/miseEnRelation';
+  RECRUTEMENT_PATH, heroKicker, heroLead, ctaClient, ctaTalent,
+  audiences, method, contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT,
+} from '../data/recrutement';
 import styles from './HomePage.module.css';
-import offerStyles from './MiseEnRelationPage.module.css';
+import offerStyles from './RecrutementPage.module.css';
 
 const CALENDAR_URL = 'https://calendar.app.google/C7KRgHGHW6gE478s6';
 
-// ─── Contenus (repris de la version précédente de la page) ───────────────────
-
+// Services numériques (second plan), textes repris de la version précédente
 const services = [
   { title: 'Transformation digitale', desc: 'Diagnostic, feuille de route numérique et conduite du changement.', to: '/services/transformation-digitale' },
   { title: 'Conseil organisationnel', desc: 'Optimisation des processus, restructuration et performance.', to: '/services/conseil-organisationnel' },
@@ -26,83 +28,55 @@ const services = [
   { title: 'Interim Management', desc: 'DSI, chefs de projet et experts mobilisables rapidement.', to: '/services/interim' },
 ];
 
-const whyPoints = [
-  'Experts locaux basés à Conakry',
-  'Approche sur-mesure par secteur d\'activité',
-  'Partenaire long terme, pas juste un prestataire',
-];
-
-const solutions = [
-  {
-    name: 'Wali',
-    tag: 'Services à la demande',
-    desc: 'Plateforme de mise en relation de prestataires vérifiés : livraison, nettoyage, cours particuliers. Paiement mobile intégré, géolocalisation et notation en temps réel.',
-    to: '/solutions/wali',
-  },
-  {
-    name: 'Wandi',
-    tag: 'Mobilité urbaine',
-    desc: 'Réservation de transport, gestion de flotte et mobilité intelligente pour particuliers et entreprises. Suivi de trajets en temps réel.',
-    to: '/solutions/wandi',
-  },
-  {
-    name: 'Makiti',
-    tag: 'Marketplace agricole',
-    desc: 'Connexion directe entre producteurs ruraux et consommateurs urbains. Catalogue, commande, paiement mobile et livraison tracée sans intermédiaires.',
-    to: '/solutions/makiti',
-  },
-];
-
 const countries = ['Guinée', 'Sénégal', 'Mali'];
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
-// ─── Page ─────────────────────────────────────────────────────────────────────
-
 const HomePage: React.FC = () => {
   usePageMeta({
-    title: 'EQOS Africa, mise en relation, intérim et services numériques en Guinée',
-    description: 'E-QOS met en relation les entreprises et institutions de Guinée avec des professionnels qualifiés, pour des missions d\'intérim dans tous les secteurs. Services numériques : Odoo, paiements mobiles, cybersécurité, conseil.',
+    title: 'EQOS Africa, recrutement et intérim pour les grands secteurs de Guinée',
+    description: 'E-QOS constitue les équipes des mines, de l\'énergie, du BTP, de la logistique et des services en Guinée : opérateurs, techniciens, ingénieurs et encadrement. Services numériques : Odoo, paiements mobiles, cybersécurité.',
   });
 
   return (
     <div className={styles.home}>
 
-      {/* ════ HERO ════════════════════════════════════════════════════════════ */}
-      <section className={styles.hero} aria-labelledby="hero-title">
+      {/* ════ HERO VIDÉO ══════════════════════════════════════════════════════ */}
+      <HeroReel sectors={sectors}>
+        <span className={styles.heroKicker}>{heroKicker}</span>
+        <h1 id="hero-title" className={styles.heroTitle}>
+          Les équipes qui font avancer les grands projets de <span className={styles.accent}>Guinée.</span>
+        </h1>
+        <SignatureStroke variant="draw" className={styles.heroStroke} />
+        <p className={styles.heroSub}>{heroLead}</p>
+        <div className={styles.heroCtas}>
+          <Link to={contactLink(BESOIN_SUBJECT)} className={styles.heroBtn}>{ctaClient}</Link>
+          <Link to={contactLink(PROFIL_SUBJECT)} className={styles.heroLink}>
+            {ctaTalent} <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+      </HeroReel>
+
+      {/* ════ SECTEURS ════════════════════════════════════════════════════════ */}
+      <section className={styles.section} aria-labelledby="secteurs-title">
         <div className="container">
-          <span className="kicker">Conakry, Guinée · Est. 2026</span>
-          <h1 id="hero-title" className={styles.heroTitle}>
-            Mise en relation et intérim, dans tous les <span className={styles.accent}>domaines.</span>
-          </h1>
-          <SignatureStroke variant="draw" className={styles.heroStroke} />
-          <p className={styles.heroSub}>{offerIntro}</p>
-          <div className={styles.heroCtas}>
-            <Link to={contactLink(BESOIN_SUBJECT)} className="btn btn-primary">
-              Exprimer un besoin
-            </Link>
-            <Link to={contactLink(PROFIL_SUBJECT)} className="arrow-link">
-              Proposer mon profil <ArrowRight size={16} aria-hidden="true" />
-            </Link>
-          </div>
-          <p className={styles.presenceLine}>
-            <span className={styles.presenceLabel}>Présence</span>
-            {countries.join(' · ')}
-          </p>
+          <header className={`${styles.sectionHead} reveal`}>
+            <span className="kicker">Secteurs</span>
+            <h2 id="secteurs-title">Au cœur de l'économie guinéenne</h2>
+            <p>Mines, énergie, infrastructures, logistique, agriculture et services : les secteurs qui portent la croissance du pays, et les métiers qui les font tourner.</p>
+          </header>
+          <SectorShowcase sectors={sectors} />
         </div>
       </section>
 
-      {/* ════ OFFRE : MISE EN RELATION ET INTÉRIM ═══════════════════════════ */}
-      <section className={styles.section} aria-labelledby="offre-title">
+      {/* ════ DEUX PUBLICS ════════════════════════════════════════════════════ */}
+      <section className={`${styles.section} ${styles.warm}`} aria-labelledby="publics-title">
         <div className="container">
-          <header className={`${styles.sectionHead} reveal`}>
-            <span className="kicker">Mise en relation et intérim</span>
-            <h2 id="offre-title">Le bon profil, pour chaque mission</h2>
-            <p>Nous travaillons avec les deux côtés : les organisations qui recrutent pour une mission, et les professionnels qui cherchent la suivante.</p>
-          </header>
+          <h2 id="publics-title" className="sr-only">Entreprises et professionnels</h2>
           <ul className={offerStyles.audiences}>
             {audiences.map((a, i) => (
               <li key={a.key} className={`${offerStyles.audience} reveal`} style={{ '--i': i } as React.CSSProperties}>
+                <span className="kicker">{a.kicker}</span>
                 <h3 className={offerStyles.audienceTitle}>{a.title}</h3>
                 <p className={offerStyles.audienceDesc}>{a.desc}</p>
                 <ul className={offerStyles.points}>
@@ -117,15 +91,15 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* ════ COMMENT ÇA MARCHE ═══════════════════════════════════════════════ */}
-      <section className={`${styles.section} ${styles.warm}`} aria-labelledby="etapes-title">
+      {/* ════ MÉTHODE ═════════════════════════════════════════════════════════ */}
+      <section className={styles.section} aria-labelledby="methode-title">
         <div className="container">
           <header className={`${styles.sectionHead} reveal`}>
-            <span className="kicker">Comment ça marche</span>
-            <h2 id="etapes-title">Une mission en quatre étapes</h2>
+            <span className="kicker">Méthode</span>
+            <h2 id="methode-title">Du cadrage à la mobilisation sur site</h2>
           </header>
           <ol className={styles.steps}>
-            {steps.map((st, i) => (
+            {method.map((st, i) => (
               <li key={st.t} className={`${styles.step} reveal`} style={{ '--i': i } as React.CSSProperties}>
                 <span className={styles.stepNum}>{pad(i + 1)}</span>
                 <h3 className={styles.stepTitle}>{st.t}</h3>
@@ -133,57 +107,33 @@ const HomePage: React.FC = () => {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* ════ DOMAINES ════════════════════════════════════════════════════════ */}
-      <section className={`${styles.section} ${styles.sectionTight}`} aria-labelledby="domaines-title">
-        <div className="container">
-          <header className={`${styles.sectionHead} reveal`}>
-            <span className="kicker">Domaines</span>
-            <h2 id="domaines-title">Tous les domaines d'activité</h2>
-            <p>Notre réseau ne se limite pas au numérique. Quelques exemples de secteurs :</p>
-          </header>
-          <ul className={styles.sectors}>
-            {domains.map((d, i) => (
-              <li key={d} className="reveal" style={{ '--i': i % 4 } as React.CSSProperties}>
-                <span className={styles.sector}>{d}</span>
-              </li>
-            ))}
-          </ul>
           <p className={styles.moreLink}>
-            <Link to={MISE_EN_RELATION_PATH} className="arrow-link">
-              Tout savoir sur la mise en relation et l'intérim <ArrowRight size={16} aria-hidden="true" />
+            <Link to={RECRUTEMENT_PATH} className="arrow-link">
+              Recrutement et intérim : notre offre en détail <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </p>
         </div>
       </section>
 
-      <div className={`container ${styles.separator}`}><SignatureStroke /></div>
-
-      {/* ════ POSITIONNEMENT ══════════════════════════════════════════════════ */}
-      <section className={styles.section} aria-labelledby="force-title">
-        <div className={`container ${styles.split}`}>
-          <div className={`${styles.splitHead} reveal`}>
-            <span className="kicker">Notre force</span>
-            <h2 id="force-title" className={styles.smallTitle}>Ancrés dans les réalités guinéennes</h2>
-          </div>
-          <div className={styles.splitBody}>
-            <p className={`${styles.statement} reveal`}>
-              EQOS ne transpose pas des méthodes venues d'ailleurs. Chaque solution
-              est conçue pour les contraintes réelles du terrain : connectivité variable,
-              paiements mobiles dominants, contextes réglementaires locaux.
-            </p>
-            <ul className={styles.points}>
-              {whyPoints.map((p, i) => (
-                <li key={p} className="reveal" style={{ '--i': i } as React.CSSProperties}>{p}</li>
-              ))}
-            </ul>
+      {/* ════ CONVICTION ══════════════════════════════════════════════════════ */}
+      <section className={styles.conviction} aria-labelledby="action-title">
+        <div className="container">
+          <span className={styles.convictionKicker}>Passons à l'action</span>
+          <h2 id="action-title" className={`${styles.convictionTitle} reveal`}>
+            Parlons de votre prochain <span className={styles.accentDark}>chantier.</span>
+          </h2>
+          <p className={styles.convictionSub}>Décrivez les postes à pourvoir. Notre équipe vous répond sous 48h.</p>
+          <div className={styles.convictionCtas}>
+            <Link to={contactLink(BESOIN_SUBJECT)} className={styles.convictionBtn}>{ctaClient}</Link>
+            <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className={styles.convictionLink}>
+              Réserver un appel gratuit
+              <span className="sr-only">(nouvel onglet)</span>
+            </a>
           </div>
         </div>
       </section>
 
-      {/* ════ EXPERTISES ══════════════════════════════════════════════════════ */}
+      {/* ════ SERVICES NUMÉRIQUES (second plan) ═══════════════════════════════ */}
       <section className={styles.section} aria-labelledby="services-title" id="services">
         <div className="container">
           <header className={`${styles.sectionHead} reveal`}>
@@ -191,7 +141,6 @@ const HomePage: React.FC = () => {
             <h2 id="services-title">Nos services</h2>
             <p>Une offre complète couvrant l'ensemble du spectre de la transformation numérique en Guinée et en Afrique de l'Ouest.</p>
           </header>
-
           <ol className={styles.index}>
             {services.map((s, i) => (
               <li key={s.to} className="reveal" style={{ '--i': i } as React.CSSProperties}>
@@ -204,48 +153,6 @@ const HomePage: React.FC = () => {
               </li>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* ════ SOLUTIONS ═══════════════════════════════════════════════════════ */}
-      <section className={styles.section} aria-labelledby="solutions-title">
-        <div className="container">
-          <header className={`${styles.sectionHead} reveal`}>
-            <span className="kicker">Nos produits</span>
-            <h2 id="solutions-title">Solutions propriétaires</h2>
-            <p>En plus de nos services, EQOS développe ses propres produits digitaux pensés pour les marchés africains.</p>
-          </header>
-
-          <ul className={styles.products}>
-            {solutions.map((sol, i) => (
-              <li key={sol.name} className={`${styles.product} reveal`} style={{ '--i': i } as React.CSSProperties}>
-                <h3 className={styles.productName}>{sol.name}</h3>
-                <span className={styles.productTag}>{sol.tag}</span>
-                <p className={styles.productDesc}>{sol.desc}</p>
-                <Link to={sol.to} className={`arrow-link ${styles.productLink}`}>
-                  Découvrir {sol.name} <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* ════ CONVICTION : unique surface sombre du site ══════════════════════ */}
-      <section className={styles.conviction} aria-labelledby="action-title">
-        <div className="container">
-          <span className={styles.convictionKicker}>Passons à l'action</span>
-          <h2 id="action-title" className={`${styles.convictionTitle} reveal`}>
-            Trouvons ensemble le bon <span className={styles.accentDark}>profil.</span>
-          </h2>
-          <p className={styles.convictionSub}>Décrivez votre besoin. Notre équipe vous répond sous 48h.</p>
-          <div className={styles.convictionCtas}>
-            <Link to={contactLink(BESOIN_SUBJECT)} className={styles.convictionBtn}>Exprimer un besoin</Link>
-            <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className={styles.convictionLink}>
-              Réserver un appel gratuit
-              <span className="sr-only">(nouvel onglet)</span>
-            </a>
-          </div>
         </div>
       </section>
 
@@ -279,10 +186,10 @@ const HomePage: React.FC = () => {
         <div className={`container ${styles.split}`}>
           <div className={`${styles.splitHead} reveal`}>
             <span className="kicker">Contact</span>
-            <h2 id="contact-title">Exprimez votre besoin</h2>
+            <h2 id="contact-title">Constituer une équipe</h2>
             <p className={styles.contactIntro}>
-              Décrivez le poste, les compétences recherchées, le lieu et la durée de la mission.
-              Pour un projet numérique ou toute autre demande, choisissez l'objet correspondant.
+              Indiquez les postes, le nombre de personnes, le site et la date de démarrage.
+              Pour une candidature ou un projet numérique, choisissez l'objet correspondant.
             </p>
           </div>
           <div className={styles.splitBody}>

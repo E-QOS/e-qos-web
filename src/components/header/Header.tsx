@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, LogOut, UserCircle, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL } from '../../data/recrutement';
 import styles from './Header.module.css';
 
 const servicesLinks = [
@@ -41,7 +42,7 @@ const menus: { key: string; label: string; allLabel: string; to: string; links: 
 ];
 
 // Offre principale, en tête de navigation
-const featuredLink = { to: '/mise-en-relation', label: 'Mise en relation & intérim' };
+const featuredLink = { to: RECRUTEMENT_PATH, label: RECRUTEMENT_LABEL };
 
 const directLinks = [
   { to: '/ressources', label: 'Ressources' },

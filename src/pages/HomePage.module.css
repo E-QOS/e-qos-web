@@ -318,7 +318,7 @@
   .indexRow:hover .indexTitle, .indexRow:focus-visible .indexTitle { transform: none; }
 }
 
-/* ── Réorientation : mise en relation et intérim ── */
+/* ── Liens et appels secondaires ── */
 .moreLink { margin-top: 2.5rem; }
 
 .convictionCtas {
@@ -341,3 +341,52 @@
   background-repeat: no-repeat;
 }
 .convictionLink:hover { color: #C9C9C9; }
+
+/* ── Hero vidéo (texte clair sur vidéo) ── */
+.heroKicker {
+  display: block;
+  margin-bottom: 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.heroTitle { color: var(--paper); max-width: 16ch; }
+.heroSub { color: rgba(255, 255, 255, 0.86); }
+
+.heroBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 2rem;
+  background: var(--paper);
+  color: var(--ink);
+  border: 1px solid var(--paper);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.heroBtn:hover { background: transparent; color: var(--paper); }
+
+.heroLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--paper);
+  padding: 0.25rem 0;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+}
+.heroLink svg { color: var(--orange); transition: transform 200ms var(--ease); }
+.heroLink:hover svg { transform: translateX(4px); }
+
+@media (max-width: 480px) {
+  .heroBtn { width: 100%; }
+}

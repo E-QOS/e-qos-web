@@ -27,7 +27,7 @@ export function usePageMeta({ title, description }: PageMeta) {
     }
 
     return () => {
-      document.title = 'E-QOS, mise en relation, intérim et services numériques en Guinée';
+      document.title = 'E-QOS, recrutement et intérim pour les grands secteurs de Guinée';
     };
   }, [title, description]);
 }

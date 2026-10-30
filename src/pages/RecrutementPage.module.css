@@ -1,4 +1,4 @@
-/* MiseEnRelationPage.module.css — aussi utilisé par l'accueil */
+/* RecrutementPage.module.css — aussi utilisé par l'accueil */
 
 .heroCtas {
   display: flex;
@@ -16,6 +16,7 @@
   row-gap: 3.5rem;
 }
 .audience { padding-top: 1.5rem; border-top: 1px solid var(--ink); display: flex; flex-direction: column; align-items: flex-start; }
+.audience :global(.kicker) { margin-bottom: 1rem; }
 .audienceTitle { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.15; margin-bottom: 1rem; }
 .audienceDesc { color: var(--text); max-width: 48ch; margin-bottom: 1.5rem; }
 
