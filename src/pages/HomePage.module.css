@@ -317,3 +317,27 @@
 @media (prefers-reduced-motion: reduce) {
   .indexRow:hover .indexTitle, .indexRow:focus-visible .indexTitle { transform: none; }
 }
+
+/* ── Réorientation : mise en relation et intérim ── */
+.moreLink { margin-top: 2.5rem; }
+
+.convictionCtas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2.25rem;
+  margin-top: 2.5rem;
+}
+.convictionCtas .convictionBtn { margin-top: 0; }
+
+.convictionLink {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--paper);
+  padding-bottom: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+}
+.convictionLink:hover { color: #C9C9C9; }

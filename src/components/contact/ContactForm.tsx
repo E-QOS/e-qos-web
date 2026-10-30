@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+import { BESOIN_SUBJECT, PROFIL_SUBJECT } from '../../data/miseEnRelation';
 import styles from './ContactForm.module.css';
 
-const subjects = [
+export const subjects = [
+  BESOIN_SUBJECT,
+  PROFIL_SUBJECT,
   'Transformation digitale',
   'Conseil organisationnel',
   'Implémentation Odoo',
@@ -36,8 +39,9 @@ function validate(form: FormState): Partial<Record<Fields, string>> {
 }
 
 /** Formulaire de contact. Envoi vers /api/contact/send (e-qos-web-backend), traitement inchangé. */
-export const ContactForm: React.FC = () => {
-  const [form, setForm] = useState<FormState>(empty);
+export const ContactForm: React.FC<{ defaultSubject?: string }> = ({ defaultSubject }) => {
+  const initial: FormState = { ...empty, objet: defaultSubject && subjects.includes(defaultSubject) ? defaultSubject : '' };
+  const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Partial<Record<Fields, string>>>({});
   const [status, setStatus] = useState<Status>('idle');
 
@@ -79,7 +83,7 @@ export const ContactForm: React.FC = () => {
       });
       if (res.ok) {
         setStatus('success');
-        setForm(empty);
+        setForm(initial);
       } else {
         setStatus('error');
       }

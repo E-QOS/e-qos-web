@@ -1,12 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { MISE_EN_RELATION_PATH, contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT } from '../../data/miseEnRelation';
 import styles from './Footer.module.css';
 
 const columns = [
   {
-    title: 'Services',
+    title: 'Mise en relation',
     links: [
+      { to: MISE_EN_RELATION_PATH, label: 'Mise en relation & intérim' },
+      { to: contactLink(BESOIN_SUBJECT), label: 'Exprimer un besoin' },
+      { to: contactLink(PROFIL_SUBJECT), label: 'Proposer mon profil' },
+      { to: '/carrieres', label: 'Offres' },
+    ],
+  },
+  {
+    title: 'Services numériques',
+    links: [
+      { to: '/services', label: 'Tous les services' },
       { to: '/services/transformation-digitale', label: 'Transformation digitale' },
       { to: '/services/conseil-organisationnel', label: 'Conseil organisationnel' },
       { to: '/services/odoo', label: 'Implémentation Odoo' },
@@ -71,7 +82,7 @@ const Footer: React.FC = () => (
           <Link to="/" className={styles.logo} aria-label="E-QOS, accueil">
             <img src="/images/e-qos-pruducts/eqos_logo.png" alt="E-QOS" width={1264} height={627} loading="lazy" />
           </Link>
-          <p className={styles.tagline}>Votre partenaire de transformation digitale en Guinée</p>
+          <p className={styles.tagline}>Mise en relation, intérim et services numériques en Guinée</p>
           <address className={styles.address}>
             <span>Conakry, Guinée (siège)</span>
             <a href="mailto:contact.eqos@gmail.com" className="text-link">contact.eqos@gmail.com</a>
@@ -96,9 +107,9 @@ const Footer: React.FC = () => (
       </div>
 
       <div className={styles.cta}>
-        <p className={styles.ctaText}>Besoin d'un accompagnement digital en Guinée ?</p>
-        <Link to="/contact" className="arrow-link">
-          Parlons de votre projet <ArrowRight size={16} aria-hidden="true" />
+        <p className={styles.ctaText}>Un poste à pourvoir en Guinée ?</p>
+        <Link to={contactLink(BESOIN_SUBJECT)} className="arrow-link">
+          Exprimer un besoin <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
 

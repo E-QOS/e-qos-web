@@ -76,6 +76,9 @@ const WaliPage = lazy(() => import('./pages/solutions/WaliPage'));
 const WandiPage = lazy(() => import('./pages/solutions/WandiPage'));
 const MakitiPage = lazy(() => import('./pages/solutions/MakitiPage'));
 
+// Mise en relation et intérim
+const MiseEnRelationPage = lazy(() => import('./pages/MiseEnRelationPage'));
+
 // Autres
 const RessourcesPage = lazy(() => import('./pages/RessourcesPage'));
 const ArticlePage    = lazy(() => import('./pages/ArticlePage'));
@@ -143,6 +146,9 @@ function App() {
           <Route path="/solutions/wali" element={<Layout><WaliPage /></Layout>} />
           <Route path="/solutions/wandi" element={<Layout><WandiPage /></Layout>} />
           <Route path="/solutions/makiti" element={<Layout><MakitiPage /></Layout>} />
+
+          {/* Mise en relation et intérim */}
+          <Route path="/mise-en-relation" element={<Layout><MiseEnRelationPage /></Layout>} />
 
           {/* Autres */}
           <Route path="/ressources" element={<Layout><RessourcesPage /></Layout>} />

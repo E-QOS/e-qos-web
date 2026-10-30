@@ -40,6 +40,9 @@ const menus: { key: string; label: string; allLabel: string; to: string; links: 
   { key: 'solutions', label: 'Solutions', allLabel: 'Toutes les solutions', to: '/solutions', links: solutionsLinks },
 ];
 
+// Offre principale, en tête de navigation
+const featuredLink = { to: '/mise-en-relation', label: 'Mise en relation & intérim' };
+
 const directLinks = [
   { to: '/ressources', label: 'Ressources' },
   { to: '/a-propos', label: 'À propos' },
@@ -147,6 +150,11 @@ const Header: React.FC = () => {
 
           <nav className={styles.nav} aria-label="Navigation principale">
             <ul className={styles.navList}>
+              <li className={styles.navItem}>
+                <NavLink to={featuredLink.to} className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}>
+                  {featuredLink.label}
+                </NavLink>
+              </li>
               {menus.map(m => (
                 <li key={m.key} className={styles.navItem} onKeyDown={onMenuKeyDown}>
                   <NavLink to={m.to} className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}>
@@ -262,6 +270,9 @@ const Header: React.FC = () => {
         </div>
 
         <nav className={styles.mobileBody} aria-label="Navigation mobile">
+          <div className={styles.mobileSection}>
+            <Link to={featuredLink.to} className={styles.mobileLink}>{featuredLink.label}</Link>
+          </div>
           {menus.map(m => (
             <div key={m.key} className={styles.mobileSection}>
               <button

@@ -27,7 +27,7 @@ export function usePageMeta({ title, description }: PageMeta) {
     }
 
     return () => {
-      document.title = 'EQOS Africa — Partenaire digital en Afrique de l\'Ouest';
+      document.title = 'E-QOS, mise en relation, intérim et services numériques en Guinée';
     };
   }, [title, description]);
 }

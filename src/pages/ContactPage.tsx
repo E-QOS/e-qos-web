@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { ContactForm } from '../components/contact/ContactForm';
 import styles from './ContactPage.module.css';
@@ -8,6 +9,7 @@ const offices = [
 ];
 
 const ContactPage: React.FC = () => {
+  const [params] = useSearchParams();
   usePageMeta({ title: 'Contact — Parlez-nous de votre projet | EQOS Africa', description: 'Contactez EQOS pour une analyse gratuite de vos besoins en transformation digitale. Réponse sous 48h. Présent en Guinée.' });
 
   return (
@@ -25,7 +27,7 @@ const ContactPage: React.FC = () => {
             <div className={styles.formSection}>
               <h2 className={styles.formTitle}>Analyse gratuite de vos besoins</h2>
               <p className={styles.formIntro}>Décrivez votre projet ou vos besoins. Nos experts analysent votre situation et vous proposent une première approche adaptée, gratuitement et sans engagement.</p>
-              <ContactForm />
+              <ContactForm defaultSubject={params.get('objet') ?? undefined} />
             </div>
 
             <aside className={styles.aside} aria-label="Coordonnées">
