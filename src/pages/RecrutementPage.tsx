@@ -7,7 +7,7 @@ import { SectorShowcase } from '../components/media/SectorShowcase';
 import { sectors } from '../data/secteursGuinee';
 import {
   RECRUTEMENT_LABEL, heroLead, audiences, method, ctaClient, ctaTalent,
-  contactLink, BESOIN_SUBJECT, CANDIDATURE_PATH,
+  DEMANDE_PATH, demandeLink, CANDIDATURE_PATH,
 } from '../data/recrutement';
 import styles from './RecrutementPage.module.css';
 
@@ -31,7 +31,7 @@ const RecrutementPage: React.FC = () => {
           <h1>Des équipes prêtes pour vos opérations en Guinée</h1>
           <p>{heroLead}</p>
           <div className={styles.heroCtas}>
-            <Link to={contactLink(BESOIN_SUBJECT)} className="btn btn-primary">{ctaClient}</Link>
+            <Link to={DEMANDE_PATH} className="btn btn-primary">{ctaClient}</Link>
             <Link to={CANDIDATURE_PATH} className="arrow-link">
               {ctaTalent} <ArrowRight size={16} aria-hidden="true" />
             </Link>
@@ -46,7 +46,7 @@ const RecrutementPage: React.FC = () => {
             <span className="kicker">Secteurs et métiers</span>
             <h2>Les profils que nous mobilisons</h2>
           </header>
-          <SectorShowcase sectors={sectors} />
+          <SectorShowcase sectors={sectors} ctaHref={demandeLink} />
           <Todo>valider la liste des métiers par secteur avec les profils réellement disponibles dans les viviers.</Todo>
         </div>
       </section>
@@ -102,7 +102,7 @@ const RecrutementPage: React.FC = () => {
         <div className="container">
           <h2>Parlons de votre prochain chantier</h2>
           <p>Décrivez les postes à pourvoir. Notre équipe vous répond sous 48h.</p>
-          <Link to={contactLink(BESOIN_SUBJECT)} className="btn btn-primary btn-lg">
+          <Link to={DEMANDE_PATH} className="btn btn-primary btn-lg">
             {ctaClient} <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>

@@ -78,6 +78,7 @@ const MakitiPage = lazy(() => import('./pages/solutions/MakitiPage'));
 
 // Recrutement et intérim
 const RecrutementPage = lazy(() => import('./pages/RecrutementPage'));
+const ConstituerEquipePage = lazy(() => import('./pages/ConstituerEquipePage'));
 
 // Autres
 const RessourcesPage = lazy(() => import('./pages/RessourcesPage'));
@@ -149,6 +150,7 @@ function App() {
 
           {/* Recrutement et intérim */}
           <Route path="/recrutement-interim" element={<Layout><RecrutementPage /></Layout>} />
+          <Route path="/constituer-une-equipe" element={<Layout><ConstituerEquipePage /></Layout>} />
 
           {/* Autres */}
           <Route path="/ressources" element={<Layout><RessourcesPage /></Layout>} />

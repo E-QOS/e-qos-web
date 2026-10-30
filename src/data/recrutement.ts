@@ -9,6 +9,10 @@ export const BESOIN_SUBJECT = 'Constituer une équipe ou recruter en intérim';
 export const PROFIL_SUBJECT = 'Rejoindre les viviers E-QOS (candidature)';
 export const contactLink = (subject: string) => `/contact?objet=${encodeURIComponent(subject)}`;
 
+/** Parcours de demande d'équipe (renfort, intérim, recherche de talent), dossier envoyé aux agents. */
+export const DEMANDE_PATH = '/constituer-une-equipe';
+export const demandeLink = (secteur?: string) => secteur ? `${DEMANDE_PATH}?secteur=${secteur}` : DEMANDE_PATH;
+
 /** Candidature spontanée avec CV (Carrières, enregistrée dans Supabase). */
 export const CANDIDATURE_PATH = '/carrieres?candidature=spontanee';
 
@@ -29,7 +33,7 @@ export const audiences = [
     desc: 'Démarrage de chantier, pic de production, remplacement ou poste clé à couvrir : nous constituons l\'équipe dont vos opérations ont besoin, pour la durée de votre projet.',
     points: ['Intérim et missions de durée déterminée', 'Constitution d\'équipes complètes', 'Profils d\'encadrement et d\'expertise'],
     cta: ctaClient,
-    to: contactLink(BESOIN_SUBJECT),
+    to: DEMANDE_PATH,
   },
   {
     key: 'talents',

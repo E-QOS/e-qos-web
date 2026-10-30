@@ -55,6 +55,8 @@
   color: var(--text);
 }
 
+.cta { margin-top: 1.75rem; }
+
 @media (max-width: 900px) {
   .visual, .text, .rowReverse .visual, .rowReverse .text { grid-column: 1 / -1; grid-row: auto; }
   .visual { margin-inline: calc(-1 * var(--gutter)); }

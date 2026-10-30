@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, contactLink, BESOIN_SUBJECT, CANDIDATURE_PATH } from '../../data/recrutement';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, DEMANDE_PATH, CANDIDATURE_PATH } from '../../data/recrutement';
 import styles from './Footer.module.css';
 
 const columns = [
@@ -9,7 +9,7 @@ const columns = [
     title: 'Recrutement',
     links: [
       { to: RECRUTEMENT_PATH, label: RECRUTEMENT_LABEL },
-      { to: contactLink(BESOIN_SUBJECT), label: 'Constituer une équipe' },
+      { to: DEMANDE_PATH, label: 'Constituer une équipe' },
       { to: CANDIDATURE_PATH, label: 'Rejoindre nos viviers' },
       { to: '/carrieres', label: 'Offres' },
     ],
@@ -108,7 +108,7 @@ const Footer: React.FC = () => (
 
       <div className={styles.cta}>
         <p className={styles.ctaText}>Un poste à pourvoir en Guinée ?</p>
-        <Link to={contactLink(BESOIN_SUBJECT)} className="arrow-link">
+        <Link to={DEMANDE_PATH} className="arrow-link">
           Constituer une équipe <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
