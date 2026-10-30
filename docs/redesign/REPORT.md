@@ -322,3 +322,43 @@ Tous sont regroupés dans `src/data/recrutement.ts` et `src/data/secteursGuinee.
 - **Équipe** : descriptions mises à jour. Les visuels d'illustration ne sont plus chargés du tout, ils étaient seulement masqués. Le chemin de la photo d'Ayouba FOFANA est corrigé (`ayouba.jpg` n'existait pas, le fichier est `ayouba.png`, 1,5 Mo, à compresser).
 - **Appel à l'action** : l'affirmation non sourcée « Plus de 100 organisations en Guinée nous font déjà confiance » est retirée. Elle est remplacée par « Travaillons ensemble », avec les boutons « Constituer une équipe » et « Nous écrire ».
 - **Métadonnées** : titre et description ajoutés. La page n'en avait pas.
+
+## 14. Backend, base de données et console admin (31 octobre 2026)
+
+Branche `redesign/premium` dans les trois dépôts : `e-qos-web`, `e-qos-web-backend` et `e-qos-web-admin`. Dans l'admin, le travail CRM non commité a d'abord été enregistré tel quel (commit `wip: CRM…` sur `feature/ajout-CRM`), puis la branche a été créée à partir de là.
+
+### Base de données (`e-qos-web-backend/supabase/migrations/003_team_requests_talent_pool.sql`)
+- **Table `team_requests`** : dossiers « Constituer une équipe ». RLS : dépôt public possible uniquement à l'état initial ; lecture et traitement réservés aux rôles editor et admin ; suppression réservée à admin.
+- **`job_applications`** : nouvelles colonnes `sector` et `trade` pour les viviers.
+- **`jobs`** : domaines alignés sur les secteurs. Conversions : « Conseil & ERP » devient « Management & Conseil », « Paiements & Fintech » devient « Tech & Dev ». Les offres dont le titre contient « Odoo » sont désactivées, pas supprimées.
+- **Non appliquée** : la migration n'a pas été lancée sur la base de production. À exécuter avec `supabase db push` ou dans l'éditeur SQL, avant de déployer le site.
+
+### Backend
+- **`POST /api/team-requests/notify`** : validation, email aux agents (destinataire `TEAM_REQUESTS_EMAIL`, à défaut `CONTACT_EMAIL`) et accusé de réception au client. Si le dossier n'a pas pu être enregistré en base, l'email aux agents le signale.
+- **`lib/mailer.ts`** : envoi SMTP2GO et gabarit commun à la charte du site. Les emails de contact et de candidature sont recolorés. Le lien du logo est corrigé : il pointait vers `/logo_eqos.png`, qui n'existe pas.
+- **Tests** : 7 tests unitaires (`npm test`), tous réussis.
+- **Lint** : le projet n'a pas de configuration ESLint, `npm run lint` échoue avant même de démarrer (préexistant).
+
+### Site
+- **Parcours de demande** : enregistrement dans `team_requests`, puis appel à `/notify`. Si la nouvelle route n'est pas encore déployée, le parcours se replie sur `/api/contact/send`.
+- **Candidature spontanée** : secteur et métier visés. Si la migration n'est pas encore appliquée, l'envoi se fait sans ces deux champs.
+
+### Console admin
+- **Nouvelles pages** :
+  - « Demandes d'équipe » : filtres par statut et par secteur, détail, statut, agent assigné, notes internes, alerte au-delà de 48h ;
+  - « Viviers » : candidatures spontanées par secteur et métier, avec accès au CV, à l'email et au téléphone.
+- **Navigation** : regroupée en Recrutement, Contenu et clients, Système. Elle affiche le nombre de nouvelles demandes, et la page d'accueil est désormais `/demandes`.
+- **Thème** :
+  - console entièrement passée au thème clair du site : polices auto-hébergées, couleurs converties au contraste AA, logo officiel ;
+  - page de connexion refaite, sans la mascotte ;
+  - 7 gabarits d'emails (candidats, commercial, accès admin) réécrits sur un gabarit clair, avec les mêmes textes et sans émojis.
+- **Vérifications** :
+  - captures prises avec une session simulée et des données fictives : demandes, viviers, offres, articles, CRM, audit, connexion ;
+  - aucune erreur JavaScript ;
+  - contrôle de types : 34 erreurs, toutes déjà présentes dans le travail CRM avant la refonte (`admin.ts`, `audit.ts`, `crm.ts`, `jobs.ts`, `SettingsPage.tsx`…), aucune ajoutée. `npm run build` (`tsc -b && vite build`) échouait donc déjà ; `vite build` seul fonctionne ;
+  - lint des fichiers ajoutés ou modifiés : 0 erreur.
+
+### Ordre de déploiement conseillé
+1. Appliquer la migration 003 sur Supabase.
+2. Déployer le backend (Render) et définir `TEAM_REQUESTS_EMAIL` si les agents ont une adresse dédiée.
+3. Déployer le site (Netlify), puis la console admin.
