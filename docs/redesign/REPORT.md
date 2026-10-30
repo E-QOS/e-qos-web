@@ -208,3 +208,55 @@ Retirés de l'accueil (toujours dans l'historique git) : l'ancien H1 « Transfor
 15. **Métiers couverts** : la liste actuelle reprend les 8 secteurs du site. Quels métiers citer (BTP, logistique, hôtellerie, administratif…) ?
 16. **Présence** : l'offre est présentée pour la Guinée, mais la ligne « Guinée · Sénégal · Mali » et la section Présence sont maintenues en attendant la réponse à la question 1.
 17. **Côté professionnels** : « Proposer mon profil » mène au formulaire de contact. Faut-il plutôt l'envoyer vers la candidature spontanée de `/carrieres` ? La page Carrières est titrée « Construisez l'avenir digital de la Guinée », ce qui ne correspond plus à l'offre.
+
+## 10. Discours sectoriel et hero vidéo (remplace la section 9)
+
+Retour d'E-QOS : pas de formules génériques (« tous les domaines », « mise en relation »). L'offre doit se comprendre à travers les secteurs phares de la Guinée, avec des vidéos de professionnels qui défilent. Arbitrages validés : vidéos fournies par E-QOS, ton « Les équipes qui font avancer les grands projets de Guinée ».
+
+### Recherche sectorielle (sources)
+
+| Fait utilisé sur le site | Source |
+|---|---|
+| Premier producteur mondial de bauxite | [Coface, fiche pays Guinée](https://www.coface.com/news-economy-and-insights/business-risk-dashboard/country-risk-files/guinea) |
+| Premier minerai de fer de Simandou expédié en décembre 2025 | [Mining Weekly, décembre 2025](https://www.miningweekly.com/article/simandou-iron-ore-project-guinea-update-2025-12-12) |
+| Kaléta 240 MW (2015), Souapiti 450 MW | [Tractebel Engie](https://tractebel-engie.com/en/news/2021/guinea-doubles-its-hydroelectric-production-capacity-with-the-commissioning-of-the-souapiti-hydroelectric-facility), [Le Monde du Droit](https://www.lemondedudroit.fr/deals/61036-baker-mckenzie-conseille-china-international-water-electric-corp.html) |
+| Agriculture : près d'un tiers du PIB, plus de 60 % des emplois | [Banque mondiale, Guinea Economic Update, octobre 2026](https://www.banquemondiale.org/fr/country/guinea/publication/guinea-economic-update-2026-beyond-mining-turning-resource-wealth-into-private-sector-growth-and-job-creation) |
+
+Contexte non publié sur le site, mais utile au discours commercial : Simandou a dépassé 60 000 travailleurs au pic de construction, et la démobilisation est en cours ([Agence Ecofin](https://www.agenceecofin.com/actualites/2309-141805-simandou-de-la-construction-a-l-exploitation-la-course-a-l-emploi-local-en-guinee)). Les objectifs de contenu local visent au moins 70 % d'emplois guinéens. La Banque mondiale insiste sur le déficit de compétences et d'emploi formel (8,5 % de la main-d'œuvre).
+
+### Ce qui change
+- **Accueil** :
+  - Hero plein cadre `HeroReel` : six vidéos de secteurs en fondu enchaîné toutes les 7 s, barre de progression par secteur, bouton pause (WCAG 2.2.2), défilement suspendu si l'onglet est masqué ou si `prefers-reduced-motion` est actif.
+  - Sections suivantes, dans l'ordre : six secteurs en lignes alternées vidéo et texte (`SectorShowcase`), deux publics, méthode, bande « Parlons de votre prochain chantier. », services numériques au second plan, présence, contact. Les solutions Wali, Wandi et Makiti ne figurent plus sur l'accueil, mais restent dans le menu.
+- **Page `/recrutement-interim`** : remplace `/mise-en-relation`, qui n'a jamais été publiée. Elle reprend les secteurs et les métiers, les publics, la méthode et un lien vers l'Interim Management.
+- **Libellés** : « Recrutement & intérim » dans le menu, « Constituer une équipe » et « Rejoindre nos viviers » pour les boutons. Objets du formulaire : « Constituer une équipe ou recruter en intérim » et « Rejoindre les viviers E-QOS (candidature) ».
+- **Vidéos** (`SectorVideo`) :
+  - muettes, en boucle, `preload="none"`, chargées à l'approche de l'écran et mises en pause hors écran ;
+  - image fixe seule si l'utilisateur active l'économie de données, est en 2G ou a choisi de réduire les animations ;
+  - sans fichier livré, un cadre sombre neutre s'affiche, sans aucune requête réseau.
+- **Cahier des charges des médias** : `public/media/secteurs/README.md` (formats, poids, contenu attendu, commande ffmpeg). Les chemins se renseignent dans `src/data/secteursGuinee.ts`.
+
+### Textes nouveaux (à valider)
+
+Tous sont regroupés dans `src/data/recrutement.ts` et `src/data/secteursGuinee.ts` :
+- **H1** : « Les équipes qui font avancer les grands projets de Guinée. »
+- **Texte d'appui** : « Opérateurs, techniciens, ingénieurs et encadrement, mobilisés pour les mines, l'énergie, les infrastructures et la logistique. »
+- **Fiches secteurs** : un fait clé et entre quatre et six métiers par secteur.
+- **Publics** : « Vous renforcez vos équipes » et « Vous visez votre prochaine mission ».
+- **Méthode** : Cadrage, Présélection, Validation, Mobilisation.
+- **Métadonnées** : titre par défaut « E-QOS, recrutement et intérim pour les grands secteurs de Guinée ».
+
+### Vérifications
+- 41 routes sur 41 répondent, sans erreur JavaScript.
+- axe : 0 violation sur l'accueil et `/recrutement-interim` (375 et 1280 px) et sur le contact.
+- Présélection de l'objet du formulaire vérifiée, bouton pause fonctionnel, aucun défilement horizontal.
+- **Non testé** : la lecture avec de vrais fichiers vidéo (aucun média livré, et ffmpeg n'est pas disponible pour générer un fichier de test). À vérifier dès le dépôt des premières vidéos.
+- Les scores Lighthouse de la section 4 datent d'avant la réorientation et sont à refaire. Le hero n'a pas de vidéo au premier rendu, donc le LCP reste le titre. En revanche, chaque vidéo pèsera jusqu'à 2,5 Mo, chargée seulement à l'écran.
+
+### Questions ouvertes
+13. **Cadre légal de l'intérim** : un agrément de travail temporaire est-il requis en Guinée, et E-QOS l'a-t-elle ? Le site parle d'« intérim ».
+14. **Engagements** à confirmer : « vérification de l'expérience et des références », « suivi de la mission jusqu'à son terme », « réponse sous 48h ».
+15. **Métiers par secteur** : la liste doit correspondre aux profils réellement disponibles dans les viviers.
+16. **Lieux cités** (Boké, Kamsar, Simandou, Siguiri, Kaléta, Souapiti) : E-QOS peut-elle mobiliser sur ces sites ? Ils suggèrent une capacité d'intervention.
+17. **Carrières** : la page s'intitule encore « Construisez l'avenir digital de la Guinée ». Faut-il l'aligner, et faire pointer « Rejoindre nos viviers » vers la candidature spontanée ?
+18. **Présence** : la section « Partenaire digital en Afrique de l'Ouest » (Guinée, Sénégal, Mali) est conservée en attendant la réponse à la question 1.
