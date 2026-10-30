@@ -25,7 +25,7 @@ const equipeSupportData: TeamDetailData = {
   teamName: 'Équipe Support',
   teamTag: 'Service Client',
   description: 'Notre équipe support assure un accompagnement exceptionnel pour garantir la satisfaction et la réussite de nos clients à travers l\'Afrique.',
-  mission: 'Nous fournissons un support technique et client de premier ordre, disponible 24h/24 et 7j/7. Notre mission est de résoudre les problèmes rapidement, former les utilisateurs et collecter les retours pour améliorer continuellement nos solutions énergétiques.',
+  mission: 'Nous fournissons un support technique et client de premier ordre. Notre mission est de résoudre les problèmes rapidement, former les utilisateurs et collecter les retours pour améliorer continuellement nos solutions énergétiques.',
   heroImage: '/images/teams/support-hero.jpg',
   members: [
     {
@@ -122,8 +122,8 @@ const Support: React.FC = () => {
                   <path d="M12 8h.01"/>
                 </svg>
               </div>
-              <h3>Support 24/7</h3>
-              <p>Assistance technique disponible 24 heures sur 24, 7 jours sur 7 par téléphone, chat et email</p>
+              <h3>Assistance technique</h3>
+              <p>Assistance technique par téléphone, chat et email</p>
             </div>
             
             <div className={styles.serviceCard}>
@@ -171,10 +171,6 @@ const Support: React.FC = () => {
             <div className={styles.statItem}>
               <div className={styles.statNumber}>15min</div>
               <div className={styles.statLabel}>Temps de réponse moyen</div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>24/7</div>
-              <div className={styles.statLabel}>Disponibilité</div>
             </div>
             <div className={styles.statItem}>
               <div className={styles.statNumber}>12+</div>
@@ -240,7 +236,7 @@ const Support: React.FC = () => {
         <div className="container">
           <div className={styles.ctaCard}>
             <h2>Besoin d'Aide ?</h2>
-            <p>Notre équipe support est disponible 7j/7 entre 9h et 18h pour vous accompagner dans l'utilisation de nos solutions.</p>
+            <p>Notre équipe support vous accompagne dans l'utilisation de nos solutions.</p>
             <div className={styles.ctaButtons}>
               <a href="tel:+224613030824" className={styles.ctaButtonPrimary}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
