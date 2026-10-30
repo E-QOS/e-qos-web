@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT } from '../../data/recrutement';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, contactLink, BESOIN_SUBJECT, CANDIDATURE_PATH } from '../../data/recrutement';
 import styles from './Footer.module.css';
 
 const columns = [
@@ -10,7 +10,7 @@ const columns = [
     links: [
       { to: RECRUTEMENT_PATH, label: RECRUTEMENT_LABEL },
       { to: contactLink(BESOIN_SUBJECT), label: 'Constituer une équipe' },
-      { to: contactLink(PROFIL_SUBJECT), label: 'Rejoindre nos viviers' },
+      { to: CANDIDATURE_PATH, label: 'Rejoindre nos viviers' },
       { to: '/carrieres', label: 'Offres' },
     ],
   },

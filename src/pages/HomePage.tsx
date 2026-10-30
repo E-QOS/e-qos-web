@@ -9,7 +9,7 @@ import { SectorShowcase } from '../components/media/SectorShowcase';
 import { sectors } from '../data/secteursGuinee';
 import {
   RECRUTEMENT_PATH, heroKicker, heroLead, ctaClient, ctaTalent,
-  audiences, method, contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT,
+  audiences, method, contactLink, BESOIN_SUBJECT, CANDIDATURE_PATH,
 } from '../data/recrutement';
 import styles from './HomePage.module.css';
 import offerStyles from './RecrutementPage.module.css';
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
         <p className={styles.heroSub}>{heroLead}</p>
         <div className={styles.heroCtas}>
           <Link to={contactLink(BESOIN_SUBJECT)} className={styles.heroBtn}>{ctaClient}</Link>
-          <Link to={contactLink(PROFIL_SUBJECT)} className={styles.heroLink}>
+          <Link to={CANDIDATURE_PATH} className={styles.heroLink}>
             {ctaTalent} <ArrowRight size={16} aria-hidden="true" />
           </Link>
         </div>
@@ -82,7 +82,7 @@ const HomePage: React.FC = () => {
                 <ul className={offerStyles.points}>
                   {a.points.map(p => <li key={p}>{p}</li>)}
                 </ul>
-                <Link to={contactLink(a.subject)} className="arrow-link">
+                <Link to={a.to} className="arrow-link">
                   {a.cta} <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </li>

@@ -9,6 +9,9 @@ export const BESOIN_SUBJECT = 'Constituer une équipe ou recruter en intérim';
 export const PROFIL_SUBJECT = 'Rejoindre les viviers E-QOS (candidature)';
 export const contactLink = (subject: string) => `/contact?objet=${encodeURIComponent(subject)}`;
 
+/** Candidature spontanée avec CV (Carrières, enregistrée dans Supabase). */
+export const CANDIDATURE_PATH = '/carrieres?candidature=spontanee';
+
 export const heroKicker = 'Conakry · Boké · Kamsar · Simandou';
 export const heroTitle = 'Les équipes qui font avancer les grands projets de Guinée.';
 export const heroLead =
@@ -26,7 +29,7 @@ export const audiences = [
     desc: 'Démarrage de chantier, pic de production, remplacement ou poste clé à couvrir : nous constituons l\'équipe dont vos opérations ont besoin, pour la durée de votre projet.',
     points: ['Intérim et missions de durée déterminée', 'Constitution d\'équipes complètes', 'Profils d\'encadrement et d\'expertise'],
     cta: ctaClient,
-    subject: BESOIN_SUBJECT,
+    to: contactLink(BESOIN_SUBJECT),
   },
   {
     key: 'talents',
@@ -35,7 +38,7 @@ export const audiences = [
     desc: 'Opérateur, technicien, ingénieur ou cadre : rejoignez nos viviers et accédez aux missions des secteurs qui recrutent en Guinée.',
     points: ['Missions sur site et en entreprise', 'Mines, énergie, BTP, logistique, services', 'Accompagnement pendant la mission'],
     cta: ctaTalent,
-    subject: PROFIL_SUBJECT,
+    to: CANDIDATURE_PATH,
   },
 ];
 

@@ -7,7 +7,7 @@ import { SectorShowcase } from '../components/media/SectorShowcase';
 import { sectors } from '../data/secteursGuinee';
 import {
   RECRUTEMENT_LABEL, heroLead, audiences, method, ctaClient, ctaTalent,
-  contactLink, BESOIN_SUBJECT, PROFIL_SUBJECT,
+  contactLink, BESOIN_SUBJECT, CANDIDATURE_PATH,
 } from '../data/recrutement';
 import styles from './RecrutementPage.module.css';
 
@@ -32,7 +32,7 @@ const RecrutementPage: React.FC = () => {
           <p>{heroLead}</p>
           <div className={styles.heroCtas}>
             <Link to={contactLink(BESOIN_SUBJECT)} className="btn btn-primary">{ctaClient}</Link>
-            <Link to={contactLink(PROFIL_SUBJECT)} className="arrow-link">
+            <Link to={CANDIDATURE_PATH} className="arrow-link">
               {ctaTalent} <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
@@ -64,7 +64,7 @@ const RecrutementPage: React.FC = () => {
                 <ul className={styles.points}>
                   {a.points.map(p => <li key={p}>{p}</li>)}
                 </ul>
-                <Link to={contactLink(a.subject)} className="arrow-link">
+                <Link to={a.to} className="arrow-link">
                   {a.cta} <ArrowRight size={16} aria-hidden="true" />
                 </Link>
               </li>
