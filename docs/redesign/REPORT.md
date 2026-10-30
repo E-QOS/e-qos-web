@@ -260,3 +260,40 @@ Tous sont regroupés dans `src/data/recrutement.ts` et `src/data/secteursGuinee.
 16. **Lieux cités** (Boké, Kamsar, Simandou, Siguiri, Kaléta, Souapiti) : E-QOS peut-elle mobiliser sur ces sites ? Ils suggèrent une capacité d'intervention.
 17. **Carrières** : la page s'intitule encore « Construisez l'avenir digital de la Guinée ». Faut-il l'aligner, et faire pointer « Rejoindre nos viviers » vers la candidature spontanée ?
 18. **Présence** : la section « Partenaire digital en Afrique de l'Ouest » (Guinée, Sénégal, Mali) est conservée en attendant la réponse à la question 1.
+
+## 11. Pages restantes et parcours « Constituer une équipe »
+
+### Parcours `/constituer-une-equipe`
+- **4 étapes courtes** :
+  1. Besoin (renfort ponctuel, intérim, recherche de talent) et secteur, en tuiles.
+  2. Postes : les postes fréquents du secteur s'ajoutent en un clic, champ libre pour un autre poste, nombre de personnes par poste.
+  3. Lieu (6 sites proposés en un clic, saisie libre possible), démarrage, durée, précisions facultatives.
+  4. Coordonnées, puis envoi.
+- **Confort** :
+  - récapitulatif toujours visible sur ordinateur, et sur mobile à l'étape d'envoi ;
+  - brouillon conservé sur l'appareil jusqu'à l'envoi ;
+  - secteur présélectionnable (`?secteur=mines`), avec un lien par secteur depuis l'accueil et la page Recrutement.
+- **Envoi** : le dossier est rédigé en texte et passe par le relais email existant (`/api/contact/send`), avec un objet du type « Demande d'équipe EQ-AAMMJJ-XXXX : Intérim, Mines et carrières, 5 personnes ». En cas d'échec, un lien ouvre l'email pré-rempli avec le dossier.
+- **Test de bout en bout**, avec le backend simulé :
+  - demande complète en 13 clics, saisie des coordonnées comprise ;
+  - 0 violation axe à chaque étape, à 375 et à 1280 px ;
+  - dossier reçu complet.
+- **Limite** : le dossier n'est pas enregistré en base, il arrive seulement par email. Une table Supabase `team_requests` et une vue dans l'admin permettraient un suivi par les agents (statut, attribution). C'est à décider.
+
+### Pages refaites
+- **Carrières** :
+  - en-tête aligné sur l'offre, métiers recherchés par secteur ;
+  - filtres en onglets texte, offres en lignes éditoriales ;
+  - `?candidature=spontanee` ouvre directement la candidature avec CV. « Rejoindre nos viviers » y mène désormais.
+- **Modale de candidature** : panneau clair, libellés reliés aux champs, Échap, CV accessible au clavier.
+- **Ressources et Article** : colonnes à filet, cartes entièrement cliquables, article à 68 caractères par ligne.
+- **Les 4 pages Équipe** : une feuille commune `teamDetail.module.css` remplace les 4 anciennes. Les images d'en-tête inexistantes sont retirées.
+- **Mentions légales et Confidentialité** : mise en page éditoriale.
+- **Modale de connexion** : vrai logo à la place de l'imitation en texte, champs à filet.
+- **Profil** : blocs à filet, boutons noirs, couleurs de robustesse du mot de passe accessibles.
+
+### Contenus à revoir (non modifiés)
+- **Page Équipe technique** : énergie propre, IoT, « capteurs énergétiques » (voir question 5).
+- **Page Équipe support** : « Support 24/7 », « 98 % Satisfaction client », « 15 min de temps de réponse moyen ». Ces chiffres sont non sourcés et engagent la société.
+- **`/mentions-legales`** affiche des conditions d'utilisation, pas de mentions légales : raison sociale, RCCM, NIF, siège, directeur de publication et hébergeur manquent.
+- Le bouton « Postuler maintenant » des pages Équipe mène au formulaire de contact. Il pourrait mener à la candidature spontanée.
