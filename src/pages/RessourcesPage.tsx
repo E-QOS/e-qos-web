@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, Tag, ArrowRight, Loader2, AlertTriangle, BookOpen } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useArticles } from '../hooks/useArticles';
+import { usePageMeta } from '../hooks/usePageMeta';
 import styles from './RessourcesPage.module.css';
 
 const RessourcesPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('Tous');
   const { articles, categories, loading, error } = useArticles();
+  usePageMeta({
+    title: 'Ressources | EQOS Africa',
+    description: 'Guides pratiques, études de cas et actualités sur la transformation digitale en Afrique de l\'Ouest.',
+  });
 
   // Map category slug to display name (for filtering)
   const categoryLabels = ['Tous', ...categories.map((c) => c.name)];
@@ -19,9 +24,9 @@ const RessourcesPage: React.FC = () => {
       });
 
   const getCategoryMeta = (categoryId: number | null | undefined) => {
-    if (!categoryId) return { name: 'Général', color: '#7A90B0' };
+    if (!categoryId) return { name: 'Général' };
     const cat = categories.find((c) => c.id === categoryId);
-    return { name: cat?.name ?? 'Général', color: cat?.color ?? '#7A90B0' };
+    return { name: cat?.name ?? 'Général' };
   };
 
   const formatDate = (dateStr: string | null | undefined) => {
@@ -37,7 +42,8 @@ const RessourcesPage: React.FC = () => {
     <div>
       <section className="page-hero">
         <div className="container">
-          <h1>Ressources</h1>
+          <span className="kicker">Ressources</span>
+          <h1>Analyses et actualités</h1>
           <p>Guides pratiques, études de cas et actualités sur la transformation digitale en Afrique de l'Ouest.</p>
         </div>
       </section>
@@ -47,10 +53,12 @@ const RessourcesPage: React.FC = () => {
 
           {/* ── Category filters ── */}
           {!loading && !error && (
-            <div className={styles.filters}>
+            <div className={styles.filters} role="group" aria-label="Catégories">
               {categoryLabels.map((c) => (
                 <button
                   key={c}
+                  type="button"
+                  aria-pressed={activeCategory === c}
                   className={`${styles.filterBtn} ${activeCategory === c ? styles.filterActive : ''}`}
                   onClick={() => setActiveCategory(c)}
                 >
@@ -62,19 +70,12 @@ const RessourcesPage: React.FC = () => {
 
           {/* ── Loading skeleton ── */}
           {loading && (
-            <div className={styles.loadingState}>
-              <Loader2 size={32} className={styles.loadingSpinner} />
-              <p>Chargement des articles…</p>
-            </div>
+            <p className={styles.loadingState} role="status">Chargement des articles…</p>
           )}
 
           {/* ── Error state ── */}
           {error && !loading && (
-            <div className={styles.errorState}>
-              <AlertTriangle size={32} />
-              <p>Impossible de charger les articles pour le moment.</p>
-              <span>{error}</span>
-            </div>
+            <p className={styles.errorState} role="alert">Impossible de charger les articles pour le moment.</p>
           )}
 
           {/* ── Articles grid ── */}
@@ -86,38 +87,29 @@ const RessourcesPage: React.FC = () => {
                   <article key={a.id} className={styles.card}>
                     {a.cover_url && (
                       <div className={styles.cardCover}>
-                        <img src={a.cover_url} alt={a.title} loading="lazy" />
+                        <img src={a.cover_url} alt="" loading="lazy" decoding="async" />
                       </div>
                     )}
                     <div className={styles.cardBody}>
                       <div className={styles.cardMeta}>
-                        <span
-                          className={styles.category}
-                          style={{
-                            background: catMeta.color + '18',
-                            color: catMeta.color,
-                            borderColor: catMeta.color + '33',
-                          }}
-                        >
-                          <Tag size={11} />
-                          {catMeta.name}
-                        </span>
+                        <span className={styles.category}>{catMeta.name}</span>
                         {a.published_at && (
                           <span className={styles.date}>
-                            <Calendar size={12} />
                             {formatDate(a.published_at)}
                           </span>
                         )}
                       </div>
-                      <h3 className={styles.title}>{a.title}</h3>
+                      <h2 className={styles.title}>
+                        <Link to={`/ressources/${a.slug}`} className={styles.titleLink}>{a.title}</Link>
+                      </h2>
                       {a.excerpt && <p className={styles.extrait}>{a.excerpt}</p>}
                       <div className={styles.cardFooter}>
                         {a.reading_time && (
                           <span className={styles.reading}>{a.reading_time} min de lecture</span>
                         )}
-                        <Link to={`/ressources/${a.slug}`} className={styles.readLink}>
-                          Lire l'article <ArrowRight size={13} />
-                        </Link>
+                        <span className={styles.readLink} aria-hidden="true">
+                          Lire l'article <ArrowRight size={14} />
+                        </span>
                       </div>
                     </div>
                   </article>
@@ -129,9 +121,8 @@ const RessourcesPage: React.FC = () => {
           {/* ── Empty state ── */}
           {!loading && !error && filtered.length === 0 && (
             <div className={styles.emptyState}>
-              <BookOpen size={40} />
               <p>Aucun article dans cette catégorie pour le moment.</p>
-              <button className={styles.filterBtn} onClick={() => setActiveCategory('Tous')}>
+              <button type="button" className="text-link" onClick={() => setActiveCategory('Tous')}>
                 Voir tous les articles
               </button>
             </div>
