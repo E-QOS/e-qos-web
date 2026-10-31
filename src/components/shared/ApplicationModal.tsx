@@ -79,19 +79,22 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
         cvFile ?? undefined,
       );
 
-      // Notify backend to send confirmation email (fire-and-forget)
+      // Une seule notification : le backend prévient l'équipe (lien vers la console admin) et accuse réception
       const backendUrl = (import.meta.env.VITE_BACKEND_URL as string) || '';
-      if (backendUrl) {
-        fetch(`${backendUrl}/api/jobs/apply-notify`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            full_name: fullName.trim(),
-            email: email.trim().toLowerCase(),
-            job_title: job?.title ?? 'Candidature spontanée',
-          }),
-        }).catch(() => null);
-      }
+      fetch(`${backendUrl}/api/jobs/apply-notify`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: fullName.trim(),
+          email: email.trim().toLowerCase(),
+          job_title: job?.title ?? 'Candidature spontanée',
+          job_id: job?.id,
+          phone: phone.trim() || undefined,
+          sector: sector || undefined,
+          trade: trade.trim() || undefined,
+          has_cv: !!cvFile,
+        }),
+      }).catch(() => null);
 
       setSuccess(true);
     } catch (err) {
