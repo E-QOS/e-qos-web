@@ -17,7 +17,7 @@ const ServicesPage: React.FC = () => {
         <div className="container">
           <span className="kicker">Services</span>
           <h1>Nos services</h1>
-          <p>Recrutement et intérim pour tous les métiers, conseil et services numériques pour les organisations, en Guinée et en Afrique de l'Ouest.</p>
+          <p>Recrutement et intérim pour tous les métiers, conseil et services numériques pour les organisations, en Guinée.</p>
         </div>
       </section>
 

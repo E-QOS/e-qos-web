@@ -18,7 +18,7 @@ import offerStyles from './RecrutementPage.module.css';
 const CALENDAR_URL = 'https://calendar.app.google/C7KRgHGHW6gE478s6';
 
 
-const countries = ['Guinée', 'Sénégal', 'Mali'];
+const countries = ['Guinée'];
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -151,7 +151,7 @@ const HomePage: React.FC = () => {
         <div className="container">
           <header className={`${styles.sectionHead} reveal`}>
             <span className="kicker">Présence</span>
-            <h2 id="presence-title">Partenaire digital en Afrique de l'Ouest</h2>
+            <h2 id="presence-title">Un partenaire ancré en Guinée</h2>
           </header>
           <ul className={styles.countries}>
             {countries.map((c, i) => (
