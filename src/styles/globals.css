@@ -31,6 +31,70 @@ ul, ol { list-style: none; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
 input, select, textarea { font: inherit; color: inherit; }
 
+/* ===== Champs de formulaire : aucune couleur système (bleu) ===== */
+
+/* Remplissage automatique du navigateur : fond du site au lieu du bleu clair.
+   !important car les modules redéfinissent box-shadow au focus. */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: var(--ink);
+  caret-color: var(--ink);
+  box-shadow: 0 0 0 1000px var(--paper) inset !important;
+  transition: background-color 600000s 0s;
+}
+input:-webkit-autofill:focus-visible,
+textarea:-webkit-autofill:focus-visible {
+  box-shadow: 0 0 0 1000px var(--paper) inset, 0 1px 0 0 var(--ink), 0 3px 0 0 var(--orange) !important;
+}
+
+option { background: var(--paper); color: var(--ink); }
+
+/* Listes déroulantes stylables (Chrome et Edge 135+) : survol et sélection aux couleurs du site.
+   !important car les modules fixent appearance: none et dessinent leur propre chevron. */
+@supports (appearance: base-select) {
+  select:not([multiple]),
+  ::picker(select) { appearance: base-select !important; }
+
+  select:not([multiple]) { background-image: none !important; gap: 0.75rem; }
+
+  select::picker-icon {
+    content: '';
+    width: 6px;
+    height: 6px;
+    margin: 0 4px 3px auto;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    transform: rotate(45deg);
+    transition: transform 200ms var(--ease);
+  }
+  select:open::picker-icon { transform: translateY(3px) rotate(-135deg); }
+
+  ::picker(select) {
+    margin-top: 4px;
+    padding: 0.375rem 0;
+    border: 1px solid var(--hairline);
+    border-top: 2px solid var(--ink);
+    border-radius: 0;
+    background: var(--paper);
+    box-shadow: 0 18px 40px -24px rgba(11, 11, 12, 0.28);
+  }
+
+  select option {
+    padding: 0.625rem 1rem;
+    border-left: 2px solid transparent;
+    color: var(--text);
+  }
+  select option::checkmark { display: none; }
+  select option:hover,
+  select option:focus-visible { background: var(--paper-warm); color: var(--ink); outline: none; }
+  select option:checked { border-left-color: var(--orange); color: var(--ink); font-weight: 600; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  select::picker-icon { transition: none; }
+}
+
 ::selection { background: var(--ink); color: var(--paper); }
 
 /* ===== Conteneur et grille 12 colonnes ===== */
