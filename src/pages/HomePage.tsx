@@ -18,7 +18,7 @@ import offerStyles from './RecrutementPage.module.css';
 const CALENDAR_URL = 'https://calendar.app.google/C7KRgHGHW6gE478s6';
 
 
-const countries = ['Guinée', 'Sénégal', 'Mali'];
+const countries = ['Guinée'];
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
