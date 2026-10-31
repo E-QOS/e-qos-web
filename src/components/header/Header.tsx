@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowRight, LogOut, UserCircle, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL } from '../../data/recrutement';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, DEMANDE_PATH, CANDIDATURE_PATH, ctaClient } from '../../data/recrutement';
 import { allServices } from '../../data/services';
 import styles from './Header.module.css';
 
@@ -25,21 +25,26 @@ const solutionsLinks = [
   { to: '/solutions/makiti', label: 'Makiti', desc: 'Marketplace agricole' },
 ];
 
+const recrutementLinks = [
+  { to: DEMANDE_PATH, label: ctaClient, desc: 'Renfort, intérim ou recherche de talent, en quelques étapes' },
+  { to: '/carrieres', label: 'Offres d\'emploi', desc: 'Les missions et postes ouverts' },
+  { to: CANDIDATURE_PATH, label: 'Candidature spontanée', desc: 'Rejoindre les viviers E-QOS' },
+];
+
 type MenuLink = { to: string; label: string; desc?: string };
 
-const menus: { key: string; label: string; allLabel: string; to: string; links: MenuLink[]; wide?: boolean }[] = [
+// also : pages rattachées au menu, signalées comme actives dans la navigation
+const menus: { key: string; label: string; allLabel: string; to: string; links: MenuLink[]; wide?: boolean; also?: string[] }[] = [
+  { key: 'recrutement', label: RECRUTEMENT_LABEL, allLabel: 'Notre offre', to: RECRUTEMENT_PATH, links: recrutementLinks,
+    also: [DEMANDE_PATH, '/carrieres'] },
   { key: 'services', label: 'Services', allLabel: 'Tous les services', to: '/services', links: servicesLinks, wide: true },
   { key: 'secteurs', label: 'Secteurs', allLabel: 'Tous les secteurs', to: '/secteurs', links: secteursLinks },
   { key: 'solutions', label: 'Solutions', allLabel: 'Toutes les solutions', to: '/solutions', links: solutionsLinks },
 ];
 
-// Offre principale, en tête de navigation
-const featuredLink = { to: RECRUTEMENT_PATH, label: RECRUTEMENT_LABEL };
-
 const directLinks = [
   { to: '/ressources', label: 'Ressources' },
   { to: '/a-propos', label: 'À propos' },
-  { to: '/carrieres', label: 'Carrières' },
 ];
 
 const CALENDAR_URL = 'https://calendar.app.google/C7KRgHGHW6gE478s6';
@@ -143,14 +148,9 @@ const Header: React.FC = () => {
 
           <nav className={styles.nav} aria-label="Navigation principale">
             <ul className={styles.navList}>
-              <li className={styles.navItem}>
-                <NavLink to={featuredLink.to} className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}>
-                  {featuredLink.label}
-                </NavLink>
-              </li>
               {menus.map(m => (
                 <li key={m.key} className={styles.navItem} onKeyDown={onMenuKeyDown}>
-                  <NavLink to={m.to} className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}>
+                  <NavLink to={m.to} className={({ isActive }) => `${styles.navLink} ${isActive || m.also?.includes(location.pathname) ? styles.active : ''}`}>
                     {m.label}
                     <ChevronDown size={13} className={styles.chevron} aria-hidden="true" />
                   </NavLink>
@@ -165,6 +165,9 @@ const Header: React.FC = () => {
                         </li>
                       ))}
                     </ul>
+                    <Link to={m.to} className={styles.dropdownAll}>
+                      {m.allLabel} <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
                   </div>
                 </li>
               ))}
@@ -179,8 +182,12 @@ const Header: React.FC = () => {
           </nav>
 
           <div className={styles.actions}>
+            <NavLink to="/contact" className={({ isActive }) => `${styles.textAction} ${isActive ? styles.textActionActive : ''}`}>
+              Contact
+            </NavLink>
+
             {!authLoading && !user && (
-              <button type="button" className={styles.signInBtn} onClick={() => openAuthModal('signin')}>
+              <button type="button" className={styles.textAction} onClick={() => openAuthModal('signin')}>
                 Connexion
               </button>
             )}
@@ -226,7 +233,9 @@ const Header: React.FC = () => {
               </div>
             )}
 
-            <Link to="/contact" className={styles.ctaBtn}>Nous contacter</Link>
+            <Link to={DEMANDE_PATH} className={styles.ctaBtn}>
+              {ctaClient} <ArrowRight size={15} aria-hidden="true" className={styles.ctaArrow} />
+            </Link>
           </div>
 
           <button
@@ -263,9 +272,6 @@ const Header: React.FC = () => {
         </div>
 
         <nav className={styles.mobileBody} aria-label="Navigation mobile">
-          <div className={styles.mobileSection}>
-            <Link to={featuredLink.to} className={styles.mobileLink}>{featuredLink.label}</Link>
-          </div>
           {menus.map(m => (
             <div key={m.key} className={styles.mobileSection}>
               <button
@@ -294,7 +300,8 @@ const Header: React.FC = () => {
         </nav>
 
         <div className={styles.mobileFooter}>
-          <Link to="/contact" className="btn btn-primary">Nous contacter</Link>
+          <Link to={DEMANDE_PATH} className="btn btn-primary">{ctaClient}</Link>
+          <Link to="/contact" className="btn btn-outline">Nous contacter</Link>
           <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className="arrow-link">
             Réserver un appel <ArrowRight size={16} aria-hidden="true" />
           </a>

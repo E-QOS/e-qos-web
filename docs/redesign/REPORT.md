@@ -362,3 +362,15 @@ Branche `redesign/premium` dans les trois dépôts : `e-qos-web`, `e-qos-web-bac
 1. Appliquer la migration 003 sur Supabase.
 2. Déployer le backend (Render) et définir `TEAM_REQUESTS_EMAIL` si les agents ont une adresse dédiée.
 3. Déployer le site (Netlify), puis la console admin.
+
+## 15. En-tête amélioré (31 octobre 2026)
+
+- **Action principale** : le bouton plein « Constituer une équipe » ouvre directement le parcours de demande ; « Contact » et « Connexion » passent en liens texte.
+- **Menu « Recrutement & intérim »** : sous-menu avec le parcours de demande, les offres d'emploi et la candidature spontanée. « Carrières » quitte le premier niveau (ses offres sont dans ce sous-menu) et le menu reste actif sur `/constituer-une-equipe` et `/carrieres`.
+- **Sous-menus** : filet noir en tête, ombre légère et lien « Tous les… » en pied, aussi au clavier.
+- **Page courante** soulignée en orange (trait de signature) ; au défilement, voile blanc translucide et ombre très douce.
+- **Mobile** : « Constituer une équipe » en bouton principal, « Nous contacter » en secondaire.
+- Le menu complet s'affiche dès 1200 px (menu mobile en dessous), sans débordement de 1200 à 1536 px.
+- Contrôles : axe WCAG 2.1 AA sans violation sur l'en-tête (1200, 1280, 1440) et le menu mobile (375) ; sous-menus atteignables au clavier ; pas de défilement horizontal.
+
+Captures : `screenshots/after-header-1280.png`, `after-header-menu-1440.png`, `after-header-mobile-375.png`.

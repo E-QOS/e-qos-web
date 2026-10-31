@@ -7,10 +7,22 @@
   height: var(--header-height);
   background: var(--paper);
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s var(--ease);
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
 }
 
-.scrolled { border-bottom-color: var(--hairline); }
+/* Au défilement : filet, léger voile et ombre très douce pour détacher l'en-tête du contenu */
+.scrolled {
+  border-bottom-color: var(--hairline);
+  box-shadow: 0 1px 12px rgba(11, 11, 12, 0.04);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .scrolled {
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: saturate(1.4) blur(12px);
+    backdrop-filter: saturate(1.4) blur(12px);
+  }
+}
 
 .spacer { height: var(--header-height); }
 
@@ -21,7 +33,7 @@
   padding: 0 var(--gutter);
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 /* ── Logo ── */
@@ -40,7 +52,7 @@
 /* ── Navigation principale ── */
 .nav { flex: 1; display: flex; justify-content: center; }
 
-.navList { display: flex; align-items: center; gap: 0.25rem; }
+.navList { display: flex; align-items: center; gap: 0.125rem; }
 
 .navItem { position: relative; }
 
@@ -53,6 +65,7 @@
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text);
+  white-space: nowrap;
   position: relative;
   transition: color 0.2s var(--ease);
 }
@@ -63,15 +76,17 @@
   left: 0.75rem;
   right: 0.75rem;
   bottom: 22px;
-  height: 1px;
-  background: currentColor;
+  height: 2px;
+  background: var(--ink);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 200ms var(--ease);
 }
 
 .navLink:hover, .navItem:focus-within > .navLink, .active { color: var(--ink); }
-.navLink:hover::after, .active::after { transform: scaleX(1); }
+.navLink:hover::after, .navItem:focus-within > .navLink::after, .active::after { transform: scaleX(1); }
+/* La page courante reprend l'orange du trait de signature */
+.active::after { background: var(--orange); }
 
 .chevron { opacity: 0.55; transition: transform 200ms var(--ease); }
 .navItem:hover .chevron, .navItem:focus-within .chevron { transform: rotate(180deg); }
@@ -81,9 +96,11 @@
   position: absolute;
   top: calc(100% - 1px);
   left: 0;
-  min-width: 280px;
+  min-width: 300px;
   background: var(--paper);
   border: 1px solid var(--hairline);
+  border-top: 2px solid var(--ink);
+  box-shadow: 0 18px 40px -24px rgba(11, 11, 12, 0.28);
   padding: 0.75rem;
   opacity: 0;
   visibility: hidden;
@@ -116,13 +133,27 @@
   background: var(--paper-warm);
 }
 
+.dropdownAll {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-top: 0.5rem;
+  padding: 0.75rem 0.75rem 0.25rem;
+  border-top: 1px solid var(--hairline);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.dropdownAll svg { transition: transform 200ms var(--ease); }
+.dropdownAll:hover svg, .dropdownAll:focus-visible svg { transform: translateX(3px); }
+
 .dropdownLabel { font-size: 0.875rem; font-weight: 600; color: var(--ink); line-height: 1.35; }
 .dropdownDesc  { font-size: 0.8125rem; color: var(--muted); line-height: 1.4; }
 
 /* ── Actions ── */
-.actions { display: flex; align-items: center; gap: 1.25rem; flex-shrink: 0; }
+.actions { display: flex; align-items: center; gap: 1.125rem; flex-shrink: 0; }
 
-.signInBtn {
+.textAction {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--text);
@@ -133,20 +164,26 @@
   background-repeat: no-repeat;
   transition: background-size 200ms var(--ease), color 200ms var(--ease);
 }
-.signInBtn:hover { color: var(--ink); background-size: 100% 1px; }
+.textAction:hover, .textActionActive { color: var(--ink); background-size: 100% 1px; }
 
+/* Action principale : le parcours de demande d'équipe */
 .ctaBtn {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  gap: 0.5rem;
+  min-height: 42px;
   padding: 0 1.125rem;
   border: 1px solid var(--ink);
-  color: var(--ink);
+  background: var(--ink);
+  color: var(--paper);
   font-size: 0.875rem;
   font-weight: 600;
+  white-space: nowrap;
   transition: var(--transition);
 }
-.ctaBtn:hover { background: var(--ink); color: var(--paper); }
+.ctaBtn:hover { background: var(--paper); color: var(--ink); }
+.ctaArrow { transition: transform 200ms var(--ease); }
+.ctaBtn:hover .ctaArrow { transform: translateX(3px); }
 
 /* ── Menu utilisateur ── */
 .userMenu { position: relative; }
@@ -301,6 +338,7 @@
   gap: 1.25rem;
 }
 .mobileFooter :global(.btn) { width: 100%; }
+.mobileFooter :global(.btn + .btn) { margin-top: -0.5rem; }
 
 .mobileAuth {
   display: flex;
@@ -311,13 +349,18 @@
 }
 
 /* ── Points de rupture ── */
-@media (max-width: 1100px) {
+@media (max-width: 1199px) {
   .nav, .actions { display: none; }
   .mobileToggle { display: inline-flex; }
 }
 
-@media (max-width: 1240px) and (min-width: 1101px) {
-  .inner { gap: 1.25rem; }
+@media (max-width: 1360px) and (min-width: 1200px) {
+  .inner { gap: 1rem; }
+  .actions { gap: 1rem; }
   .navLink { padding: 0 0.5rem; }
   .navLink::after { left: 0.5rem; right: 0.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ctaArrow, .dropdownAll svg { transition: none; }
 }
