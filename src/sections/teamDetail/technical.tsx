@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../styles/technical.module.css';
+import styles from '../../styles/teamDetail.module.css';
 
 interface Member {
   id: number;
@@ -24,8 +24,8 @@ interface TeamDetailData {
 const equipeTechniqueData: TeamDetailData = {
   teamName: 'Équipe Technique',
   teamTag: 'R&D',
-  description: 'Notre équipe de développement conçoit et implémente des solutions énergétiques innovantes qui répondent aux défis du continent africain.',
-  mission: 'Nous développons des technologies de pointe pour démocratiser l\'accès à l\'énergie propre en Afrique. Notre expertise couvre le développement logiciel, l\'IoT, l\'intelligence artificielle et les systèmes embarqués pour créer des solutions durables et scalables.',
+  description: 'Notre équipe technique conçoit, développe et maintient les solutions numériques d\'E-QOS et de ses clients.',
+  mission: 'Nous concevons des logiciels fiables et sécurisés pour les entreprises et institutions guinéennes. Notre expertise couvre le développement web et mobile, les architectures cloud, l\'intégration de systèmes et la cybersécurité.',
   heroImage: '/images/teams/technique-hero.jpg',
   members: [
     
@@ -82,13 +82,7 @@ const Technical: React.FC = () => {
 
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        <div className={styles.heroOverlay}></div>
-        <img 
-          src={team.heroImage} 
-          alt={team.teamName}
-          className={styles.heroImage}
-        />
-        <div className={styles.heroContent}>
+                        <div className={styles.heroContent}>
           <div className="container">
             <span className={styles.heroTag}>{team.teamTag}</span>
             <h1 className={styles.heroTitle}>{team.teamName}</h1>
@@ -131,15 +125,6 @@ const Technical: React.FC = () => {
               </ul>
             </div>
             <div className={styles.techCategory}>
-              <h3>IoT & Hardware</h3>
-              <ul>
-                <li>Arduino & Raspberry Pi</li>
-                <li>MQTT Protocol</li>
-                <li>Capteurs énergétiques</li>
-                <li>Edge Computing</li>
-              </ul>
-            </div>
-            <div className={styles.techCategory}>
               <h3>DevOps & Cloud</h3>
               <ul>
                 <li>Docker & Kubernetes</li>
@@ -167,19 +152,21 @@ const Technical: React.FC = () => {
                   <img 
                     src={member.photo} 
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className={styles.memberImage}
                   />
                   <div className={styles.memberOverlay}>
                     <div className={styles.socialLinks}>
                       {member.linkedin && (
-                        <a href={member.linkedin} className={styles.socialLink}>
+                        <a href={member.linkedin} className={styles.socialLink} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                           </svg>
                         </a>
                       )}
                       {member.email && (
-                        <a href={`mailto:${member.email}`} className={styles.socialLink}>
+                        <a href={`mailto:${member.email}`} className={styles.socialLink} aria-label={`Écrire à ${member.name}`}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                             <polyline points="22,6 12,13 2,6"/>
@@ -206,7 +193,7 @@ const Technical: React.FC = () => {
         <div className="container">
           <div className={styles.ctaCard}>
             <h2>Rejoignez Notre Équipe Tech</h2>
-            <p>Vous êtes développeur, designer ou ingénieur passionné ? Construisons ensemble l'avenir de l'énergie en Afrique.</p>
+            <p>Vous êtes développeur, designer ou ingénieur passionné ? Construisons ensemble les outils numériques des entreprises guinéennes.</p>
             <Link to="/contact" className={styles.ctaButton}>
               Postuler maintenant
               <span className={styles.arrow}>→</span>

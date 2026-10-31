@@ -47,7 +47,7 @@ const MakitiPage: React.FC = () => (
         <div className={styles.featuresGrid}>
           {features.map((f, i) => (
             <div key={i} className={styles.featureCard}>
-              <div className={styles.featureIcon} style={{ background: 'rgba(45,122,58,0.08)', color: '#2d7a3a' }}>{f.icon}</div>
+              <div className={styles.featureIcon}>{f.icon}</div>
               <h3 className={styles.featureTitle}>{f.title}</h3>
               <p className={styles.featureDesc}>{f.desc}</p>
             </div>
@@ -58,19 +58,19 @@ const MakitiPage: React.FC = () => (
 
     <section className="section">
       <div className="container">
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', alignItems: 'start' }}>
-          <div style={{ background: '#f8f9fa', borderRadius: 16, padding: '2rem', border: '1px solid rgba(30,70,74,0.07)' }}>
-            <h3 style={{ marginBottom: '1rem', color: '#0f172a' }}>Pour les consommateurs</h3>
-            <p style={{ color: '#475569', marginBottom: '0.75rem' }}>Restaurants, collectivités, particuliers, revendeurs. Commandez en ligne auprès de producteurs vérifiés, payez par mobile money et recevez vos produits frais directement.</p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '1rem' }}>
-              <MapPin size={16} color="#2d7a3a" />
-              <span style={{ fontSize: '0.85rem', color: '#64748b' }}>Disponible en Guinée · Expansion Afrique de l'Ouest — à venir</span>
+        <div className={styles.duo}>
+          <div className={styles.duoItem}>
+            <h3>Pour les consommateurs</h3>
+            <p>Restaurants, collectivités, particuliers, revendeurs. Commandez en ligne auprès de producteurs vérifiés, payez par mobile money et recevez vos produits frais directement.</p>
+            <div className={styles.duoNote}>
+              <MapPin size={16} aria-hidden="true" />
+              <span>Disponible en Guinée · Expansion Afrique de l'Ouest — à venir</span>
             </div>
           </div>
-          <div style={{ background: '#f8f9fa', borderRadius: 16, padding: '2rem', border: '1px solid rgba(30,70,74,0.07)' }}>
-            <h3 style={{ marginBottom: '1rem', color: '#0f172a' }}>Pour les producteurs</h3>
-            <p style={{ color: '#475569', marginBottom: '0.75rem' }}>Inscrivez vos produits gratuitement, fixez vos prix et gérez vos commandes depuis votre téléphone. Recevez vos paiements directement sur votre wallet mobile.</p>
-            <Link to="/contact" className="btn btn-primary btn-sm" style={{ marginTop: '0.5rem' }}>
+          <div className={styles.duoItem}>
+            <h3>Pour les producteurs</h3>
+            <p>Inscrivez vos produits gratuitement, fixez vos prix et gérez vos commandes depuis votre téléphone. Recevez vos paiements directement sur votre wallet mobile.</p>
+            <Link to="/contact" className="btn btn-primary btn-sm">
               Devenir partenaire <ArrowRight size={14} />
             </Link>
           </div>
@@ -79,9 +79,9 @@ const MakitiPage: React.FC = () => (
     </section>
 
     <section className="cta-band">
-      <div className="container" style={{ textAlign: 'center' }}>
-        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Soutenez les producteurs locaux</h2>
-        <p style={{ color: 'rgba(255,255,255,0.75)', marginBottom: '2rem' }}>Chaque commande sur Makiti contribue directement au revenu d'un agriculteur africain.</p>
+      <div className="container">
+        <h2>Soutenez les producteurs locaux</h2>
+        <p>Chaque commande sur Makiti contribue directement au revenu d'un agriculteur africain.</p>
         <a href="#" className="btn btn-white btn-lg">
           <Smartphone size={16} />
           Télécharger Makiti

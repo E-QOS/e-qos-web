@@ -1,53 +1,62 @@
 :root {
-  /* === Palette principale EQOS === */
-  --color-primary:    #0A1628;   /* Bleu nuit profond */
-  --color-accent:     #FF6B2C;   /* Orange africain — CTAs */
-  --color-accent-alt: #00D4FF;   /* Cyan tech — icônes, badges */
-  --color-surface:    #FFFFFF;
-  --color-surface-2:  #F4F6FA;   /* Fond sections claires */
-  --color-text:       #0A1628;
-  --color-text-muted: #64748B;
-  --color-border:     #E2E8F0;
+  /* === Tokens de la refonte === */
+  --ink:         #0B0B0C;
+  --text:        #2B2B2B;
+  --muted:       #6B6B6B;
+  --hairline:    #E2E2E2;
+  --hairline-strong: #BDBDBD;
+  --paper:       #FFFFFF;
+  --paper-warm:  #F7F5F1;
+  --orange:      #F15A29;   /* graphismes, grands textes, focus */
+  --orange-deep: #C2410C;   /* texte orange de petite taille, AA sur blanc */
 
-  /* === Compatibilité anciens noms === */
-  --primary:       #0A1628;
-  --primary-dark:  #060e1a;
-  --primary-light: #1a2d52;
-  --accent:        #FF6B2C;
-  --accent-dark:   #e55a1f;
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-ui:      "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* === Textes === */
-  --text:       #0A1628;
-  --text-light: #374151;
-  --text-muted: #64748B;
+  --container:     1200px;
+  --gutter:        clamp(20px, 4vw, 40px);
+  --section-space: clamp(96px, 14vw, 192px);
+  --ease:          cubic-bezier(.2, .7, .2, 1);
+  --measure:       68ch;
 
-  /* === Fonds === */
-  --bg:       #FFFFFF;
-  --bg-light: #F4F6FA;
-  --bg-alt:   #F4F6FA;
-  --bg-dark:  #0A1628;
+  /* === Compatibilité : anciens noms redirigés vers la nouvelle palette === */
+  --color-primary:    var(--ink);
+  --color-accent:     var(--orange-deep);
+  --color-accent-alt: var(--ink);
+  --color-surface:    var(--paper);
+  --color-surface-2:  var(--paper-warm);
+  --color-text:       var(--ink);
+  --color-text-muted: var(--muted);
+  --color-border:     var(--hairline);
 
-  /* === Cartes === */
-  --card-bg:           #FFFFFF;
-  --card-border:       rgba(10, 22, 40, 0.07);
-  --card-shadow:       0 2px 8px rgba(0, 0, 0, 0.06);
-  --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --primary:       var(--ink);
+  --primary-dark:  #000000;
+  --primary-light: #2B2B2B;
+  --accent:        var(--orange-deep);
+  --accent-dark:   #9A3412;
 
-  /* === Typographie === */
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --text-light: var(--text);
+  --text-muted: var(--muted);
 
-  /* === Espacements === */
-  --radius:    8px;
-  --radius-lg: 16px;
-  --container: 1200px;
+  --bg:       var(--paper);
+  --bg-light: var(--paper-warm);
+  --bg-alt:   var(--paper-warm);
+  --bg-dark:  var(--ink);
+
+  --card-bg:           var(--paper);
+  --card-border:       var(--hairline);
+  --card-shadow:       none;
+  --card-shadow-hover: none;
+
+  --font-sans: var(--font-ui);
+
+  --radius:    2px;
+  --radius-lg: 2px;
   --gap:       1.5rem;
 
-  /* === Header === */
   --header-height: 72px;
-  --header-bg:     #FFFFFF;
-  --header-border: rgba(10, 22, 40, 0.08);
+  --header-bg:     var(--paper);
+  --header-border: var(--hairline);
 
-  /* === Transitions === */
-  --transition: all 0.25s ease;
+  --transition: color 0.2s var(--ease), background-color 0.2s var(--ease), border-color 0.2s var(--ease);
 }

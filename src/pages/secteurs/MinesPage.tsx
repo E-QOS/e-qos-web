@@ -18,10 +18,6 @@ const MinesPage: React.FC = () => (
       'Gestion des permis, des redevances minières et des obligations réglementaires locales',
     ]}
     services={[
-      { label: 'Implémentation ERP industriel (SAP, Dynamics)', to: '/services/erp' },
-      { label: 'Développement d\'applications terrain mobiles', to: '/services/developpement' },
-      { label: 'Intégration paiements fournisseurs mobiles', to: '/services/paiements' },
-      { label: 'BI & Reporting ESG', to: '/services/ia-data' },
       { label: 'Cybersécurité des systèmes de contrôle', to: '/services/cybersecurite' },
     ]}
   />

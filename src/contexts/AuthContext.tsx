@@ -1,6 +1,16 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import type { User, Session } from '@supabase/supabase-js';
-import { supabase } from '../lib/supabase';
+// Le client Supabase est chargé à la demande pour rester hors du bundle initial
+const loadSupabase = () => import('../lib/supabase').then(m => m.supabase);
+
+/** Vrai si une session est mémorisée (storageKey du client) ou si l'URL revient d'un lien d'authentification. */
+function hasAuthHint(): boolean {
+  try {
+    if (localStorage.getItem('eqos_auth')) return true;
+  } catch { /* stockage indisponible */ }
+  const { hash, search } = window.location;
+  return /access_token|refresh_token|error_description|[?&]code=/.test(hash + search);
+}
 import type { Profile } from '../types/database';
 
 /* ─── Types ─── */
@@ -35,12 +45,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Le client Supabase n'est chargé que s'il peut servir : session existante ou ouverture de la connexion
+  const [listening, setListening] = useState(hasAuthHint);
+
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTab, setModalTab]   = useState<'signin' | 'signup'>('signin');
 
   /* ── Fetch profile ── */
   const fetchProfile = useCallback(async (uid: string) => {
     // maybeSingle() returns null (not 406) when no row exists
+    const supabase = await loadSupabase();
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -56,6 +70,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   /* ── Auth listener ── */
   useEffect(() => {
+    if (!listening) { setLoading(false); return; }
     let mounted = true;
 
     // onAuthStateChange must be synchronous — awaiting inside the callback
@@ -68,28 +83,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     };
 
     let subscription: { unsubscribe: () => void } = { unsubscribe: () => {} };
-    try {
-      const { data } = supabase.auth.onAuthStateChange((_event, s) => {
-        if (!mounted) return;
-        setSession(s);
-        setUser(s?.user ?? null);
+    loadSupabase().then((supabase) => {
+      if (!mounted) return;
+      try {
+        const { data } = supabase.auth.onAuthStateChange((_event, s) => {
+          if (!mounted) return;
+          setSession(s);
+          setUser(s?.user ?? null);
 
-        if (!s?.user) {
-          setProfile(null);
-          done();
-          return;
-        }
+          if (!s?.user) {
+            setProfile(null);
+            done();
+            return;
+          }
 
-        // Fire profile fetch without awaiting — must not block this callback
-        fetchProfile(s.user.id)
-          .catch(() => {})
-          .finally(done);
-      });
-      subscription = data.subscription;
-    } catch {
-      // Supabase not configured
-      done();
-    }
+          // Fire profile fetch without awaiting — must not block this callback
+          fetchProfile(s.user.id)
+            .catch(() => {})
+            .finally(done);
+        });
+        subscription = data.subscription;
+      } catch {
+        // Supabase not configured
+        done();
+      }
+    }).catch(done);
 
     // Safety valve: unblock after 8s if no auth event fires
     const timeout = setTimeout(done, 8000);
@@ -99,10 +117,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       clearTimeout(timeout);
       subscription.unsubscribe();
     };
-  }, [fetchProfile]);
+  }, [listening, fetchProfile]);
 
   /* ── Modal helpers ── */
   const openAuthModal = useCallback((tab: 'signin' | 'signup' = 'signin') => {
+    setListening(true);
     setModalTab(tab);
     setModalOpen(true);
   }, []);

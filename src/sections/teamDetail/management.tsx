@@ -1,7 +1,7 @@
 // src/sections/teamDetail/management.tsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../styles/management.module.css';
+import styles from '../../styles/teamDetail.module.css';
 
 interface Member {
   id: number;
@@ -25,8 +25,8 @@ interface TeamDetailData {
 const directionGeneraleData: TeamDetailData = {
   teamName: 'Direction Générale',
   teamTag: 'Leadership',
-  description: 'L\'équipe de direction générale pilote la vision stratégique de d-eqos et assure le développement harmonieux de l\'entreprise.',
-  mission: 'Notre mission est de transformer le paysage énergétique en Afrique en développant des solutions innovantes et durables qui répondent aux besoins réels des populations.',
+  description: 'L\'équipe de direction générale pilote la vision stratégique d\'E-QOS et assure le développement harmonieux de l\'entreprise.',
+  mission: 'Notre mission est de donner aux entreprises et institutions guinéennes les équipes et les outils dont elles ont besoin pour avancer : recrutement et intérim dans les grands secteurs du pays, conseil et services numériques.',
   heroImage: '/images/teams/direction-hero.jpg',
   members: [
     {
@@ -91,16 +91,6 @@ const Management: React.FC = () => {
 
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        <div className={styles.heroOverlay}></div>
-        <img 
-          src={team.heroImage} 
-          alt={team.teamName}
-          className={styles.heroImage}
-          onError={(e) => {
-            // Fallback image if hero image fails to load
-            e.currentTarget.src = '/images/teams/default-hero.jpg';
-          }}
-        />
         <div className={styles.heroContent}>
           <div className="container">
             <span className={styles.heroTag}>{team.teamTag}</span>
@@ -135,6 +125,8 @@ const Management: React.FC = () => {
                   <img 
                     src={member.photo} 
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className={styles.memberImage}
                     onError={(e) => {
                       // Fallback for member photos

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from '../../styles/support.module.css';
+import styles from '../../styles/teamDetail.module.css';
 
 interface Member {
   id: number;
@@ -25,7 +25,7 @@ const equipeSupportData: TeamDetailData = {
   teamName: 'Équipe Support',
   teamTag: 'Service Client',
   description: 'Notre équipe support assure un accompagnement exceptionnel pour garantir la satisfaction et la réussite de nos clients à travers l\'Afrique.',
-  mission: 'Nous fournissons un support technique et client de premier ordre, disponible 24h/24 et 7j/7. Notre mission est de résoudre les problèmes rapidement, former les utilisateurs et collecter les retours pour améliorer continuellement nos solutions énergétiques.',
+  mission: 'Nous fournissons un support technique et client de premier ordre. Notre mission est de résoudre les problèmes rapidement, former les utilisateurs et collecter les retours pour améliorer continuellement nos solutions énergétiques.',
   heroImage: '/images/teams/support-hero.jpg',
   members: [
     {
@@ -90,13 +90,7 @@ const Support: React.FC = () => {
 
       {/* Hero Section */}
       <section className={styles.heroSection}>
-        <div className={styles.heroOverlay}></div>
-        <img 
-          src={team.heroImage} 
-          alt={team.teamName}
-          className={styles.heroImage}
-        />
-        <div className={styles.heroContent}>
+                        <div className={styles.heroContent}>
           <div className="container">
             <span className={styles.heroTag}>{team.teamTag}</span>
             <h1 className={styles.heroTitle}>{team.teamName}</h1>
@@ -128,8 +122,8 @@ const Support: React.FC = () => {
                   <path d="M12 8h.01"/>
                 </svg>
               </div>
-              <h3>Support 24/7</h3>
-              <p>Assistance technique disponible 24 heures sur 24, 7 jours sur 7 par téléphone, chat et email</p>
+              <h3>Assistance technique</h3>
+              <p>Assistance technique par téléphone, chat et email</p>
             </div>
             
             <div className={styles.serviceCard}>
@@ -171,26 +165,6 @@ const Support: React.FC = () => {
               <p>Interventions techniques sur site dans toute l'Afrique pour installation et maintenance</p>
             </div>
           </div>
-
-          {/* Stats */}
-          <div className={styles.statsGrid}>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>98%</div>
-              <div className={styles.statLabel}>Satisfaction Client</div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>15min</div>
-              <div className={styles.statLabel}>Temps de réponse moyen</div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>24/7</div>
-              <div className={styles.statLabel}>Disponibilité</div>
-            </div>
-            <div className={styles.statItem}>
-              <div className={styles.statNumber}>12+</div>
-              <div className={styles.statLabel}>Langues supportées</div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -209,19 +183,21 @@ const Support: React.FC = () => {
                   <img 
                     src={member.photo} 
                     alt={member.name}
+                    loading="lazy"
+                    decoding="async"
                     className={styles.memberImage}
                   />
                   <div className={styles.memberOverlay}>
                     <div className={styles.socialLinks}>
                       {member.linkedin && (
-                        <a href={member.linkedin} className={styles.socialLink}>
+                        <a href={member.linkedin} className={styles.socialLink} target="_blank" rel="noopener noreferrer" aria-label={`LinkedIn de ${member.name}`}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                           </svg>
                         </a>
                       )}
                       {member.email && (
-                        <a href={`mailto:${member.email}`} className={styles.socialLink}>
+                        <a href={`mailto:${member.email}`} className={styles.socialLink} aria-label={`Écrire à ${member.name}`}>
                           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                             <polyline points="22,6 12,13 2,6"/>
@@ -248,7 +224,7 @@ const Support: React.FC = () => {
         <div className="container">
           <div className={styles.ctaCard}>
             <h2>Besoin d'Aide ?</h2>
-            <p>Notre équipe support est disponible 7j/7 entre 9h et 18h pour vous accompagner dans l'utilisation de nos solutions.</p>
+            <p>Notre équipe support vous accompagne dans l'utilisation de nos solutions.</p>
             <div className={styles.ctaButtons}>
               <a href="tel:+224613030824" className={styles.ctaButtonPrimary}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">

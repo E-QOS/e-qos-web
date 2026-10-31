@@ -17,11 +17,7 @@ const CommercePage: React.FC = () => (
       'Suivi des retours et réclamations clients',
     ]}
     services={[
-      { label: 'E-commerce avec paiements mobiles intégrés', to: '/services/developpement' },
-      { label: 'ERP distribution multi-entrepôts', to: '/services/erp' },
       { label: 'Wali — Livraison et services à domicile', to: '/solutions/wali' },
-      { label: 'CRM & gestion de la relation client', to: '/services/developpement' },
-      { label: 'Intégration Orange Money / Wave', to: '/services/paiements' },
     ]}
   />
 );

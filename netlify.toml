@@ -9,6 +9,27 @@
   status = 200
   force = true
 
+# Services retirés (Odoo, paiements locaux) : redirection permanente
+[[redirects]]
+  from = "/services/odoo"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/services/erp"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/services/paiements-locaux"
+  to = "/services"
+  status = 301
+
+[[redirects]]
+  from = "/services/paiements"
+  to = "/services"
+  status = 301
+
 # SPA fallback — React Router
 [[redirects]]
   from = "/*"

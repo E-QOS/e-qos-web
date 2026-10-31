@@ -225,10 +225,12 @@ const ProfilPage: React.FC = () => {
             <button
               className={styles.avatarEditBtn}
               onClick={() => avatarRef.current?.click()}
+              type="button"
               title="Changer la photo"
+              aria-label="Changer la photo de profil"
               disabled={avatarUploading}
             >
-              <Camera size={14} />
+              <Camera size={14} aria-hidden="true" />
             </button>
             <input
               ref={avatarRef}
@@ -460,7 +462,7 @@ const ProfilPage: React.FC = () => {
                 <div className={styles.strengthBar}>
                   <div className={styles.strengthFill} style={{
                     width: `${Math.min(100, (newPw.length / 12) * 100)}%`,
-                    background: newPw.length < 8 ? '#f87171' : newPw.length < 12 ? '#fbbf24' : '#00e5a0',
+                    background: newPw.length < 8 ? '#B42318' : newPw.length < 12 ? 'var(--orange-deep)' : '#1F7A4D',
                   }} />
                 </div>
               )}

@@ -1,0 +1,101 @@
+/* ContactForm.module.css — champs à filet inférieur seul */
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--gutter);
+  row-gap: 2rem;
+}
+
+.field { display: flex; flex-direction: column; min-width: 0; }
+.wide { grid-column: 1 / -1; }
+
+.field label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid var(--hairline-strong);
+  border-radius: 0;
+  background: transparent;
+  padding: 0.625rem 0;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+  color: var(--ink);
+  transition: border-color 0.2s var(--ease);
+  appearance: none;
+}
+
+.field select {
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%);
+  background-position: calc(100% - 10px) 55%, calc(100% - 5px) 55%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 1.5rem;
+  cursor: pointer;
+}
+
+.field textarea { resize: vertical; min-height: 140px; }
+.field ::placeholder { color: var(--muted); opacity: 1; }
+
+.field input:hover,
+.field select:hover,
+.field textarea:hover { border-bottom-color: var(--muted); }
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  border-bottom: 1px solid var(--ink);
+  box-shadow: 0 1px 0 0 var(--ink), 0 3px 0 0 var(--orange);
+}
+
+.invalid input,
+.invalid select,
+.invalid textarea { border-bottom-color: #B42318; }
+
+.fieldError {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #B42318;
+}
+
+.formError {
+  grid-column: 1 / -1;
+  padding: 1rem 0 1rem 1rem;
+  border-left: 2px solid #B42318;
+  font-size: 0.9375rem;
+  color: #8A1C12;
+}
+
+.submitRow {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: 0.5rem;
+}
+
+.required { font-size: 0.8125rem; color: var(--muted); }
+
+.success {
+  padding: 2rem 0 2rem 1.5rem;
+  border-left: 2px solid var(--orange);
+}
+.success h3 { margin-bottom: 0.75rem; }
+.success p { color: var(--text); }
+
+@media (max-width: 640px) {
+  .form { grid-template-columns: 1fr; row-gap: 1.75rem; }
+  .submitRow :global(.btn) { width: 100%; }
+}

@@ -41,14 +41,14 @@ const TransformationDigitalePage: React.FC = () => {
                 <div key={step.n} className={styles.timelineStep}>
                   <div className={styles.timelineNum}>{step.n}</div>
                   <div className={styles.timelineContent}>
-                    <h4>{step.t}</h4>
+                    <h3>{step.t}</h3>
                     <p>{step.d}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: '3rem', padding: '2rem', background: '#ffffff', borderRadius: 16, border: '1px solid rgba(10,22,40,0.08)' }}>
-              <h3 style={{ marginBottom: '1rem' }}>Secteurs accompagnés en Guinée</h3>
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>Secteurs accompagnés en Guinée</h3>
               <div className={styles.tagsList}>
                 {['Mines & Ressources', 'Banque & Microfinance', 'Santé', 'Secteur public & ONG', 'Commerce & Distribution', 'Agriculture', 'Télécommunications', 'Éducation'].map(t => (
                   <span key={t} className={styles.tag}>{t}</span>

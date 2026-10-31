@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { X, Upload, CheckCircle, Loader2, Send } from 'lucide-react';
 import { submitApplication } from '../../lib/supabase';
 import type { Job } from '../../types/database';
+import { sectors } from '../../data/secteursGuinee';
 import styles from './ApplicationModal.module.css';
 
 interface Props {
@@ -14,12 +15,28 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
   const [email, setEmail]       = useState('');
   const [phone, setPhone]       = useState('');
   const [message, setMessage]   = useState('');
+  const [sector, setSector]     = useState('');
+  const [trade, setTrade]       = useState('');
   const [cvFile, setCvFile]     = useState<File | null>(null);
   const [loading, setLoading]   = useState(false);
   const [success, setSuccess]   = useState(false);
   const [error, setError]       = useState<string | null>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  // Focus initial, fermeture par Échap, défilement de la page bloqué
+  useEffect(() => {
+    dialogRef.current?.querySelector<HTMLElement>('input, button')?.focus();
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [onClose]);
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -56,6 +73,8 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
           email: email.trim().toLowerCase(),
           phone: phone.trim() || undefined,
           message: message.trim() || undefined,
+          sector: sector || undefined,
+          trade: trade.trim() || undefined,
         },
         cvFile ?? undefined,
       );
@@ -84,26 +103,25 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
 
   return (
     <div className={styles.overlay} onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className={styles.modal} role="dialog" aria-modal="true">
+      <div className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="application-title" ref={dialogRef}>
 
         {success ? (
           <div className={styles.success}>
-            <CheckCircle size={56} className={styles.successIcon} />
-            <h3>Candidature envoyée !</h3>
+            <h3 id="application-title">Candidature envoyée</h3>
             <p>
               Merci <strong>{fullName}</strong>, votre candidature a bien été reçue.
               Nous reviendrons vers vous dans les meilleurs délais.
             </p>
-            <button className={styles.submitBtn} onClick={onClose}>Fermer</button>
+            <button type="button" className={styles.submitBtn} onClick={onClose}>Fermer</button>
           </div>
         ) : (
           <>
             <div className={styles.header}>
               <div className={styles.headerText}>
-                <h2>{job ? `Postuler — ${job.title}` : 'Candidature spontanée'}</h2>
-                <p>Tous les champs marqués <span style={{ color: '#00e5a0' }}>*</span> sont obligatoires.</p>
+                <h2 id="application-title">{job ? `Postuler : ${job.title}` : 'Candidature spontanée'}</h2>
+                <p>Tous les champs marqués * sont obligatoires.</p>
               </div>
-              <button className={styles.closeBtn} onClick={onClose} aria-label="Fermer">
+              <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Fermer">
                 <X size={20} />
               </button>
             </div>
@@ -111,9 +129,11 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
             <form className={styles.body} onSubmit={handleSubmit}>
               <div className={styles.row}>
                 <div className={styles.field}>
-                  <label>Nom complet <span className={styles.required}>*</span></label>
+                  <label htmlFor="app-name">Nom complet <span className={styles.required}>*</span></label>
                   <input
+                    id="app-name"
                     type="text"
+                    autoComplete="name"
                     placeholder="Mamadou Diallo"
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
@@ -121,9 +141,11 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
                   />
                 </div>
                 <div className={styles.field}>
-                  <label>Email <span className={styles.required}>*</span></label>
+                  <label htmlFor="app-email">Email <span className={styles.required}>*</span></label>
                   <input
+                    id="app-email"
                     type="email"
+                    autoComplete="email"
                     placeholder="mamadou@exemple.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -133,18 +155,47 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
               </div>
 
               <div className={styles.field}>
-                <label>Téléphone</label>
+                <label htmlFor="app-phone">Téléphone</label>
                 <input
+                  id="app-phone"
                   type="tel"
+                  autoComplete="tel"
                   placeholder="+224 6XX XXX XXX"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
 
+              {!job && (
+                <div className={styles.row}>
+                  <div className={styles.field}>
+                    <label htmlFor="app-sector">Secteur visé</label>
+                    <select id="app-sector" value={sector} onChange={(e) => setSector(e.target.value)}>
+                      <option value="">Tous secteurs</option>
+                      {sectors.map(s => <option key={s.key} value={s.name}>{s.name}</option>)}
+                    </select>
+                  </div>
+                  <div className={styles.field}>
+                    <label htmlFor="app-trade">Métier</label>
+                    <input
+                      id="app-trade"
+                      type="text"
+                      list="app-trades"
+                      placeholder="Ex. : Électromécanicien"
+                      value={trade}
+                      onChange={(e) => setTrade(e.target.value)}
+                    />
+                    <datalist id="app-trades">
+                      {(sectors.find(s => s.name === sector)?.profiles ?? sectors.flatMap(s => s.profiles)).map(p => <option key={p} value={p} />)}
+                    </datalist>
+                  </div>
+                </div>
+              )}
+
               <div className={styles.field}>
-                <label>Message de motivation</label>
+                <label htmlFor="app-message">Message de motivation</label>
                 <textarea
+                  id="app-message"
                   placeholder="Présentez-vous brièvement et expliquez pourquoi ce poste vous intéresse..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -153,9 +204,9 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
               </div>
 
               <div className={styles.field}>
-                <label>CV (PDF ou Word, max 10 Mo)</label>
+                <span className={styles.fieldLabel}>CV (PDF ou Word, max 10 Mo)</span>
                 <label className={styles.cvLabel} htmlFor="cv-upload">
-                  <Upload size={16} />
+                  <Upload size={16} aria-hidden="true" />
                   {cvFile ? cvFile.name : 'Cliquez pour joindre votre CV'}
                 </label>
                 <input
@@ -164,19 +215,19 @@ const ApplicationModal: React.FC<Props> = ({ job, onClose }) => {
                   type="file"
                   accept=".pdf,.doc,.docx"
                   onChange={handleFile}
-                  style={{ display: 'none' }}
+                  className="sr-only"
                 />
                 {cvFile && (
                   <span className={styles.cvSelected}>
-                    <CheckCircle size={12} /> {cvFile.name}
+                    <CheckCircle size={12} aria-hidden="true" /> {cvFile.name}
                   </span>
                 )}
               </div>
 
-              {error && <p className={styles.errorMsg}>{error}</p>}
+              {error && <p className={styles.errorMsg} role="alert">{error}</p>}
 
               <button type="submit" className={styles.submitBtn} disabled={loading}>
-                {loading ? <Loader2 size={18} className="spin" /> : <Send size={16} />}
+                {loading ? <Loader2 size={18} className={styles.spin} aria-hidden="true" /> : <Send size={16} aria-hidden="true" />}
                 {loading ? 'Envoi en cours…' : 'Envoyer ma candidature'}
               </button>
             </form>

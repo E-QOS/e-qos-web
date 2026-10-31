@@ -1,0 +1,36 @@
+.stroke {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.body { fill: var(--orange); }
+.dot  { fill: var(--orange); }
+
+/* Tracé au chargement : le masque se déroule de gauche à droite */
+.maskPath {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 24;
+  stroke-linecap: butt;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sigDraw 1.2s var(--ease) 0.2s forwards;
+}
+
+.draw .dot {
+  opacity: 0;
+  animation: sigDot 0.4s var(--ease) 1.25s forwards;
+}
+
+/* Séparateur statique, très fin */
+.static .body { fill: var(--muted); }
+
+@keyframes sigDraw { to { stroke-dashoffset: 0; } }
+@keyframes sigDot  { to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .maskPath { animation: none; stroke-dashoffset: 0; }
+  .draw .dot { animation: none; opacity: 1; }
+}

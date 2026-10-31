@@ -1,9 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import {
-  ArrowLeft, Calendar, Clock, Eye, Tag, CalendarDays,
-  Loader2, AlertTriangle, BookOpen,
-} from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import DOMPurify from 'isomorphic-dompurify';
 import { usePageMeta } from '../hooks/usePageMeta';
 import { fetchArticleBySlug } from '../lib/supabase';
@@ -70,148 +67,74 @@ const ArticlePage: React.FC = () => {
     description: article?.excerpt ?? 'Ressources et articles EQOS sur la transformation digitale en Afrique.',
   });
 
-  /* ── Loading ── */
   if (loading) {
     return (
-      <div className={styles.loadingWrap}>
-        <Loader2 size={40} className={styles.spinner} />
-        <p>Chargement de l'article…</p>
+      <div className={`container ${styles.stateWrap}`}>
+        <p role="status">Chargement de l'article…</p>
       </div>
     );
   }
 
-  /* ── Error / 404 ── */
   if (error || !article) {
     return (
-      <div className={styles.errorWrap}>
-        <AlertTriangle size={40} />
-        <p>Article introuvable</p>
-        <span>{error ?? "Cet article n'existe pas ou a été supprimé."}</span>
-        <Link to="/ressources" className={styles.ctaBtn} style={{ marginTop: '1.5rem', width: 'auto', padding: '0.75rem 1.5rem' }}>
-          <ArrowLeft size={15} />
-          Retour aux ressources
+      <div className={`container ${styles.stateWrap}`}>
+        <span className="kicker">Ressources</span>
+        <h1 className={styles.stateTitle}>Article introuvable</h1>
+        <p>Cet article n'existe pas ou a été supprimé.</p>
+        <Link to="/ressources" className="arrow-link">
+          Retour aux ressources <ArrowRight size={16} aria-hidden="true" />
         </Link>
       </div>
     );
   }
 
-  const catColor    = (article.category as any)?.color ?? '#FF5A1F';
-  const catName     = (article.category as any)?.name  ?? 'Article';
-  const authorName  = (article.author as any)?.full_name;
+  const catName      = (article.category as any)?.name ?? 'Article';
+  const authorName   = (article.author as any)?.full_name;
   const authorAvatar = (article.author as any)?.avatar_url;
-  const tags        = (article.tags as any[])?.map((t: any) => t.tag) ?? [];
-  const content     = article.content ?? '';
-  const isHtml      = hasHtmlTags(content);
+  const tags         = (article.tags as any[])?.map((t: any) => t.tag) ?? [];
+  const content      = article.content ?? '';
+  const isHtml       = hasHtmlTags(content);
 
   return (
-    <div>
-      {/* ════ HERO ════════════════════════════════════════════ */}
-      <section className={styles.hero}>
-
-        {/* Cover image in background */}
-        {article.cover_url && (
-          <div className={styles.heroCover}>
-            <img src={article.cover_url} alt="" aria-hidden="true" />
-          </div>
-        )}
-        <div className={styles.heroOverlay} aria-hidden="true" />
-        <div className={styles.glowOrange}  aria-hidden="true" />
-        <div className={styles.glowCyan}    aria-hidden="true" />
-
-        <div className={`container ${styles.heroInner}`}>
-
-          {/* Back link */}
+    <article>
+      {/* ════ EN-TÊTE ═════════════════════════════════════════ */}
+      <header className={styles.hero}>
+        <div className="container">
           <Link to="/ressources" className={styles.backLink}>
-            <ArrowLeft size={14} />
+            <ArrowLeft size={14} aria-hidden="true" />
             Retour aux ressources
           </Link>
 
-          {/* Category badge */}
-          <div
-            className={styles.categoryBadge}
-            style={{
-              background: catColor + '18',
-              color: catColor,
-              borderColor: catColor + '33',
-            }}
-          >
-            <Tag size={11} />
-            {catName}
-          </div>
-
-          {/* Title */}
+          <span className="kicker">{catName}</span>
           <h1 className={styles.heroTitle}>{article.title}</h1>
 
-          {/* Excerpt */}
-          {article.excerpt && (
-            <p className={styles.heroExcerpt}>{article.excerpt}</p>
-          )}
+          {article.excerpt && <p className={styles.heroExcerpt}>{article.excerpt}</p>}
 
-          {/* Meta row */}
           <div className={styles.heroMeta}>
-            {/* Author */}
-            <div className={styles.authorBlock}>
+            <span className={styles.authorBlock}>
               {authorAvatar ? (
-                <img
-                  src={authorAvatar}
-                  alt={authorName ?? 'Auteur'}
-                  className={styles.authorAvatar}
-                />
+                <img src={authorAvatar} alt="" className={styles.authorAvatar} />
               ) : (
-                <div className={styles.authorInitials}>{initials(authorName)}</div>
+                <span className={styles.authorInitials} aria-hidden="true">{initials(authorName)}</span>
               )}
               <span className={styles.authorName}>{authorName ?? 'EQOS'}</span>
-            </div>
-
-            {article.published_at && (
-              <>
-                <div className={styles.metaDivider} />
-                <span className={styles.metaChip}>
-                  <Calendar size={13} />
-                  {formatDate(article.published_at)}
-                </span>
-              </>
-            )}
-
-            {article.reading_time > 0 && (
-              <>
-                <div className={styles.metaDivider} />
-                <span className={styles.metaChip}>
-                  <Clock size={13} />
-                  {article.reading_time} min de lecture
-                </span>
-              </>
-            )}
-
-            {article.views > 0 && (
-              <>
-                <div className={styles.metaDivider} />
-                <span className={styles.metaChip}>
-                  <Eye size={13} />
-                  {article.views.toLocaleString('fr-FR')} lectures
-                </span>
-              </>
-            )}
+            </span>
+            {article.published_at && <span>{formatDate(article.published_at)}</span>}
+            {article.reading_time > 0 && <span>{article.reading_time} min de lecture</span>}
           </div>
-
-          {/* Tags */}
-          {tags.length > 0 && (
-            <div className={styles.tagsBar}>
-              <BookOpen size={13} style={{ color: '#4a6a6e' }} />
-              {tags.map((t) => (
-                <span key={t} className={styles.tag}>{t}</span>
-              ))}
-            </div>
-          )}
         </div>
-      </section>
 
-      {/* ════ BODY ════════════════════════════════════════════ */}
-      <section className="section-alt">
+        {article.cover_url && (
+          <div className={`container ${styles.coverWrap}`}>
+            <img src={article.cover_url} alt="" className={styles.cover} decoding="async" />
+          </div>
+        )}
+      </header>
+
+      {/* ════ CORPS ═══════════════════════════════════════════ */}
+      <section className={styles.bodySection}>
         <div className="container">
           <div className={styles.layout}>
-
-            {/* ── Article content ── */}
             <div className={styles.articleBody}>
               {content ? (
                 isHtml ? (
@@ -232,78 +155,60 @@ const ArticlePage: React.FC = () => {
                   <p className={styles.plainContent}>{content}</p>
                 )
               ) : (
-                <div className={styles.noContent}>
-                  <BookOpen size={28} style={{ margin: '0 auto 0.75rem', color: '#4a6a6e' }} />
-                  <p>Le contenu de cet article sera disponible prochainement.</p>
-                </div>
+                <p className={styles.noContent}>Le contenu de cet article sera disponible prochainement.</p>
+              )}
+
+              {tags.length > 0 && (
+                <ul className={styles.tagsBar} aria-label="Mots-clés">
+                  {tags.map((t) => <li key={t} className={styles.tag}>{t}</li>)}
+                </ul>
               )}
             </div>
 
-            {/* ── Sidebar ── */}
             <aside className={styles.sidebar}>
-
-              {/* Article info card */}
-              <div className={styles.sideCard}>
-                <p className={styles.sideCardTitle}>À propos de cet article</p>
-
+              <dl className={styles.sideCard}>
                 {article.published_at && (
                   <div className={styles.statRow}>
-                    <Calendar size={15} className={styles.statIcon} />
-                    <span className={styles.statLabel}>Publié le</span>
-                    <span className={styles.statValue}>{formatDate(article.published_at)}</span>
+                    <dt className={styles.statLabel}>Publié le</dt>
+                    <dd className={styles.statValue}>{formatDate(article.published_at)}</dd>
                   </div>
                 )}
-
                 <div className={styles.statRow}>
-                  <Clock size={15} className={styles.statIcon} />
-                  <span className={styles.statLabel}>Lecture</span>
-                  <span className={styles.statValue}>{article.reading_time || 1} min</span>
+                  <dt className={styles.statLabel}>Lecture</dt>
+                  <dd className={styles.statValue}>{article.reading_time || 1} min</dd>
                 </div>
-
                 {article.views > 0 && (
                   <div className={styles.statRow}>
-                    <Eye size={15} className={styles.statIcon} />
-                    <span className={styles.statLabel}>Lectures</span>
-                    <span className={styles.statValue}>{article.views.toLocaleString('fr-FR')}</span>
+                    <dt className={styles.statLabel}>Lectures</dt>
+                    <dd className={styles.statValue}>{article.views.toLocaleString('fr-FR')}</dd>
                   </div>
                 )}
-
                 <div className={styles.statRow}>
-                  <Tag size={15} className={styles.statIcon} />
-                  <span className={styles.statLabel}>Catégorie</span>
-                  <span className={styles.statValue} style={{ color: catColor }}>{catName}</span>
+                  <dt className={styles.statLabel}>Catégorie</dt>
+                  <dd className={styles.statValue}>{catName}</dd>
                 </div>
-              </div>
+              </dl>
 
-              {/* CTA card */}
               <div className={styles.ctaCard}>
-                <h4>Parlons de votre projet</h4>
+                <h2 className={styles.ctaTitle}>Parlons de votre projet</h2>
                 <p>
                   EQOS accompagne les entreprises guinéennes dans leur transformation
                   digitale. Réservez un appel gratuit avec nos experts.
                 </p>
-                <a
-                  href={CALENDAR_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.ctaBtn}
-                >
-                  <CalendarDays size={14} />
+                <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
                   Réserver un appel gratuit
+                  <span className="sr-only">(nouvel onglet)</span>
                 </a>
               </div>
 
-              {/* Back to resources */}
-              <Link to="/ressources" className={styles.ctaBtn} style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', color: '#7a9ba0', textDecoration: 'none' }}>
-                <ArrowLeft size={14} />
-                Tous les articles
+              <Link to="/ressources" className="arrow-link">
+                Tous les articles <ArrowRight size={16} aria-hidden="true" />
               </Link>
-
             </aside>
           </div>
         </div>
       </section>
-    </div>
+    </article>
   );
 };
 

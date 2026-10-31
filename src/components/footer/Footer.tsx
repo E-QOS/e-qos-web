@@ -1,113 +1,119 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, ArrowRight } from 'lucide-react';
-import { FaLinkedinIn, FaFacebookF, FaXTwitter, FaInstagram } from 'react-icons/fa6';
+import { ArrowRight } from 'lucide-react';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, DEMANDE_PATH, CANDIDATURE_PATH } from '../../data/recrutement';
+import { serviceGroups } from '../../data/services';
 import styles from './Footer.module.css';
 
-const Footer: React.FC = () => {
-  return (
-    <footer className={styles.footer}>
-      <div className={styles.footerTop}>
-        <div className="container">
-          <div className={styles.grid}>
-            {/* Col 1 — E-QOS */}
-            <div className={styles.col1}>
-              <Link to="/" className={styles.footerLogo}>
-                <span className={styles.footerLogoText}>E-QOS</span>
-              </Link>
-              <p className={styles.tagline}>Votre partenaire de transformation digitale en Guinée</p>
-              <div className={styles.addresses}>
-                <div className={styles.addressItem}>
-                  <MapPin size={14} className={styles.addressIcon} />
-                  <span>Conakry, Guinée (siège)</span>
-                </div>
-                <div className={styles.addressItem}>
-                  <Mail size={14} className={styles.addressIcon} />
-                  <a href="mailto:contact.eqos@gmail.com" className={styles.mailLink}>contact.eqos@gmail.com</a>
-                </div>
-              </div>
-              <div className={styles.social}>
-                <a href="https://www.linkedin.com/company/e-qos/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn E-QOS" className={styles.socialLink}>
-                  <FaLinkedinIn size={13} />
-                </a>
-                <a href="https://www.facebook.com/eqosconsulting/" target="_blank" rel="noopener noreferrer" aria-label="Facebook E-QOS" className={styles.socialLink}>
-                  <FaFacebookF size={13} />
-                </a>
-                <a href="https://x.com/EConsultin71892" target="_blank" rel="noopener noreferrer" aria-label="X E-QOS" className={styles.socialLink}>
-                  <FaXTwitter size={13} />
-                </a>
-                <a href="https://www.instagram.com/contact.eqos" target="_blank" rel="noopener noreferrer" aria-label="Instagram E-QOS" className={styles.socialLink}>
-                  <FaInstagram size={13} />
-                </a>
-              </div>
-            </div>
+const columns = [
+  {
+    title: 'Recrutement',
+    links: [
+      { to: RECRUTEMENT_PATH, label: RECRUTEMENT_LABEL },
+      { to: DEMANDE_PATH, label: 'Constituer une équipe' },
+      { to: CANDIDATURE_PATH, label: 'Rejoindre nos viviers' },
+      { to: '/carrieres', label: 'Offres' },
+    ],
+  },
+  {
+    title: 'Conseil et numérique',
+    links: [
+      { to: '/services', label: 'Tous les services' },
+      ...serviceGroups[1].items.map(sv => ({ to: sv.to, label: sv.title })),
+      { to: '/services/interim', label: 'Interim Management' },
+    ],
+  },
+  {
+    title: 'Solutions',
+    links: [
+      { to: '/solutions/wali', label: 'Wali' },
+      { to: '/solutions/wandi', label: 'Wandi' },
+      { to: '/solutions/makiti', label: 'Makiti' },
+    ],
+    title2: 'Secteurs clés',
+    links2: [
+      { to: '/secteurs/mines-ressources', label: 'Mines & Ressources' },
+      { to: '/secteurs/secteur-public', label: 'Secteur public' },
+      { to: '/secteurs/banque-finance', label: 'Banque & Finance' },
+      { to: '/secteurs', label: 'Tous les secteurs' },
+    ],
+  },
+  {
+    title: 'Entreprise',
+    links: [
+      { to: '/a-propos', label: 'À propos' },
+      { to: '/ressources', label: 'Ressources' },
+      { to: '/carrieres', label: 'Carrières' },
+      { to: '/contact', label: 'Contact' },
+      { to: '/mentions-legales', label: 'Mentions légales' },
+      { to: '/confidentialite', label: 'Confidentialité' },
+    ],
+  },
+];
 
-            {/* Col 2 — Services */}
-            <div className={styles.col}>
-              <h4 className={styles.colTitle}>Services</h4>
-              <ul className={styles.linkList}>
-                <li><Link to="/services/transformation-digitale">Transformation digitale</Link></li>
-                <li><Link to="/services/conseil-organisationnel">Conseil organisationnel</Link></li>
-                <li><Link to="/services/odoo">Implémentation Odoo</Link></li>
-                <li><Link to="/services/paiements-locaux">Paiements locaux</Link></li>
-                <li><Link to="/services/cybersecurite">Cybersécurité</Link></li>
-                <li><Link to="/services/support">Support informatique</Link></li>
-                <li><Link to="/services/management-consulting">Management & Consulting</Link></li>
-                <li><Link to="/services/interim">Interim Management</Link></li>
-              </ul>
-            </div>
+const socials = [
+  { href: 'https://www.linkedin.com/company/e-qos/', label: 'LinkedIn' },
+  { href: 'https://www.facebook.com/eqosconsulting/', label: 'Facebook' },
+  { href: 'https://x.com/EConsultin71892', label: 'X' },
+  { href: 'https://www.instagram.com/contact.eqos', label: 'Instagram' },
+];
 
-            {/* Col 3 — Solutions & Secteurs */}
-            <div className={styles.col}>
-              <h4 className={styles.colTitle}>Solutions</h4>
-              <ul className={styles.linkList}>
-                <li><Link to="/solutions/wali">Wali</Link></li>
-                <li><Link to="/solutions/wandi">Wandi</Link></li>
-                <li><Link to="/solutions/makiti">Makiti</Link></li>
-              </ul>
-              <h4 className={`${styles.colTitle} ${styles.colTitleSpaced}`}>Secteurs clés</h4>
-              <ul className={styles.linkList}>
-                <li><Link to="/secteurs/mines-ressources">Mines & Ressources</Link></li>
-                <li><Link to="/secteurs/secteur-public">Secteur public</Link></li>
-                <li><Link to="/secteurs/banque-finance">Banque & Finance</Link></li>
-                <li><Link to="/secteurs">Tous les secteurs</Link></li>
-              </ul>
-            </div>
+const LinkList: React.FC<{ title: string; links: { to: string; label: string }[]; spaced?: boolean }> = ({ title, links, spaced }) => (
+  <>
+    <h2 className={`${styles.colTitle} ${spaced ? styles.colTitleSpaced : ''}`}>{title}</h2>
+    <ul className={styles.linkList}>
+      {links.map(l => (
+        <li key={l.to + l.label}><Link to={l.to} className="text-link">{l.label}</Link></li>
+      ))}
+    </ul>
+  </>
+);
 
-            {/* Col 4 — Entreprise */}
-            <div className={styles.col}>
-              <h4 className={styles.colTitle}>Entreprise</h4>
-              <ul className={styles.linkList}>
-                <li><Link to="/a-propos">À propos</Link></li>
-                <li><Link to="/ressources">Ressources</Link></li>
-                <li><Link to="/carrieres">Carrières</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-                <li><Link to="/contact">Mentions légales</Link></li>
-              </ul>
-              <div className={styles.footerCta}>
-                <p className={styles.footerCtaText}>Besoin d'un accompagnement digital en Guinée ?</p>
-                <Link to="/contact" className={styles.footerCtaBtn}>
-                  Parlons de votre projet
-                  <ArrowRight size={13} />
-                </Link>
-              </div>
-            </div>
+const Footer: React.FC = () => (
+  <footer className={styles.footer}>
+    <div className="container">
+      <div className={styles.grid}>
+        <div className={styles.brand}>
+          <Link to="/" className={styles.logo} aria-label="E-QOS, accueil">
+            <img src="/images/e-qos-pruducts/eqos_logo.png" alt="E-QOS" width={1264} height={627} loading="lazy" />
+          </Link>
+          <p className={styles.tagline}>Recrutement, intérim et services numériques en Guinée</p>
+          <address className={styles.address}>
+            <span>Conakry, Guinée (siège)</span>
+            <a href="mailto:contact.eqos@gmail.com" className="text-link">contact.eqos@gmail.com</a>
+          </address>
+          <ul className={styles.social} aria-label="Réseaux sociaux">
+            {socials.map(s => (
+              <li key={s.href}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="text-link" aria-label={`${s.label} E-QOS (nouvel onglet)`}>
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {columns.map(c => (
+          <div key={c.title} className={styles.col}>
+            <LinkList title={c.title} links={c.links} />
+            {c.title2 && c.links2 && <LinkList title={c.title2} links={c.links2} spaced />}
           </div>
-        </div>
+        ))}
       </div>
 
-      <div className={styles.footerBottom}>
-        <div className="container">
-          <p className={styles.copyright}>
-            © 2026 E-QOS SARL. Tous droits réservés.
-          </p>
-          <p className={styles.countries}>
-            Présent en Guinée · Vision Afrique de l'Ouest
-          </p>
-        </div>
+      <div className={styles.cta}>
+        <p className={styles.ctaText}>Un poste à pourvoir en Guinée ?</p>
+        <Link to={DEMANDE_PATH} className="arrow-link">
+          Constituer une équipe <ArrowRight size={16} aria-hidden="true" />
+        </Link>
       </div>
-    </footer>
-  );
-};
+
+      <div className={styles.bottom}>
+        <p>© 2026 E-QOS SARL. Tous droits réservés.</p>
+        <p>Présent en Guinée · Vision Afrique de l'Ouest</p>
+      </div>
+    </div>
+  </footer>
+);
 
 export default Footer;

@@ -1,65 +1,54 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import {
-  ChevronDown,
-  Database,
-  CreditCard,
-  Shield,
-  Compass,
-  Users,
-  Briefcase,
-  TrendingUp,
-  Wrench,
-  Pickaxe,
-  Smartphone,
-  Building2,
-  Heart,
-  Wheat,
-  ShoppingBag,
-  Landmark,
-  GraduationCap,
-  Zap,
-  X,
-  CalendarDays,
-  LogIn,
-  UserPlus,
-  LogOut,
-  UserCircle,
-  LayoutDashboard,
-} from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import { ChevronDown, ArrowRight, LogOut, UserCircle, LayoutDashboard } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
-import { signOut } from '../../lib/supabase';
+import { RECRUTEMENT_PATH, RECRUTEMENT_LABEL, DEMANDE_PATH, CANDIDATURE_PATH, ctaClient } from '../../data/recrutement';
+import { allServices } from '../../data/services';
 import styles from './Header.module.css';
 
-const servicesLinks = [
-  { to: '/services/transformation-digitale', label: 'Transformation digitale', desc: 'Diagnostic, feuille de route, pilotage', icon: <TrendingUp size={14} /> },
-  { to: '/services/conseil-organisationnel', label: 'Conseil organisationnel', desc: 'Processus, structure, performance', icon: <Compass size={14} /> },
-  { to: '/services/ERP', label: 'Implémentation ERP', desc: 'ERP open source et commercial, de A à Z', icon: <Database size={14} /> },
-  { to: '/services/paiements-locaux', label: 'Paiements locaux', desc: 'Orange Money, MTN MoMo, Wave', icon: <CreditCard size={14} /> },
-  { to: '/services/cybersecurite', label: 'Cybersécurité', desc: 'Audit, protection, conformité', icon: <Shield size={14} /> },
-  { to: '/services/support', label: 'Support informatique', desc: 'Helpdesk, infogérance, maintenance', icon: <Wrench size={14} /> },
-  { to: '/services/management-consulting', label: 'Management & Consulting', desc: 'Gouvernance, projets complexes', icon: <Users size={14} /> },
-  { to: '/services/interim', label: 'Interim Management', desc: 'DSI, chefs de projet, experts', icon: <Briefcase size={14} /> },
-];
+const servicesLinks = allServices.map(sv => ({ to: sv.to, label: sv.title, desc: sv.short }));
 
 const secteursLinks = [
-  { to: '/secteurs/mines-ressources', label: 'Mines & Ressources', icon: <Pickaxe size={14} /> },
-  { to: '/secteurs/telecom', label: 'Télécommunications', icon: <Smartphone size={14} /> },
-  { to: '/secteurs/banque-finance', label: 'Banque, Finance & Microfinance', icon: <Building2 size={14} /> },
-  { to: '/secteurs/sante', label: 'Santé', icon: <Heart size={14} /> },
-  { to: '/secteurs/secteur-public', label: 'Secteur public & ONG', icon: <Landmark size={14} /> },
-  { to: '/secteurs/agriculture', label: 'Agriculture & Agroalimentaire', icon: <Wheat size={14} /> },
-  { to: '/secteurs/commerce-distribution', label: 'Commerce & Distribution', icon: <ShoppingBag size={14} /> },
-  { to: '/secteurs/education', label: 'Éducation', icon: <GraduationCap size={14} /> },
+  { to: '/secteurs/mines-ressources', label: 'Mines & Ressources' },
+  { to: '/secteurs/telecom', label: 'Télécommunications' },
+  { to: '/secteurs/banque-finance', label: 'Banque, Finance & Microfinance' },
+  { to: '/secteurs/sante', label: 'Santé' },
+  { to: '/secteurs/secteur-public', label: 'Secteur public & ONG' },
+  { to: '/secteurs/agriculture', label: 'Agriculture & Agroalimentaire' },
+  { to: '/secteurs/commerce-distribution', label: 'Commerce & Distribution' },
+  { to: '/secteurs/education', label: 'Éducation' },
 ];
 
 const solutionsLinks = [
-  { to: '/solutions/wali', label: 'Wali', desc: 'Services à la demande', icon: <Zap size={14} /> },
-  { to: '/solutions/wandi', label: 'Wandi', desc: 'Mobilité intelligente', icon: <Smartphone size={14} /> },
-  { to: '/solutions/makiti', label: 'Makiti', desc: 'Marketplace agricole', icon: <Wheat size={14} /> },
+  { to: '/solutions/wali', label: 'Wali', desc: 'Services à la demande' },
+  { to: '/solutions/wandi', label: 'Wandi', desc: 'Mobilité intelligente' },
+  { to: '/solutions/makiti', label: 'Makiti', desc: 'Marketplace agricole' },
+];
+
+const recrutementLinks = [
+  { to: DEMANDE_PATH, label: ctaClient, desc: 'Renfort, intérim ou recherche de talent, en quelques étapes' },
+  { to: '/carrieres', label: 'Offres d\'emploi', desc: 'Les missions et postes ouverts' },
+  { to: CANDIDATURE_PATH, label: 'Candidature spontanée', desc: 'Rejoindre les viviers E-QOS' },
+];
+
+type MenuLink = { to: string; label: string; desc?: string };
+
+// also : pages rattachées au menu, signalées comme actives dans la navigation
+const menus: { key: string; label: string; allLabel: string; to: string; links: MenuLink[]; wide?: boolean; also?: string[] }[] = [
+  { key: 'recrutement', label: RECRUTEMENT_LABEL, allLabel: 'Notre offre', to: RECRUTEMENT_PATH, links: recrutementLinks,
+    also: [DEMANDE_PATH, '/carrieres'] },
+  { key: 'services', label: 'Services', allLabel: 'Tous les services', to: '/services', links: servicesLinks, wide: true },
+  { key: 'secteurs', label: 'Secteurs', allLabel: 'Tous les secteurs', to: '/secteurs', links: secteursLinks },
+  { key: 'solutions', label: 'Solutions', allLabel: 'Toutes les solutions', to: '/solutions', links: solutionsLinks },
+];
+
+const directLinks = [
+  { to: '/ressources', label: 'Ressources' },
+  { to: '/a-propos', label: 'À propos' },
 ];
 
 const CALENDAR_URL = 'https://calendar.app.google/C7KRgHGHW6gE478s6';
+const LOGO_SRC = '/images/e-qos-pruducts/eqos_logo.png';
 
 const Header: React.FC = () => {
   const [scrolled, setScrolled]         = useState(false);
@@ -67,12 +56,15 @@ const Header: React.FC = () => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [openSection, setOpenSection]   = useState<string | null>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const toggleRef   = useRef<HTMLButtonElement>(null);
+  const dialogRef   = useRef<HTMLDivElement>(null);
   const location    = useLocation();
 
   const { user, profile, loading: authLoading, openAuthModal } = useAuth();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -84,25 +76,64 @@ const Header: React.FC = () => {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
-  // Close user menu on outside click
+  const closeMobile = useCallback(() => {
+    setMobileOpen(false);
+    toggleRef.current?.focus();
+  }, []);
+
+  // Menu mobile : focus initial, piège du focus, fermeture par Échap
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const dialog = dialogRef.current;
+    dialog?.querySelector<HTMLElement>('[data-autofocus]')?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') { closeMobile(); return; }
+      if (e.key !== 'Tab' || !dialog) return;
+      const focusables = Array.from(dialog.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'))
+        .filter(el => el.offsetParent !== null);
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [mobileOpen, closeMobile]);
+
+  // Fermeture du menu utilisateur au clic extérieur et à Échap
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
         setUserMenuOpen(false);
       }
     };
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setUserMenuOpen(false); };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', onKey);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', onKey);
+    };
   }, []);
+
+  // Échap referme un sous-menu ouvert au clavier
+  const onMenuKeyDown = (e: React.KeyboardEvent<HTMLLIElement>) => {
+    if (e.key === 'Escape') (document.activeElement as HTMLElement | null)?.blur();
+  };
 
   const toggleSection = (name: string) => setOpenSection(prev => prev === name ? null : name);
 
   const handleSignOut = async () => {
     setUserMenuOpen(false);
-    try { await signOut(); } catch { /* ignore */ }
+    try {
+      const { signOut } = await import('../../lib/supabase');
+      await signOut();
+    } catch { /* ignore */ }
   };
 
-  /** Initiales for avatar fallback */
+  /** Initiales pour l'avatar par défaut */
   const initials = profile?.full_name
     ? profile.full_name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()
     : user?.email?.[0].toUpperCase() ?? '?';
@@ -111,102 +142,70 @@ const Header: React.FC = () => {
     <>
       <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
         <div className={styles.inner}>
-          <Link to="/" className={styles.logo} aria-label="E-QOS - Accueil">
-            <img
-              src="/images/e-qos-pruducts/eqos_logo.png"
-              alt="E-QOS"
-              className={styles.logoImg}
-            />
+          <Link to="/" className={styles.logo} aria-label="E-QOS, accueil">
+            <img src={LOGO_SRC} alt="E-QOS" className={styles.logoImg} width={1264} height={627} />
           </Link>
 
           <nav className={styles.nav} aria-label="Navigation principale">
-            <div className={styles.navItem}>
-              <Link to="/services" className={styles.navLink} aria-haspopup="true">
-                Services <ChevronDown size={13} className={styles.chevron} />
-              </Link>
-              <div className={`${styles.dropdown} ${styles.dropdownWide}`} role="menu">
-                {servicesLinks.map((s) => (
-                  <Link key={s.to} to={s.to} className={styles.dropdownLink} role="menuitem">
-                    <div className={styles.dropdownIcon}>{s.icon}</div>
-                    <div className={styles.dropdownLinkText}>
-                      <strong>{s.label}</strong>
-                      <span>{s.desc}</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.navItem}>
-              <Link to="/secteurs" className={styles.navLink} aria-haspopup="true">
-                Secteurs <ChevronDown size={13} className={styles.chevron} />
-              </Link>
-              <div className={styles.dropdown} role="menu">
-                {secteursLinks.map((s) => (
-                  <Link key={s.to} to={s.to} className={styles.dropdownLink} role="menuitem">
-                    <div className={styles.dropdownIcon}>{s.icon}</div>
-                    <div className={styles.dropdownLinkText}><strong>{s.label}</strong></div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.navItem}>
-              <Link to="/solutions" className={styles.navLink} aria-haspopup="true">
-                Solutions <ChevronDown size={13} className={styles.chevron} />
-              </Link>
-              <div className={styles.dropdown} role="menu">
-                {solutionsLinks.map((s) => (
-                  <Link key={s.to} to={s.to} className={styles.dropdownLink} role="menuitem">
-                    <div className={styles.dropdownIcon}>{s.icon}</div>
-                    <div className={styles.dropdownLinkText}>
-                      <strong>{s.label}</strong>
-                      <span>{s.desc}</span>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <Link to="/ressources" className={styles.navLink}>Ressources</Link>
-            <Link to="/a-propos" className={styles.navLink}>À propos</Link>
-            <Link to="/carrieres" className={styles.navLink}>Carrières</Link>
-            <Link to="/contact" className={styles.navLink}>Contact</Link>
+            <ul className={styles.navList}>
+              {menus.map(m => (
+                <li key={m.key} className={styles.navItem} onKeyDown={onMenuKeyDown}>
+                  <NavLink to={m.to} className={({ isActive }) => `${styles.navLink} ${isActive || m.also?.includes(location.pathname) ? styles.active : ''}`}>
+                    {m.label}
+                    <ChevronDown size={13} className={styles.chevron} aria-hidden="true" />
+                  </NavLink>
+                  <div className={`${styles.dropdown} ${m.wide ? styles.dropdownWide : ''}`}>
+                    <ul>
+                      {m.links.map(l => (
+                        <li key={l.to}>
+                          <Link to={l.to} className={styles.dropdownLink}>
+                            <span className={styles.dropdownLabel}>{l.label}</span>
+                            {l.desc && <span className={styles.dropdownDesc}>{l.desc}</span>}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    <Link to={m.to} className={styles.dropdownAll}>
+                      {m.allLabel} <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
+                  </div>
+                </li>
+              ))}
+              {directLinks.map(l => (
+                <li key={l.to} className={styles.navItem}>
+                  <NavLink to={l.to} className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}>
+                    {l.label}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </nav>
 
-          <div className={styles.headerCta}>
-            <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className={styles.ctaBtn}>
-              <CalendarDays size={14} />
-              Réserver un appel
-            </a>
+          <div className={styles.actions}>
+            <NavLink to="/contact" className={({ isActive }) => `${styles.textAction} ${isActive ? styles.textActionActive : ''}`}>
+              Contact
+            </NavLink>
 
-            {/* ── Auth zone ── */}
             {!authLoading && !user && (
-              <div className={styles.authBtns}>
-                <button className={styles.signInBtn} onClick={() => openAuthModal('signin')}>
-                  <LogIn size={14} />
-                  Connexion
-                </button>
-                <button className={styles.signUpBtn} onClick={() => openAuthModal('signup')}>
-                  <UserPlus size={14} />
-                  S'inscrire
-                </button>
-              </div>
+              <button type="button" className={styles.textAction} onClick={() => openAuthModal('signin')}>
+                Connexion
+              </button>
             )}
 
             {!authLoading && user && (
               <div className={styles.userMenu} ref={userMenuRef}>
                 <button
+                  type="button"
                   className={styles.userAvatar}
                   onClick={() => setUserMenuOpen(v => !v)}
                   aria-label="Menu utilisateur"
                   aria-expanded={userMenuOpen}
                 >
                   {profile?.avatar_url
-                    ? <img src={profile.avatar_url} alt={profile.full_name ?? ''} className={styles.avatarImg} />
+                    ? <img src={profile.avatar_url} alt="" className={styles.avatarImg} />
                     : <span className={styles.avatarInitials}>{initials}</span>
                   }
-                  <ChevronDown size={12} className={`${styles.avatarChevron} ${userMenuOpen ? styles.avatarChevronOpen : ''}`} />
+                  <ChevronDown size={12} aria-hidden="true" className={`${styles.avatarChevron} ${userMenuOpen ? styles.avatarChevronOpen : ''}`} />
                 </button>
 
                 {userMenuOpen && (
@@ -218,165 +217,108 @@ const Header: React.FC = () => {
                         <span className={styles.roleBadge}>{profile.role}</span>
                       )}
                     </div>
-                    <div className={styles.userDropdownDivider} />
                     <Link to="/profil" className={styles.userDropdownItem}>
-                      <UserCircle size={15} /> Mon profil
+                      <UserCircle size={15} aria-hidden="true" /> Mon profil
                     </Link>
                     {(profile?.role === 'admin' || profile?.role === 'editor') && (
                       <Link to="/admin/articles" className={styles.userDropdownItem}>
-                        <LayoutDashboard size={15} /> Gérer les articles
+                        <LayoutDashboard size={15} aria-hidden="true" /> Gérer les articles
                       </Link>
                     )}
-                    <div className={styles.userDropdownDivider} />
-                    <button className={`${styles.userDropdownItem} ${styles.userDropdownSignOut}`} onClick={handleSignOut}>
-                      <LogOut size={15} /> Se déconnecter
+                    <button type="button" className={styles.userDropdownItem} onClick={handleSignOut}>
+                      <LogOut size={15} aria-hidden="true" /> Se déconnecter
                     </button>
                   </div>
                 )}
               </div>
             )}
+
+            <Link to={DEMANDE_PATH} className={styles.ctaBtn}>
+              {ctaClient} <ArrowRight size={15} aria-hidden="true" className={styles.ctaArrow} />
+            </Link>
           </div>
 
           <button
-            className={`${styles.mobileToggle} ${mobileOpen ? styles.open : ''}`}
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
+            ref={toggleRef}
+            type="button"
+            className={styles.mobileToggle}
+            onClick={() => setMobileOpen(true)}
+            aria-label="Ouvrir le menu"
             aria-expanded={mobileOpen}
+            aria-controls="menu-mobile"
           >
-            <span /><span /><span />
+            <span className={styles.mobileToggleText}>Menu</span>
+            <span className={styles.burger} aria-hidden="true"><span /><span /></span>
           </button>
         </div>
       </header>
 
       <div
-        className={`${styles.mobileOverlay} ${mobileOpen ? styles.open : ''}`}
-        onClick={() => setMobileOpen(false)}
-        aria-hidden="true"
-      />
-
-      <nav className={`${styles.mobileNav} ${mobileOpen ? styles.open : ''}`} aria-label="Navigation mobile">
+        id="menu-mobile"
+        ref={dialogRef}
+        className={`${styles.mobileNav} ${mobileOpen ? styles.open : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        hidden={!mobileOpen}
+      >
         <div className={styles.mobileNavHeader}>
-          <Link to="/" className={styles.logo} onClick={() => setMobileOpen(false)}>
-            <img
-              src="/images/e-qos-pruducts/eqos_logo.png"
-              alt="E-QOS"
-              className={styles.logoImgMobile}
-            />
+          <Link to="/" className={styles.logo} aria-label="E-QOS, accueil">
+            <img src={LOGO_SRC} alt="E-QOS" className={styles.logoImg} width={1264} height={627} />
           </Link>
-          <button className={styles.mobileClose} onClick={() => setMobileOpen(false)} aria-label="Fermer">
-            <X size={16} />
+          <button type="button" className={styles.mobileClose} onClick={closeMobile} data-autofocus>
+            Fermer
           </button>
         </div>
 
-        <div className={styles.mobileNavCta}>
-          <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className={styles.mobileNavCtaBtn}>
-            <CalendarDays size={15} />
-            Réserver un appel
+        <nav className={styles.mobileBody} aria-label="Navigation mobile">
+          {menus.map(m => (
+            <div key={m.key} className={styles.mobileSection}>
+              <button
+                type="button"
+                className={styles.mobileAccordionBtn}
+                onClick={() => toggleSection(m.key)}
+                aria-expanded={openSection === m.key}
+                aria-controls={`mobile-${m.key}`}
+              >
+                <span>{m.label}</span>
+                <ChevronDown size={18} aria-hidden="true" className={`${styles.mobileChevron} ${openSection === m.key ? styles.mobileChevronOpen : ''}`} />
+              </button>
+              <ul id={`mobile-${m.key}`} className={styles.mobileSub} hidden={openSection !== m.key}>
+                <li><Link to={m.to} className={styles.mobileSubLink}>{m.allLabel}</Link></li>
+                {m.links.map(l => (
+                  <li key={l.to}><Link to={l.to} className={styles.mobileSubLink}>{l.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+          ))}
+          {[...directLinks, { to: '/contact', label: 'Contact' }].map(l => (
+            <div key={l.to} className={styles.mobileSection}>
+              <Link to={l.to} className={styles.mobileLink}>{l.label}</Link>
+            </div>
+          ))}
+        </nav>
+
+        <div className={styles.mobileFooter}>
+          <Link to={DEMANDE_PATH} className="btn btn-primary">{ctaClient}</Link>
+          <Link to="/contact" className="btn btn-outline">Nous contacter</Link>
+          <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer" className="arrow-link">
+            Réserver un appel <ArrowRight size={16} aria-hidden="true" />
           </a>
           {!authLoading && !user && (
-            <div className={styles.mobileAuthBtns}>
-              <button className={styles.mobileSignInBtn} onClick={() => { setMobileOpen(false); openAuthModal('signin'); }}>
-                <LogIn size={15} /> Connexion
-              </button>
-              <button className={styles.mobileSignUpBtn} onClick={() => { setMobileOpen(false); openAuthModal('signup'); }}>
-                <UserPlus size={15} /> S'inscrire
-              </button>
+            <div className={styles.mobileAuth}>
+              <button type="button" className="text-link" onClick={() => { setMobileOpen(false); openAuthModal('signin'); }}>Connexion</button>
+              <button type="button" className="text-link" onClick={() => { setMobileOpen(false); openAuthModal('signup'); }}>S'inscrire</button>
             </div>
           )}
           {!authLoading && user && (
-            <div className={styles.mobileUserInfo}>
-              <span className={styles.mobileUserName}>{profile?.full_name ?? user.email}</span>
-              <button className={styles.mobileSignOutBtn} onClick={handleSignOut}>
-                <LogOut size={14} /> Déconnexion
-              </button>
+            <div className={styles.mobileAuth}>
+              <Link to="/profil" className="text-link">{profile?.full_name ?? user.email}</Link>
+              <button type="button" className="text-link" onClick={handleSignOut}>Déconnexion</button>
             </div>
           )}
         </div>
-
-        {/* Services — accordion */}
-        <div className={styles.mobileSection}>
-          <button
-            className={`${styles.mobileAccordionBtn} ${openSection === 'services' ? styles.mobileAccordionBtnOpen : ''}`}
-            onClick={() => toggleSection('services')}
-            aria-expanded={openSection === 'services'}
-          >
-            <span>Services</span>
-            <ChevronDown
-              size={16}
-              className={`${styles.mobileAccordionChevron} ${openSection === 'services' ? styles.mobileAccordionChevronOpen : ''}`}
-            />
-          </button>
-          <div className={`${styles.mobileAccordionContent} ${openSection === 'services' ? styles.mobileAccordionContentOpen : ''}`}>
-            <div className={styles.mobileAccordionInner}>
-              {servicesLinks.map((s) => (
-                <Link key={s.to} to={s.to} className={styles.mobileLink}>
-                  <span className={styles.mobileLinkIcon}>{s.icon}</span>
-                  {s.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Secteurs — accordion */}
-        <div className={styles.mobileSection}>
-          <button
-            className={`${styles.mobileAccordionBtn} ${openSection === 'secteurs' ? styles.mobileAccordionBtnOpen : ''}`}
-            onClick={() => toggleSection('secteurs')}
-            aria-expanded={openSection === 'secteurs'}
-          >
-            <span>Secteurs</span>
-            <ChevronDown
-              size={16}
-              className={`${styles.mobileAccordionChevron} ${openSection === 'secteurs' ? styles.mobileAccordionChevronOpen : ''}`}
-            />
-          </button>
-          <div className={`${styles.mobileAccordionContent} ${openSection === 'secteurs' ? styles.mobileAccordionContentOpen : ''}`}>
-            <div className={styles.mobileAccordionInner}>
-              {secteursLinks.map((s) => (
-                <Link key={s.to} to={s.to} className={styles.mobileLink}>
-                  <span className={styles.mobileLinkIcon}>{s.icon}</span>
-                  {s.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Solutions — accordion */}
-        <div className={styles.mobileSection}>
-          <button
-            className={`${styles.mobileAccordionBtn} ${openSection === 'solutions' ? styles.mobileAccordionBtnOpen : ''}`}
-            onClick={() => toggleSection('solutions')}
-            aria-expanded={openSection === 'solutions'}
-          >
-            <span>Solutions</span>
-            <ChevronDown
-              size={16}
-              className={`${styles.mobileAccordionChevron} ${openSection === 'solutions' ? styles.mobileAccordionChevronOpen : ''}`}
-            />
-          </button>
-          <div className={`${styles.mobileAccordionContent} ${openSection === 'solutions' ? styles.mobileAccordionContentOpen : ''}`}>
-            <div className={styles.mobileAccordionInner}>
-              {solutionsLinks.map((s) => (
-                <Link key={s.to} to={s.to} className={styles.mobileLink}>
-                  <span className={styles.mobileLinkIcon}>{s.icon}</span>
-                  {s.label}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Entreprise — liens directs */}
-        <div className={styles.mobileSection}>
-          <p className={styles.mobileSectionTitle}>Entreprise</p>
-          <Link to="/ressources" className={styles.mobileLink}>Ressources</Link>
-          <Link to="/a-propos" className={styles.mobileLink}>À propos</Link>
-          <Link to="/carrieres" className={styles.mobileLink}>Carrières</Link>
-          <Link to="/contact" className={styles.mobileLink}>Contact</Link>
-        </div>
-      </nav>
+      </div>
 
       <div className={styles.spacer} aria-hidden="true" />
     </>

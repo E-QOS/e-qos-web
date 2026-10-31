@@ -32,40 +32,38 @@ const ServicePageLayout: React.FC<ServicePageProps> = ({
 }) => {
   return (
     <div>
-      {/* Hero */}
+      {/* En-tête */}
       <section className="page-hero">
         <div className="container">
-          <div className={styles.breadcrumb}>
+          <nav className="breadcrumb" aria-label="Fil d'Ariane">
             <Link to="/">Accueil</Link>
-            <ChevronRight size={13} />
+            <ChevronRight size={12} aria-hidden="true" />
             <Link to="/services">Services</Link>
-            <ChevronRight size={13} />
-            <span>{breadcrumb}</span>
-          </div>
+            <ChevronRight size={12} aria-hidden="true" />
+            <span aria-current="page">{breadcrumb}</span>
+          </nav>
           <h1>{title}</h1>
           <p>{subtitle}</p>
         </div>
       </section>
 
-      {/* Intro */}
+      {/* Introduction */}
       {intro && (
-        <section className="section section-alt">
+        <section className="section">
           <div className="container">
-            <div className={styles.intro}>
-              <p className="lead">{intro}</p>
-            </div>
+            <p className={styles.intro}>{intro}</p>
           </div>
         </section>
       )}
 
-      {/* Cards grid */}
-      <section className="section">
+      {/* Prestations */}
+      <section className={`section ${intro ? styles.flushTop : ''}`}>
         <div className="container">
           <div className={styles.cardsGrid}>
             {cards.map((c, i) => (
-              <div key={i} className={styles.card}>
-                <div className={styles.cardIcon}>{c.icon}</div>
-                <h3 className={styles.cardTitle}>{c.title}</h3>
+              <div key={i} className={`${styles.card} reveal`} style={{ '--i': i % 3 } as React.CSSProperties}>
+                <span className={styles.cardNum}>{String(i + 1).padStart(2, '0')}</span>
+                <h2 className={styles.cardTitle}>{c.title}</h2>
                 <p className={styles.cardDesc}>{c.desc}</p>
               </div>
             ))}
@@ -73,18 +71,17 @@ const ServicePageLayout: React.FC<ServicePageProps> = ({
         </div>
       </section>
 
-      {/* Extras */}
       {extras}
 
-      {/* CTA */}
+      {/* Appel à l'action */}
       <section className="cta-band">
         <div className="container">
           <div className={styles.ctaContent}>
             <h2>{ctaTitle}</h2>
             <p>{ctaText}</p>
-            <Link to="/contact" className="btn btn-white btn-lg">
+            <Link to="/contact" className="btn btn-primary btn-lg">
               Prendre contact
-              <ArrowRight size={16} />
+              <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
         </div>

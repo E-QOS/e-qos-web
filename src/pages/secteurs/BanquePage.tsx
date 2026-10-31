@@ -17,10 +17,6 @@ const BanquePage: React.FC = () => (
       'Gestion du risque de crédit avec des données alternatives (historique mobile money)',
     ]}
     services={[
-      { label: 'Core banking & ERP financier', to: '/services/erp' },
-      { label: 'Intégration mobile money (Orange, MTN, Wave)', to: '/services/paiements' },
-      { label: 'Applications de collecte terrain', to: '/services/developpement' },
-      { label: 'Analytics risques crédit', to: '/services/ia-data' },
       { label: 'Cybersécurité & conformité BCEAO', to: '/services/cybersecurite' },
     ]}
   />

@@ -30,20 +30,20 @@ const ManagementConsultingPage: React.FC = () => {
               <div className="section-line" />
               <h2>Pourquoi faire appel à EQOS pour le consulting ?</h2>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+            <div className={styles.itemGrid}>
               {[
                 { t: 'Ancrage local', d: 'Nos consultants connaissent les réalités guinéennes : culture d\'entreprise, contraintes réglementaires, réseau de partenaires et enjeux propres au marché local.' },
                 { t: 'Indépendance', d: 'Nous ne vendons pas de produits logiciels. Notre seul intérêt est votre réussite. Nos recommandations sont objectives et adaptées à vos vrais besoins.' },
                 { t: 'Résultats mesurables', d: 'Chaque mission se clôt avec des indicateurs de résultat clairs, validés avec vous en amont. Vous savez à quoi sert chaque euro investi.' },
               ].map((item, i) => (
-                <div key={i} style={{ background: '#ffffff', border: '1px solid rgba(10,22,40,0.07)', borderRadius: 14, padding: '1.75rem', boxShadow: '0 2px 10px rgba(10,22,40,0.05)' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--color-text)', marginBottom: '0.5rem' }}>{item.t}</h4>
-                  <p style={{ fontSize: '0.875rem', color: '#64748b', margin: 0, lineHeight: 1.65 }}>{item.d}</p>
+                <div key={i} className={styles.item}>
+                  <h3 className={styles.itemTitle}>{item.t}</h3>
+                  <p className={styles.itemDesc}>{item.d}</p>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: '3rem', padding: '2rem', background: '#ffffff', borderRadius: 16, border: '1px solid rgba(10,22,40,0.08)' }}>
-              <h3 style={{ marginBottom: '1rem' }}>Domaines d'intervention</h3>
+            <div className={styles.panel}>
+              <h3 className={styles.panelTitle}>Domaines d'intervention</h3>
               <div className={styles.tagsList}>
                 {['Transformation digitale', 'Réorganisation', 'Gouvernance IT', 'Gestion de crise', 'Stratégie digitale', 'Performance commerciale', 'Conduite du changement', 'Plan directeur'].map(t => (
                   <span key={t} className={styles.tag}>{t}</span>

@@ -63,7 +63,7 @@ const WaliPage: React.FC = () => (
             <h2>Intégration B2B via API</h2>
             <p>Vous gérez une entreprise de services ou souhaitez intégrer Wali dans votre ERP ou application existante ? EQOS propose une API complète pour connecter Wali à vos systèmes.</p>
             <p>Cas d'usage : réservation de services depuis votre CRM, dispatch automatique de techniciens, suivi des interventions intégré à votre ERP de maintenance.</p>
-            <Link to="/contact" className="btn btn-primary" style={{ marginTop: '1rem' }}>
+            <Link to="/contact" className="btn btn-primary">
               Parler à notre équipe <ArrowRight size={15} />
             </Link>
           </div>
@@ -75,9 +75,9 @@ const WaliPage: React.FC = () => (
     </section>
 
     <section className="cta-band">
-      <div className="container" style={{ textAlign: 'center' }}>
-        <h2 style={{ color: '#fff', marginBottom: '1rem' }}>Prêt à simplifier votre quotidien ?</h2>
-        <p style={{ color: 'rgba(255,255,255,0.75)', marginBottom: '2rem' }}>Rejoignez des milliers d'utilisateurs qui accèdent à des prestataires de confiance via Wali.</p>
+      <div className="container">
+        <h2>Prêt à simplifier votre quotidien ?</h2>
+        <p>Rejoignez des milliers d'utilisateurs qui accèdent à des prestataires de confiance via Wali.</p>
         <a href="#" className="btn btn-white btn-lg">
           <Smartphone size={16} />
           Télécharger Wali

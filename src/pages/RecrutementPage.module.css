@@ -1,0 +1,73 @@
+/* RecrutementPage.module.css — aussi utilisé par l'accueil */
+
+.heroCtas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2.25rem;
+  margin-top: 2.5rem;
+}
+
+/* Deux publics */
+.audiences {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--gutter);
+  row-gap: 3.5rem;
+}
+.audience { padding-top: 1.5rem; border-top: 1px solid var(--ink); display: flex; flex-direction: column; align-items: flex-start; }
+.audience :global(.kicker) { margin-bottom: 1rem; }
+.audienceTitle { font-size: clamp(1.75rem, 2.8vw, 2.25rem); line-height: 1.15; margin-bottom: 1rem; }
+.audienceDesc { color: var(--text); max-width: 48ch; margin-bottom: 1.5rem; }
+
+.points { width: 100%; border-top: 1px solid var(--hairline); margin-bottom: 1.75rem; }
+.points li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 0.9375rem;
+  color: var(--ink);
+}
+
+/* Étapes */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  row-gap: 2.5rem;
+}
+.step { padding-top: 1.25rem; border-top: 1px solid var(--ink); }
+.stepNum { display: block; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; color: var(--orange-deep); margin-bottom: 1.5rem; }
+.stepTitle { font-size: 1.75rem; font-weight: 500; margin-bottom: 0.75rem; }
+.step p { font-size: 0.9375rem; line-height: 1.6; color: var(--text); }
+
+/* Domaines */
+.domains {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  column-gap: var(--gutter);
+  border-top: 1px solid var(--hairline);
+}
+.domains li {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.related { margin-top: 2.5rem; color: var(--text); }
+.related a { color: var(--ink); font-weight: 600; }
+
+@media (max-width: 1024px) {
+  .steps, .domains { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 720px) {
+  .audiences, .steps { grid-template-columns: 1fr; }
+  .heroCtas :global(.btn) { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .domains { grid-template-columns: 1fr; }
+}

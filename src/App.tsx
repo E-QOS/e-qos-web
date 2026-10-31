@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
-import { CustomCursor } from './components/home/CustomCursor';
-import { ScrollProgress } from './components/home/ScrollProgress';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { AuthModal } from './components/auth/AuthModal';
+import { useReveal } from './hooks/useReveal';
+// Accueil chargé directement : évite un aller-retour réseau avant le premier rendu (LCP)
+import HomePage from './pages/HomePage';
 import './styles/globals.css';
 
 // Scroll to top on route change
@@ -17,32 +17,41 @@ const ScrollToTop: React.FC = () => {
   return null;
 };
 
-// Global AuthModal — rendered once at root so any component can open it
+// Global AuthModal — rendered once at root so any component can open it.
+// Chargée seulement à la première ouverture pour alléger le bundle initial.
+const AuthModal = lazy(() => import('./components/auth/AuthModal').then(m => ({ default: m.AuthModal })));
+
 const GlobalAuthModal: React.FC = () => {
   const { modalOpen, modalTab, closeModal } = useAuth();
-  return <AuthModal isOpen={modalOpen} initialTab={modalTab} onClose={closeModal} />;
+  const [requested, setRequested] = React.useState(false);
+  React.useEffect(() => { if (modalOpen) setRequested(true); }, [modalOpen]);
+  if (!requested) return null;
+  return (
+    <Suspense fallback={null}>
+      <AuthModal isOpen={modalOpen} initialTab={modalTab} onClose={closeModal} />
+    </Suspense>
+  );
 };
 
 // Layout wrapper
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <>
-    <ScrollProgress />
-    <CustomCursor />
-    <Header />
-    <main>{children}</main>
-    <Footer />
-  </>
-);
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  useReveal();
+  return (
+    <>
+      <a href="#contenu" className="skip-link">Aller au contenu</a>
+      <Header />
+      <main id="contenu" tabIndex={-1}>{children}</main>
+      <Footer />
+    </>
+  );
+};
 
 // Lazy-loaded pages
-const HomePage = lazy(() => import('./pages/HomePage'));
 
 // Services (8 services EQOS)
 const ServicesPage = lazy(() => import('./pages/services/ServicesPage'));
 const TransformationDigitalePage = lazy(() => import('./pages/services/TransformationDigitalePage'));
 const ConseilOrganisationnelPage = lazy(() => import('./pages/services/ConseilOrganisationnelPage'));
-const OdooPage = lazy(() => import('./pages/services/OdooPage'));
-const PaiementsLocauxPage = lazy(() => import('./pages/services/PaiementsLocauxPage'));
 const CybersecuritePage = lazy(() => import('./pages/services/CybersecuritePage'));
 const SupportPage = lazy(() => import('./pages/services/SupportPage'));
 const ManagementConsultingPage = lazy(() => import('./pages/services/ManagementConsultingPage'));
@@ -65,6 +74,10 @@ const WaliPage = lazy(() => import('./pages/solutions/WaliPage'));
 const WandiPage = lazy(() => import('./pages/solutions/WandiPage'));
 const MakitiPage = lazy(() => import('./pages/solutions/MakitiPage'));
 
+// Recrutement et intérim
+const RecrutementPage = lazy(() => import('./pages/RecrutementPage'));
+const ConstituerEquipePage = lazy(() => import('./pages/ConstituerEquipePage'));
+
 // Autres
 const RessourcesPage = lazy(() => import('./pages/RessourcesPage'));
 const ArticlePage    = lazy(() => import('./pages/ArticlePage'));
@@ -86,8 +99,7 @@ const SupportEquipePage = lazy(() => import('./pages/equipe/SupportEquipePage'))
 // Loading fallback
 const PageLoader: React.FC = () => (
   <div style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-    <div style={{ width: 40, height: 40, border: '3px solid #e2e8f0', borderTopColor: '#FF6B2C', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    <div role="status" aria-label="Chargement" style={{ width: 32, height: 32, border: '1px solid var(--hairline)', borderTopColor: 'var(--ink)', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
   </div>
 );
 
@@ -105,16 +117,16 @@ function App() {
           <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
           <Route path="/services/transformation-digitale" element={<Layout><TransformationDigitalePage /></Layout>} />
           <Route path="/services/conseil-organisationnel" element={<Layout><ConseilOrganisationnelPage /></Layout>} />
-          <Route path="/services/odoo" element={<Layout><OdooPage /></Layout>} />
-          <Route path="/services/paiements-locaux" element={<Layout><PaiementsLocauxPage /></Layout>} />
           <Route path="/services/cybersecurite" element={<Layout><CybersecuritePage /></Layout>} />
           <Route path="/services/support" element={<Layout><SupportPage /></Layout>} />
           <Route path="/services/management-consulting" element={<Layout><ManagementConsultingPage /></Layout>} />
           <Route path="/services/interim" element={<Layout><InterimPage /></Layout>} />
 
           {/* Legacy redirects services */}
-          <Route path="/services/erp" element={<Layout><OdooPage /></Layout>} />
-          <Route path="/services/paiements" element={<Layout><PaiementsLocauxPage /></Layout>} />
+          {/* Services retirés (Odoo, paiements locaux) : redirection vers /services */}
+          {['/services/odoo', '/services/erp', '/services/paiements-locaux', '/services/paiements'].map(p => (
+            <Route key={p} path={p} element={<Navigate to="/services" replace />} />
+          ))}
           <Route path="/services/conseil" element={<Layout><ConseilOrganisationnelPage /></Layout>} />
 
           {/* Secteurs */}
@@ -133,6 +145,10 @@ function App() {
           <Route path="/solutions/wali" element={<Layout><WaliPage /></Layout>} />
           <Route path="/solutions/wandi" element={<Layout><WandiPage /></Layout>} />
           <Route path="/solutions/makiti" element={<Layout><MakitiPage /></Layout>} />
+
+          {/* Recrutement et intérim */}
+          <Route path="/recrutement-interim" element={<Layout><RecrutementPage /></Layout>} />
+          <Route path="/constituer-une-equipe" element={<Layout><ConstituerEquipePage /></Layout>} />
 
           {/* Autres */}
           <Route path="/ressources" element={<Layout><RessourcesPage /></Layout>} />

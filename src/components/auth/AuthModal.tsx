@@ -385,9 +385,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialTab = 'sign
         {/* Header */}
         <div className={styles.modalHeader}>
           <div className={styles.modalLogo}>
-            <span>E-Q<b>OS</b></span>
+            <img src="/images/e-qos-pruducts/eqos_logo.png" alt="E-QOS" width={1264} height={627} />
           </div>
-          <button className={styles.closeBtn} onClick={onClose} aria-label="Fermer">
+          <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Fermer">
             <X size={18} />
           </button>
         </div>
@@ -396,10 +396,14 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialTab = 'sign
         {view !== 'reset' && (
           <div className={styles.tabs}>
             <button
+              type="button"
+              aria-pressed={view === 'signin'}
               className={`${styles.tab} ${view === 'signin' ? styles.tabActive : ''}`}
               onClick={() => setView('signin')}
             >Se connecter</button>
             <button
+              type="button"
+              aria-pressed={view === 'signup'}
               className={`${styles.tab} ${view === 'signup' ? styles.tabActive : ''}`}
               onClick={() => setView('signup')}
             >Créer un compte</button>
@@ -409,7 +413,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, initialTab = 'sign
         {/* Title */}
         <div className={styles.modalTitle}>
           {view === 'signin' && <>
-            <h2>Bon retour !</h2>
+            <h2>Bon retour</h2>
             <p>Accédez à votre espace personnel E-QOS.</p>
           </>}
           {view === 'signup' && <>

@@ -17,11 +17,6 @@ const SantePage: React.FC = () => (
       'Reporting statistique et épidémiologique vers le Ministère de la Santé',
     ]}
     services={[
-      { label: 'Logiciels de gestion hospitalière', to: '/services/developpement' },
-      { label: 'Dossiers médicaux électroniques', to: '/services/developpement' },
-      { label: 'Applications agents de santé communautaire', to: '/services/developpement' },
-      { label: 'Paiements des actes via mobile money', to: '/services/paiements' },
-      { label: 'Formation des personnels soignants', to: '/services/formation' },
     ]}
   />
 );
