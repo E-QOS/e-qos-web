@@ -22,7 +22,7 @@ const SecteursPage: React.FC = () => (
     <section className="page-hero">
       <div className="container">
         <h1>Secteurs d'activité</h1>
-        <p>Une expertise sectorielle construite sur des projets réels en Guinée, au Sénégal et au Mali.</p>
+        <p>Une expertise sectorielle construite sur des projets réels en Guinée.</p>
       </div>
     </section>
     <section className="section">
