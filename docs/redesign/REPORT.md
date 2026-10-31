@@ -355,8 +355,8 @@ Branche `redesign/premium` dans les trois dépôts : `e-qos-web`, `e-qos-web-bac
 - **Vérifications** :
   - captures prises avec une session simulée et des données fictives : demandes, viviers, offres, articles, CRM, audit, connexion ;
   - aucune erreur JavaScript ;
-  - contrôle de types : 34 erreurs, toutes déjà présentes dans le travail CRM avant la refonte (`admin.ts`, `audit.ts`, `crm.ts`, `jobs.ts`, `SettingsPage.tsx`…), aucune ajoutée. `npm run build` (`tsc -b && vite build`) échouait donc déjà ; `vite build` seul fonctionne ;
-  - lint des fichiers ajoutés ou modifiés : 0 erreur.
+  - contrôle de types : les 34 erreurs déjà présentes dans le travail CRM (`admin.ts`, `audit.ts`, `crm.ts`, `jobs.ts`, `SettingsPage.tsx`…) sont corrigées (commit `fix(admin): build…`). Cause principale : le type `Database` n'était pas au format attendu par supabase-js 2.103. Au passage, l'ajout d'un administrateur dans Paramètres appelait une variable `db` inexistante ;
+  - `npm run build` (`tsc -b && vite build`) réussit, `npm run lint` : 0 problème (45 auparavant).
 
 ### Ordre de déploiement conseillé
 1. Appliquer la migration 003 sur Supabase.
