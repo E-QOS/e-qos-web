@@ -71,13 +71,13 @@ Autres contrôles :
 
 | | Avant | Après |
 |---|---|---|
-| Accueil 375 px | ![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/before-home-375.png?raw=true) | ![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-home-375.png?raw=true) |
-| Accueil 1280 px | ![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/before-home-1280.png?raw=true) | ![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-home-1280.png?raw=true) |
-| Contact 375 px | ![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/before-contact-375.png?raw=true) | ![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-contact-375.png?raw=true) |
+| Accueil 375 px | ![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/before-home-375.png?raw=true) | ![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-home-375.png?raw=true) |
+| Accueil 1280 px | ![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/before-home-1280.png?raw=true) | ![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-home-1280.png?raw=true) |
+| Contact 375 px | ![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/before-contact-375.png?raw=true) | ![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-contact-375.png?raw=true) |
 
 En-tête :
 
-![](https://github.com/EQ-OS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-header-menu-1440.png?raw=true)
+![](https://github.com/E-QOS/e-qos-web/blob/redesign/premium/docs/redesign/screenshots/after-header-menu-1440.png?raw=true)
 
 Toutes les captures : `docs/redesign/screenshots/`.
 
